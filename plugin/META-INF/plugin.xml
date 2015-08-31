@@ -1,0 +1,45 @@
+<idea-plugin version="2">
+  <id>org.jetbrains.rust</id>
+  <name>Rust</name>
+  <version>0.1</version>
+  <description><![CDATA[
+      Enter short description for your plugin here.<br>
+      <em>most HTML tags may be used</em>
+    ]]></description>
+
+  <change-notes><![CDATA[
+      Add change notes here.<br>
+      <em>most HTML tags may be used</em>
+    ]]>
+  </change-notes>
+
+  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="139.1659"/>
+
+  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <fileTypeFactory implementation="org.jetbrains.rust.fileType.RustFileTypeFactory"/>
+    <lang.braceMatcher language="Rust"
+                       implementationClass="org.jetbrains.rust.highlight.RustBraceMatcher"/>
+    <moduleType id="RUST_MODULE" classpathProvider="false"
+                implementationClass="org.jetbrains.rust.module.RustModuleType"/>
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
