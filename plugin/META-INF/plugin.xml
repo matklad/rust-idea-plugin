@@ -28,6 +28,9 @@
                        implementationClass="org.jetbrains.rust.highlight.RustBraceMatcher"/>
     <moduleType id="RUST_MODULE" classpathProvider="false"
                 implementationClass="org.jetbrains.rust.module.RustModuleType"/>
+
+    <lang.parserDefinition language="TOML"
+                           implementationClass="org.jetbrains.toml.parser.grammar.TomlParserDefinition"/>
   </extensions>
 
   <application-components>

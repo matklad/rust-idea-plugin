@@ -1,0 +1,41 @@
+// There is no official grammar for TOML as of 02/09/2015
+// Work on the grammar is done here https://github.com/toml-lang/toml/pull/236/
+{
+  parserClass="org.jetbrains.toml.grammar.TomlParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Toml"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.jetbrains.toml.psi"
+  psiImplPackage="org.jetbrains.toml.psi.impl"
+
+  elementTypeHolderClass="org.jetbrains.toml.psi.TomlTypes"
+  elementTypeClass="org.jetbrains.toml.psi.TomlElementType"
+  tokenTypeClass="org.jetbrains.toml.parser.TomlTokenType"
+
+  tokens=[
+    space='regexp:\s+'
+    comment='regexp:#[^\n\r]*'
+    string='regexp:("[^"]*")'
+    number='regexp:(\d|_)+'
+    boolean='regexp:true|false'
+    key='regexp:[0-9_\-a-zA-Z]+'
+  ]
+}
+
+tomlFile ::= expression * space ?
+
+expression ::= key_value | table
+
+table ::= table_header table_entries
+table_header ::= '[' path ']'
+path ::= key ('.' key) *
+table_entries ::= key_value *
+
+key_value ::= key '=' value
+
+value ::= string | number | boolean | array
+array ::= '[' (value (',' value) *)? ']'
+
+
