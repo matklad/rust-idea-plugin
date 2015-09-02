@@ -11,15 +11,21 @@ import static org.jetbrains.toml.psi.TomlTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.toml.psi.*;
 
-public class TomlKeyImpl extends ASTWrapperPsiElement implements TomlKey {
+public class TomlTableEntriesImpl extends ASTWrapperPsiElement implements TomlTableEntries {
 
-  public TomlKeyImpl(ASTNode node) {
+  public TomlTableEntriesImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof TomlVisitor) ((TomlVisitor)visitor).visitKey(this);
+    if (visitor instanceof TomlVisitor) ((TomlVisitor)visitor).visitTableEntries(this);
     else super.accept(visitor);
+  }
+
+  @Override
+  @NotNull
+  public List<TomlKeyValue> getKeyValueList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, TomlKeyValue.class);
   }
 
 }

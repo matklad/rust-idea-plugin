@@ -5,6 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface TomlKey extends PsiElement {
+public interface TomlTableEntries extends PsiElement {
+
+  @NotNull
+  List<TomlKeyValue> getKeyValueList();
 
 }

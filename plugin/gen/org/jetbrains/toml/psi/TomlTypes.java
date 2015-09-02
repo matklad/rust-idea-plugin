@@ -9,16 +9,48 @@ import org.jetbrains.toml.psi.impl.*;
 
 public interface TomlTypes {
 
-  IElementType KEY = new TomlElementType("KEY");
+  IElementType ARRAY = new TomlElementType("ARRAY");
+  IElementType EXPRESSION = new TomlElementType("EXPRESSION");
+  IElementType KEY_VALUE = new TomlElementType("KEY_VALUE");
+  IElementType PATH = new TomlElementType("PATH");
+  IElementType TABLE = new TomlElementType("TABLE");
+  IElementType TABLE_ENTRIES = new TomlElementType("TABLE_ENTRIES");
+  IElementType TABLE_HEADER = new TomlElementType("TABLE_HEADER");
+  IElementType VALUE = new TomlElementType("VALUE");
 
-  IElementType ID = new TomlTokenType("ID");
-  IElementType WHITE_SPACE = new TomlTokenType("WHITE_SPACE");
+  IElementType BOOLEAN = new TomlTokenType("boolean");
+  IElementType COMMENT = new TomlTokenType("comment");
+  IElementType KEY = new TomlTokenType("key");
+  IElementType NUMBER = new TomlTokenType("number");
+  IElementType SPACE = new TomlTokenType("space");
+  IElementType STRING = new TomlTokenType("string");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == KEY) {
-        return new TomlKeyImpl(node);
+       if (type == ARRAY) {
+        return new TomlArrayImpl(node);
+      }
+      else if (type == EXPRESSION) {
+        return new TomlExpressionImpl(node);
+      }
+      else if (type == KEY_VALUE) {
+        return new TomlKeyValueImpl(node);
+      }
+      else if (type == PATH) {
+        return new TomlPathImpl(node);
+      }
+      else if (type == TABLE) {
+        return new TomlTableImpl(node);
+      }
+      else if (type == TABLE_ENTRIES) {
+        return new TomlTableEntriesImpl(node);
+      }
+      else if (type == TABLE_HEADER) {
+        return new TomlTableHeaderImpl(node);
+      }
+      else if (type == VALUE) {
+        return new TomlValueImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }

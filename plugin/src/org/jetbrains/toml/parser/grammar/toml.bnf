@@ -13,11 +13,29 @@
   elementTypeHolderClass="org.jetbrains.toml.psi.TomlTypes"
   elementTypeClass="org.jetbrains.toml.psi.TomlElementType"
   tokenTypeClass="org.jetbrains.toml.parser.TomlTokenType"
+
+  tokens=[
+    space='regexp:\s+'
+    comment='regexp:#[^\n\r]*'
+    string='regexp:("[^"]*")'
+    number='regexp:(\d|_)+'
+    boolean='regexp:true|false'
+    key='regexp:[0-9_\-a-zA-Z]+'
+  ]
 }
 
-tomlFile ::= item_*
+tomlFile ::= expression * space ?
 
-private item_ ::= (key|WHITE_SPACE)
+expression ::= key_value | table
 
-key ::= ID
+table ::= table_header table_entries
+table_header ::= '[' path ']'
+path ::= key ('.' key) *
+table_entries ::= key_value *
+
+key_value ::= key '=' value
+
+value ::= string | number | boolean | array
+array ::= '[' (value (',' value) *)? ']'
+
 
