@@ -1,7 +1,6 @@
 package org.jetbrains.toml.parser.grammar
 
 import com.intellij.lang.ASTNode
-import com.intellij.lang.Language
 import com.intellij.lang.ParserDefinition
 import com.intellij.lang.PsiParser
 import com.intellij.lexer.Lexer
@@ -49,7 +48,7 @@ public class TomlParserDefinition : ParserDefinition {
             TomlTypes.Factory.createElement(node)
 
     companion object {
-        val FILE: IFileElementType = IFileElementType(Language.findInstance<TomlLanguage>(javaClass<TomlLanguage>()))
+        val FILE: IFileElementType = IFileElementType(TomlLanguage.INSTANCE)
         val WHITE_SPACES: TokenSet = TokenSet.create(TokenType.WHITE_SPACE);
         val COMMENTS: TokenSet = TokenSet.EMPTY;
     }
