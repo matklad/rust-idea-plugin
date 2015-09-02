@@ -1,0 +1,23 @@
+// There is no official grammar for TOML as of 02/09/2015
+// Work on the grammar is done here https://github.com/toml-lang/toml/pull/236/
+{
+  parserClass="org.jetbrains.toml.grammar.TomlParser"
+
+  extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
+
+  psiClassPrefix="Toml"
+  psiImplClassSuffix="Impl"
+  psiPackage="org.jetbrains.toml.psi"
+  psiImplPackage="org.jetbrains.toml.psi.impl"
+
+  elementTypeHolderClass="org.jetbrains.toml.psi.TomlTypes"
+  elementTypeClass="org.jetbrains.toml.psi.TomlElementType"
+  tokenTypeClass="org.jetbrains.toml.parser.TomlTokenType"
+}
+
+tomlFile ::= item_*
+
+private item_ ::= (key|WHITE_SPACE)
+
+key ::= ID
+
