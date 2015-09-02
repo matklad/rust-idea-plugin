@@ -5,7 +5,7 @@ import org.jetbrains.rust.icons.RustIcons
 import org.jetbrains.rust.fileType.RustFileType
 import javax.swing.Icon
 
-public class RustModuleType() : ModuleType<RustModuleBuilder>("RUST_MODULE") {
+public class RustModuleType() : ModuleType<RustModuleBuilder>(RustModuleType.RUST_MODULE) {
 
     override fun createModuleBuilder(): RustModuleBuilder {
         return RustModuleBuilder()
@@ -28,6 +28,7 @@ public class RustModuleType() : ModuleType<RustModuleBuilder>("RUST_MODULE") {
     }
 
     companion object {
+        public val RUST_MODULE: String = "RUST_MODULE"
         public val INSTANCE: RustModuleType = RustModuleType()
     }
 }
