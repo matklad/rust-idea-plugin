@@ -1,56 +1,57 @@
 <idea-plugin version="2">
-  <id>org.jetbrains.rust</id>
-  <name>Rust</name>
-  <version>0.1</version>
-  <description><![CDATA[
+    <id>org.jetbrains.rust</id>
+    <name>Rust</name>
+    <version>0.1</version>
+    <description><![CDATA[
       Enter short description for your plugin here.<br>
       <em>most HTML tags may be used</em>
     ]]></description>
 
-  <change-notes><![CDATA[
+    <change-notes><![CDATA[
       Add change notes here.<br>
       <em>most HTML tags may be used</em>
     ]]>
-  </change-notes>
+    </change-notes>
 
-  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="139.1659"/>
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+    <idea-version since-build="139.1659"/>
 
-  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
-       on how to target different products -->
-  <!-- uncomment to enable plugin in all products
-  <depends>com.intellij.modules.lang</depends>
-  -->
+    <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
 
-  <extensions defaultExtensionNs="com.intellij">
-    <fileTypeFactory implementation="org.jetbrains.rust.fileType.RustFileTypeFactory"/>
-    <lang.braceMatcher language="Rust"
-                       implementationClass="org.jetbrains.rust.highlight.RustBraceMatcher"/>
-      <lang.syntaxHighlighterFactory key="Rust" implementationClass="org.jetbrains.rust.highlight.RustHighlighterFactory"/>
+    <extensions defaultExtensionNs="com.intellij">
+        <fileTypeFactory implementation="org.jetbrains.rust.fileType.RustFileTypeFactory"/>
+        <lang.braceMatcher language="Rust"
+                           implementationClass="org.jetbrains.rust.highlight.RustBraceMatcher"/>
+        <lang.syntaxHighlighterFactory key="Rust"
+                                       implementationClass="org.jetbrains.rust.highlight.RustHighlighterFactory"/>
 
-      <moduleType id="RUST_MODULE" classpathProvider="false"
-                implementationClass="org.jetbrains.rust.module.RustModuleType"/>
+        <moduleType id="RUST_MODULE" classpathProvider="false"
+                    implementationClass="org.jetbrains.rust.module.RustModuleType"/>
 
-    <lang.parserDefinition language="TOML"
-                           implementationClass="org.jetbrains.toml.parser.grammar.TomlParserDefinition"/>
+        <lang.parserDefinition language="TOML"
+                               implementationClass="org.jetbrains.toml.parser.grammar.TomlParserDefinition"/>
 
-    <lang.syntaxHighlighterFactory key="TOML"
-                                   implementationClass="org.jetbrains.toml.highlight.TomlHighlighterFactory"/>
-  </extensions>
+        <lang.syntaxHighlighterFactory key="TOML"
+                                       implementationClass="org.jetbrains.toml.highlight.TomlHighlighterFactory"/>
+    </extensions>
 
-  <application-components>
-    <!-- Add your application components here -->
-  </application-components>
+    <application-components>
+        <!-- Add your application components here -->
+    </application-components>
 
-  <project-components>
+    <project-components>
 
-  </project-components>
+    </project-components>
 
-  <actions>
-      <action id="Rust.RustFile" class="org.jetbrains.rust.actions.NewRustFileAction"
-              text="Rust File" description="Create new Rust file">
-          <add-to-group group-id="NewGroup"/>
-      </action>
-  </actions>
+    <actions>
+        <action id="Rust.RustFile" class="org.jetbrains.rust.actions.NewRustFileAction"
+                text="Rust File" description="Create new Rust file">
+            <add-to-group group-id="NewGroup"/>
+        </action>
+    </actions>
 
 </idea-plugin>
