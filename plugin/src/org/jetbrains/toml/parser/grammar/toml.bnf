@@ -15,7 +15,6 @@
   tokenTypeClass="org.jetbrains.toml.parser.TomlTokenType"
 
   tokens=[
-    space='regexp:\s+'
     comment='regexp:#[^\n\r]*'
     string='regexp:("[^"]*")'
     number='regexp:(\d|_)+'
@@ -24,7 +23,7 @@
   ]
 }
 
-tomlFile ::= expression * space ?
+tomlFile ::= expression *
 
 expression ::= key_value | table
 

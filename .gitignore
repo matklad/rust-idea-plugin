@@ -1,1 +1,3 @@
 lib/kotlin-runtime-sources.jar
+out/
+.idea/workspace.xml

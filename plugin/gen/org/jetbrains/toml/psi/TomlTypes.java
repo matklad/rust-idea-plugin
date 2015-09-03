@@ -22,7 +22,6 @@ public interface TomlTypes {
   IElementType COMMENT = new TomlTokenType("comment");
   IElementType KEY = new TomlTokenType("key");
   IElementType NUMBER = new TomlTokenType("number");
-  IElementType SPACE = new TomlTokenType("space");
   IElementType STRING = new TomlTokenType("string");
 
   class Factory {

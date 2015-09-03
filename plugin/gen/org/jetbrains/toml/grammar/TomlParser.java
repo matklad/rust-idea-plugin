@@ -214,33 +214,15 @@ public class TomlParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expression * space ?
+  // expression *
   static boolean tomlFile(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "tomlFile")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = tomlFile_0(b, l + 1);
-    r = r && tomlFile_1(b, l + 1);
-    exit_section_(b, m, null, r);
-    return r;
-  }
-
-  // expression *
-  private static boolean tomlFile_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tomlFile_0")) return false;
     int c = current_position_(b);
     while (true) {
       if (!expression(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "tomlFile_0", c)) break;
+      if (!empty_element_parsed_guard_(b, "tomlFile", c)) break;
       c = current_position_(b);
     }
-    return true;
-  }
-
-  // space ?
-  private static boolean tomlFile_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tomlFile_1")) return false;
-    consumeToken(b, SPACE);
     return true;
   }
 
