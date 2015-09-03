@@ -33,6 +33,9 @@
 
     <lang.parserDefinition language="TOML"
                            implementationClass="org.jetbrains.toml.parser.grammar.TomlParserDefinition"/>
+
+    <lang.syntaxHighlighterFactory key="TOML"
+                                   implementationClass="org.jetbrains.toml.highlight.TomlHighlighterFactory"/>
   </extensions>
 
   <application-components>
