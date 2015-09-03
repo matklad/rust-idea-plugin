@@ -16,10 +16,10 @@ class TomlHighlighter : SyntaxHighlighterBase() {
 
 
     override fun getTokenHighlights(tokenType: IElementType?): Array<out TextAttributesKey> =
-            SyntaxHighlighterBase.pack(keys1.get(tokenType))
+            SyntaxHighlighterBase.pack(tokenMap.get(tokenType))
 
 
-    private val keys1: Map<IElementType, TextAttributesKey> = makeKeysl()
+    private val tokenMap: Map<IElementType, TextAttributesKey> = makeKeysl()
 }
 
 fun makeKeysl(): Map<IElementType, TextAttributesKey> {
