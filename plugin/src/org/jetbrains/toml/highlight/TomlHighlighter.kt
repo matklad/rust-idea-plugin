@@ -19,10 +19,10 @@ class TomlHighlighter : SyntaxHighlighterBase() {
             SyntaxHighlighterBase.pack(tokenMap.get(tokenType))
 
 
-    private val tokenMap: Map<IElementType, TextAttributesKey> = makeKeysl()
+    private val tokenMap: Map<IElementType, TextAttributesKey> = makeTokenMap()
 }
 
-fun makeKeysl(): Map<IElementType, TextAttributesKey> {
+fun makeTokenMap(): Map<IElementType, TextAttributesKey> {
     val result = THashMap<IElementType, TextAttributesKey>()
     result[TomlTypes.KEY] =
             TextAttributesKey.createTextAttributesKey("TOML_KEY", DefaultLanguageHighlighterColors.KEYWORD)
