@@ -10,11 +10,11 @@ public interface RustItemFn extends PsiElement {
   @NotNull
   RustBlockExpr getBlockExpr();
 
-  @NotNull
-  RustFnDecl getFnDecl();
-
   @Nullable
   RustGenericParams getGenericParams();
+
+  @Nullable
+  RustTy getTy();
 
   @Nullable
   RustWhereClause getWhereClause();

@@ -29,15 +29,15 @@ public class RustItemFnImpl extends ASTWrapperPsiElement implements RustItemFn {
   }
 
   @Override
-  @NotNull
-  public RustFnDecl getFnDecl() {
-    return findNotNullChildByClass(RustFnDecl.class);
+  @Nullable
+  public RustGenericParams getGenericParams() {
+    return findChildByClass(RustGenericParams.class);
   }
 
   @Override
   @Nullable
-  public RustGenericParams getGenericParams() {
-    return findChildByClass(RustGenericParams.class);
+  public RustTy getTy() {
+    return findChildByClass(RustTy.class);
   }
 
   @Override

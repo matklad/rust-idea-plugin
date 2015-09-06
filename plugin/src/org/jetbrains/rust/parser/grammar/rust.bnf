@@ -26,6 +26,7 @@
     comma           = ","
     bang            = "!"
 
+    white_space='regexp:\s+'
     line_comment='regexp://.*'
     block_comment='regexp:/\*(.|\n)*\*/'
     ident='regexp:\p{Alpha}\w*'
@@ -45,9 +46,7 @@
 // Part 1: Items and attributes
 ////////////////////////////////////////////////////////////////////////
 
-crate ::= inner_attrs mod_items
-
-inner_attrs ::= inner_attr *
+crate ::= inner_attr* mod_item *
 
 inner_attr ::= '#!' '[' meta_item ']'
 
@@ -58,8 +57,6 @@ outer_attr ::= '#' '[' meta_item ']'
 meta_item ::= ident
             | ident '=' lit
             | ident '(' meta_item (',' (meta_item | &')')) * ')'
-
-mod_items ::= mod_item *
 
 mod_item ::= attrs_and_vis item
 
@@ -79,17 +76,15 @@ item_const ::= const ident ':' ty '=' expr ';'
 
 private block_item ::= item_fn | item_mod
 
-item_mod ::= mod ident ['{' inner_attrs mod_items '} ']';'
+item_mod ::= mod ident ['{' inner_attr* mod_item* '} ']';'
 
 visibility ::= pub
 
-item_fn ::= fn ident [generic_params] fn_decl [where_clause] block_expr
+item_fn ::= fn ident [generic_params] fn_params [ret_ty] [where_clause] block_expr
 
-fn_decl ::= fn_params [ret_ty]
+private fn_params ::= '(' [param (',' param) * [',']] ')'
 
-fn_params ::= '(' [param (',' param) * [',']] ')'
-
-ret_ty ::= '->' ('!' | ty)
+private ret_ty ::= '->' ('!' | ty)
 
 generic_params ::= '<' lifetimes '>'
 

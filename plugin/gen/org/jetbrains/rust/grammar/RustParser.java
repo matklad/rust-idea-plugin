@@ -65,12 +65,6 @@ public class RustParser implements PsiParser, LightPsiParser {
     else if (t == EXPR) {
       r = expr(b, 0, -1);
     }
-    else if (t == FN_DECL) {
-      r = fn_decl(b, 0);
-    }
-    else if (t == FN_PARAMS) {
-      r = fn_params(b, 0);
-    }
     else if (t == GENERIC_PARAMS) {
       r = generic_params(b, 0);
     }
@@ -82,9 +76,6 @@ public class RustParser implements PsiParser, LightPsiParser {
     }
     else if (t == INNER_ATTR) {
       r = inner_attr(b, 0);
-    }
-    else if (t == INNER_ATTRS) {
-      r = inner_attrs(b, 0);
     }
     else if (t == ITEM_CONST) {
       r = item_const(b, 0);
@@ -131,9 +122,6 @@ public class RustParser implements PsiParser, LightPsiParser {
     else if (t == MOD_ITEM) {
       r = mod_item(b, 0);
     }
-    else if (t == MOD_ITEMS) {
-      r = mod_items(b, 0);
-    }
     else if (t == MUL_EXPR) {
       r = expr(b, 0, 8);
     }
@@ -157,9 +145,6 @@ public class RustParser implements PsiParser, LightPsiParser {
     }
     else if (t == REF_EXPR) {
       r = expr(b, 0, 12);
-    }
-    else if (t == RET_TY) {
-      r = ret_ty(b, 0);
     }
     else if (t == SHL_EXPR) {
       r = expr(b, 0, 6);
@@ -240,40 +225,44 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // inner_attrs mod_items
+  // inner_attr* mod_item *
   static boolean crate(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "crate")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = inner_attrs(b, l + 1);
-    r = r && mod_items(b, l + 1);
+    r = crate_0(b, l + 1);
+    r = r && crate_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
   }
 
-  /* ********************************************************** */
-  // fn_params [ret_ty]
-  public static boolean fn_decl(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "fn_decl")) return false;
-    if (!nextTokenIs(b, PAR_LEFT)) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = fn_params(b, l + 1);
-    r = r && fn_decl_1(b, l + 1);
-    exit_section_(b, m, FN_DECL, r);
-    return r;
+  // inner_attr*
+  private static boolean crate_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "crate_0")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!inner_attr(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "crate_0", c)) break;
+      c = current_position_(b);
+    }
+    return true;
   }
 
-  // [ret_ty]
-  private static boolean fn_decl_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "fn_decl_1")) return false;
-    ret_ty(b, l + 1);
+  // mod_item *
+  private static boolean crate_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "crate_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!mod_item(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "crate_1", c)) break;
+      c = current_position_(b);
+    }
     return true;
   }
 
   /* ********************************************************** */
   // '(' [param (',' param) * [',']] ')'
-  public static boolean fn_params(PsiBuilder b, int l) {
+  static boolean fn_params(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "fn_params")) return false;
     if (!nextTokenIs(b, PAR_LEFT)) return false;
     boolean r;
@@ -281,7 +270,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = consumeToken(b, PAR_LEFT);
     r = r && fn_params_1(b, l + 1);
     r = r && consumeToken(b, PAR_RIGHT);
-    exit_section_(b, m, FN_PARAMS, r);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -362,21 +351,6 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // inner_attr *
-  public static boolean inner_attrs(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "inner_attrs")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<inner attrs>");
-    int c = current_position_(b);
-    while (true) {
-      if (!inner_attr(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "inner_attrs", c)) break;
-      c = current_position_(b);
-    }
-    exit_section_(b, l, m, INNER_ATTRS, true, false, null);
-    return true;
-  }
-
-  /* ********************************************************** */
   // stmt_item
   static boolean item(PsiBuilder b, int l) {
     return stmt_item(b, l + 1);
@@ -400,7 +374,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // fn ident [generic_params] fn_decl [where_clause] block_expr
+  // fn ident [generic_params] fn_params [ret_ty] [where_clause] block_expr
   public static boolean item_fn(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_fn")) return false;
     if (!nextTokenIs(b, FN)) return false;
@@ -408,8 +382,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, FN, IDENT);
     r = r && item_fn_2(b, l + 1);
-    r = r && fn_decl(b, l + 1);
+    r = r && fn_params(b, l + 1);
     r = r && item_fn_4(b, l + 1);
+    r = r && item_fn_5(b, l + 1);
     r = r && block_expr(b, l + 1);
     exit_section_(b, m, ITEM_FN, r);
     return r;
@@ -422,15 +397,22 @@ public class RustParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // [where_clause]
+  // [ret_ty]
   private static boolean item_fn_4(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_fn_4")) return false;
+    ret_ty(b, l + 1);
+    return true;
+  }
+
+  // [where_clause]
+  private static boolean item_fn_5(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "item_fn_5")) return false;
     where_clause(b, l + 1);
     return true;
   }
 
   /* ********************************************************** */
-  // mod ident ['{' inner_attrs mod_items '} ']';'
+  // mod ident ['{' inner_attr* mod_item* '} ']';'
   public static boolean item_mod(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_mod")) return false;
     if (!nextTokenIs(b, MOD)) return false;
@@ -443,24 +425,48 @@ public class RustParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ['{' inner_attrs mod_items '} ']
+  // ['{' inner_attr* mod_item* '} ']
   private static boolean item_mod_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_mod_2")) return false;
     item_mod_2_0(b, l + 1);
     return true;
   }
 
-  // '{' inner_attrs mod_items '} '
+  // '{' inner_attr* mod_item* '} '
   private static boolean item_mod_2_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item_mod_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, CURLY_LEFT);
-    r = r && inner_attrs(b, l + 1);
-    r = r && mod_items(b, l + 1);
+    r = r && item_mod_2_0_1(b, l + 1);
+    r = r && item_mod_2_0_2(b, l + 1);
     r = r && consumeToken(b, "} ");
     exit_section_(b, m, null, r);
     return r;
+  }
+
+  // inner_attr*
+  private static boolean item_mod_2_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "item_mod_2_0_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!inner_attr(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "item_mod_2_0_1", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // mod_item*
+  private static boolean item_mod_2_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "item_mod_2_0_2")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!mod_item(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "item_mod_2_0_2", c)) break;
+      c = current_position_(b);
+    }
+    return true;
   }
 
   /* ********************************************************** */
@@ -613,21 +619,6 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // mod_item *
-  public static boolean mod_items(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "mod_items")) return false;
-    Marker m = enter_section_(b, l, _NONE_, "<mod items>");
-    int c = current_position_(b);
-    while (true) {
-      if (!mod_item(b, l + 1)) break;
-      if (!empty_element_parsed_guard_(b, "mod_items", c)) break;
-      c = current_position_(b);
-    }
-    exit_section_(b, l, m, MOD_ITEMS, true, false, null);
-    return true;
-  }
-
-  /* ********************************************************** */
   // '#' '[' meta_item ']'
   public static boolean outer_attr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "outer_attr")) return false;
@@ -658,13 +649,13 @@ public class RustParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // '->' ('!' | ty)
-  public static boolean ret_ty(PsiBuilder b, int l) {
+  static boolean ret_ty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ret_ty")) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<ret ty>");
+    Marker m = enter_section_(b);
     r = consumeToken(b, "->");
     r = r && ret_ty_1(b, l + 1);
-    exit_section_(b, l, m, RET_TY, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 

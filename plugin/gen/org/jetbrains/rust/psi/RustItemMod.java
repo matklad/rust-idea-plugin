@@ -7,11 +7,11 @@ import com.intellij.psi.PsiElement;
 
 public interface RustItemMod extends PsiElement {
 
-  @Nullable
-  RustInnerAttrs getInnerAttrs();
+  @NotNull
+  List<RustInnerAttr> getInnerAttrList();
 
-  @Nullable
-  RustModItems getModItems();
+  @NotNull
+  List<RustModItem> getModItemList();
 
   @NotNull
   PsiElement getIdent();

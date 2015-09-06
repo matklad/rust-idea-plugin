@@ -23,13 +23,10 @@ public interface RustTypes {
   IElementType DIV_EXPR = new RustElementType("DIV_EXPR");
   IElementType EQ_EXPR = new RustElementType("EQ_EXPR");
   IElementType EXPR = new RustElementType("EXPR");
-  IElementType FN_DECL = new RustElementType("FN_DECL");
-  IElementType FN_PARAMS = new RustElementType("FN_PARAMS");
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
   IElementType INNER_ATTR = new RustElementType("INNER_ATTR");
-  IElementType INNER_ATTRS = new RustElementType("INNER_ATTRS");
   IElementType ITEM_CONST = new RustElementType("ITEM_CONST");
   IElementType ITEM_FN = new RustElementType("ITEM_FN");
   IElementType ITEM_MOD = new RustElementType("ITEM_MOD");
@@ -45,7 +42,6 @@ public interface RustTypes {
   IElementType MINUS_EXPR = new RustElementType("MINUS_EXPR");
   IElementType MOD_EXPR = new RustElementType("MOD_EXPR");
   IElementType MOD_ITEM = new RustElementType("MOD_ITEM");
-  IElementType MOD_ITEMS = new RustElementType("MOD_ITEMS");
   IElementType MUL_EXPR = new RustElementType("MUL_EXPR");
   IElementType NEQ_EXPR = new RustElementType("NEQ_EXPR");
   IElementType NOT_EXPR = new RustElementType("NOT_EXPR");
@@ -54,7 +50,6 @@ public interface RustTypes {
   IElementType PAREN_EXPR = new RustElementType("PAREN_EXPR");
   IElementType PLUS_EXPR = new RustElementType("PLUS_EXPR");
   IElementType REF_EXPR = new RustElementType("REF_EXPR");
-  IElementType RET_TY = new RustElementType("RET_TY");
   IElementType SHL_EXPR = new RustElementType("SHL_EXPR");
   IElementType SHR_EXPR = new RustElementType("SHR_EXPR");
   IElementType SIMPLE_REF_EXPR = new RustElementType("SIMPLE_REF_EXPR");
@@ -143,12 +138,6 @@ public interface RustTypes {
       else if (type == EXPR) {
         return new RustExprImpl(node);
       }
-      else if (type == FN_DECL) {
-        return new RustFnDeclImpl(node);
-      }
-      else if (type == FN_PARAMS) {
-        return new RustFnParamsImpl(node);
-      }
       else if (type == GENERIC_PARAMS) {
         return new RustGenericParamsImpl(node);
       }
@@ -160,9 +149,6 @@ public interface RustTypes {
       }
       else if (type == INNER_ATTR) {
         return new RustInnerAttrImpl(node);
-      }
-      else if (type == INNER_ATTRS) {
-        return new RustInnerAttrsImpl(node);
       }
       else if (type == ITEM_CONST) {
         return new RustItemConstImpl(node);
@@ -209,9 +195,6 @@ public interface RustTypes {
       else if (type == MOD_ITEM) {
         return new RustModItemImpl(node);
       }
-      else if (type == MOD_ITEMS) {
-        return new RustModItemsImpl(node);
-      }
       else if (type == MUL_EXPR) {
         return new RustMulExprImpl(node);
       }
@@ -235,9 +218,6 @@ public interface RustTypes {
       }
       else if (type == REF_EXPR) {
         return new RustRefExprImpl(node);
-      }
-      else if (type == RET_TY) {
-        return new RustRetTyImpl(node);
       }
       else if (type == SHL_EXPR) {
         return new RustShlExprImpl(node);

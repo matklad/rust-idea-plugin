@@ -23,15 +23,15 @@ public class RustItemModImpl extends ASTWrapperPsiElement implements RustItemMod
   }
 
   @Override
-  @Nullable
-  public RustInnerAttrs getInnerAttrs() {
-    return findChildByClass(RustInnerAttrs.class);
+  @NotNull
+  public List<RustInnerAttr> getInnerAttrList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustInnerAttr.class);
   }
 
   @Override
-  @Nullable
-  public RustModItems getModItems() {
-    return findChildByClass(RustModItems.class);
+  @NotNull
+  public List<RustModItem> getModItemList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustModItem.class);
   }
 
   @Override

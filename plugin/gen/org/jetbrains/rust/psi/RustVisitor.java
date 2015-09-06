@@ -63,14 +63,6 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitFnDecl(@NotNull RustFnDecl o) {
-    visitPsiElement(o);
-  }
-
-  public void visitFnParams(@NotNull RustFnParams o) {
-    visitPsiElement(o);
-  }
-
   public void visitGenericParams(@NotNull RustGenericParams o) {
     visitPsiElement(o);
   }
@@ -84,10 +76,6 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitInnerAttr(@NotNull RustInnerAttr o) {
-    visitPsiElement(o);
-  }
-
-  public void visitInnerAttrs(@NotNull RustInnerAttrs o) {
     visitPsiElement(o);
   }
 
@@ -151,10 +139,6 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitModItems(@NotNull RustModItems o) {
-    visitPsiElement(o);
-  }
-
   public void visitMulExpr(@NotNull RustMulExpr o) {
     visitExpr(o);
   }
@@ -185,10 +169,6 @@ public class RustVisitor extends PsiElementVisitor {
 
   public void visitRefExpr(@NotNull RustRefExpr o) {
     visitExpr(o);
-  }
-
-  public void visitRetTy(@NotNull RustRetTy o) {
-    visitPsiElement(o);
   }
 
   public void visitShlExpr(@NotNull RustShlExpr o) {
