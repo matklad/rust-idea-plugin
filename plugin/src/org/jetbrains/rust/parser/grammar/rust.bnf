@@ -46,7 +46,7 @@
 // Part 1: Items and attributes
 ////////////////////////////////////////////////////////////////////////
 
-crate ::= inner_attr* mod_item *
+rustFile ::= inner_attr* mod_item *
 
 inner_attr ::= '#!' '[' meta_item ']'
 
@@ -64,6 +64,10 @@ attrs_and_vis ::= outer_attrs [visibility]
 
 // items that can appear outside of a fn block
 private item ::= stmt_item
+               | extern_crate_item
+
+
+private extern_crate_item ::= extern crate ident [as ident] ';'
 
 // items that can appear in "stmts"
 private stmt_item ::= item_static

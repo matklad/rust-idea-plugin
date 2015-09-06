@@ -47,20 +47,23 @@ LIT_BOOL=true|false
   ","                    { return COMMA; }
   "!"                    { return BANG; }
 
-  "byte_string_lit"      { return LIT_BYTE_STRING; }
+  "as"                   { return AS; }
   "byte_lit"             { return LIT_BYTE; }
-  "static"               { return STATIC; }
-  "mut"                  { return MUT; }
+  "byte_string_lit"      { return LIT_BYTE_STRING; }
   "const"                { return CONST; }
-  "mod"                  { return MOD; }
-  "pub"                  { return PUB; }
-  "fn"                   { return FN; }
-  "param"                { return PARAM; }
-  "lifetimes"            { return LIFETIMES; }
-  "where"                { return WHERE; }
-  "true"                 { return TRUE; }
+  "crate"                { return CRATE; }
+  "extern"               { return EXTERN; }
   "false"                { return FALSE; }
+  "fn"                   { return FN; }
+  "lifetimes"            { return LIFETIMES; }
+  "mod"                  { return MOD; }
+  "mut"                  { return MUT; }
+  "param"                { return PARAM; }
+  "pub"                  { return PUB; }
+  "static"               { return STATIC; }
   "str"                  { return STR; }
+  "true"                 { return TRUE; }
+  "where"                { return WHERE; }
 
   {LINE_COMMENT}         { return LINE_COMMENT; }
   {BLOCK_COMMENT}        { return BLOCK_COMMENT; }

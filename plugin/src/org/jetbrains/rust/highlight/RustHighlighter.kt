@@ -27,7 +27,10 @@ public open class RustHighlighter() : SyntaxHighlighterBase() {
 private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
     val result = THashMap<IElementType, TextAttributesKey>()
     val keywords = arrayOf(
+            RustTypes.AS,
             RustTypes.CONST,
+            RustTypes.CRATE,
+            RustTypes.EXTERN,
             RustTypes.FALSE,
             RustTypes.FN,
             RustTypes.MOD,
@@ -53,4 +56,3 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
 
     return result;
 }
-
