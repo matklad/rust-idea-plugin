@@ -15,7 +15,6 @@
   tokens=[
     line_comment='regexp://.*'
     block_comment='regexp:/\*(.|\n)*\*/'
-    whitespace='regexp:\s+'
     ident='regexp:\p{Alpha}\w*'
 
     lit_char="regexp:'.'"

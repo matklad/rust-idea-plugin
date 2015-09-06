@@ -26,6 +26,8 @@
         <fileTypeFactory implementation="org.jetbrains.rust.fileType.RustFileTypeFactory"/>
         <lang.braceMatcher language="Rust"
                            implementationClass="org.jetbrains.rust.highlight.RustBraceMatcher"/>
+        <lang.parserDefinition language="Rust"
+                               implementationClass="org.jetbrains.rust.parser.grammar.RustParserDefinition"/>
         <lang.syntaxHighlighterFactory key="Rust"
                                        implementationClass="org.jetbrains.rust.highlight.RustHighlighterFactory"/>
 

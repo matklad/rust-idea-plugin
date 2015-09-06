@@ -10,7 +10,7 @@ import com.intellij.psi.tree.IElementType
 import gnu.trove.THashMap
 import org.jetbrains.rust.parser.RustTokenType
 import org.jetbrains.rust.parser.lexer.RustLexer
-import org.jetbrains.rust.parser.token.RustLexerTokens
+import org.jetbrains.rust.psi.RustTypes
 
 
 public open class RustHighlighter() : SyntaxHighlighterBase() {
@@ -34,43 +34,43 @@ public open class RustHighlighter() : SyntaxHighlighterBase() {
 
     init {
         tokenMap = THashMap<IElementType, TextAttributesKey>()
-        tokenMap[RustLexerTokens.KW_AS] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_BREAK] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_CONST] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_CRATE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_ELSE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_ENUM] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_EXTERN] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_FALSE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_FN] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_FOR] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_IF] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_IMPL] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_IN] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_LET] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_LOOP] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_MATCH] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_MOD] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_MUT] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_PRIV] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_PROC] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_MOVE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_PUB] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_REF] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_RETURN] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_SELF] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_STATIC] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_STRUCT] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_SUPER] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_TRUE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_TRAIT] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_TYPE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_UNSAFE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_USE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_WHILE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_CONTINUE] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_BOX] = RUST_KEYWORD
-        tokenMap[RustLexerTokens.KW_WHERE] = RUST_KEYWORD
+//        tokenMap[RustTypes.AS] = RUST_KEYWORD
+//        tokenMap[RustTypes.BREAK] = RUST_KEYWORD
+        tokenMap[RustTypes.CONST] = RUST_KEYWORD
+//        tokenMap[RustTypes.CRATE] = RUST_KEYWORD
+//        tokenMap[RustTypes.ELSE] = RUST_KEYWORD
+//        tokenMap[RustTypes.ENUM] = RUST_KEYWORD
+//        tokenMap[RustTypes.EXTERN] = RUST_KEYWORD
+        tokenMap[RustTypes.FALSE] = RUST_KEYWORD
+        tokenMap[RustTypes.FN] = RUST_KEYWORD
+//        tokenMap[RustTypes.FOR] = RUST_KEYWORD
+//        tokenMap[RustTypes.IF] = RUST_KEYWORD
+//        tokenMap[RustTypes.IMPL] = RUST_KEYWORD
+//        tokenMap[RustTypes.IN] = RUST_KEYWORD
+//        tokenMap[RustTypes.LET] = RUST_KEYWORD
+//        tokenMap[RustTypes.LOOP] = RUST_KEYWORD
+//        tokenMap[RustTypes.MATCH] = RUST_KEYWORD
+        tokenMap[RustTypes.MOD] = RUST_KEYWORD
+        tokenMap[RustTypes.MUT] = RUST_KEYWORD
+//        tokenMap[RustTypes.PRIV] = RUST_KEYWORD
+//        tokenMap[RustTypes.PROC] = RUST_KEYWORD
+//        tokenMap[RustTypes.MOVE] = RUST_KEYWORD
+        tokenMap[RustTypes.PUB] = RUST_KEYWORD
+//        tokenMap[RustTypes.REF] = RUST_KEYWORD
+//        tokenMap[RustTypes.RETURN] = RUST_KEYWORD
+//        tokenMap[RustTypes.SELF] = RUST_KEYWORD
+        tokenMap[RustTypes.STATIC] = RUST_KEYWORD
+//        tokenMap[RustTypes.STRUCT] = RUST_KEYWORD
+//        tokenMap[RustTypes.SUPER] = RUST_KEYWORD
+        tokenMap[RustTypes.TRUE] = RUST_KEYWORD
+//        tokenMap[RustTypes.TRAIT] = RUST_KEYWORD
+//        tokenMap[RustTypes.TYPE] = RUST_KEYWORD
+//        tokenMap[RustTypes.UNSAFE] = RUST_KEYWORD
+//        tokenMap[RustTypes.USE] = RUST_KEYWORD
+//        tokenMap[RustTypes.WHILE] = RUST_KEYWORD
+//        tokenMap[RustTypes.CONTINUE] = RUST_KEYWORD
+//        tokenMap[RustTypes.BOX] = RUST_KEYWORD
+        tokenMap[RustTypes.WHERE] = RUST_KEYWORD
     }
 
 }
