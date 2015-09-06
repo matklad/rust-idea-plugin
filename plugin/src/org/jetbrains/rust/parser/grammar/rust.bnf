@@ -13,6 +13,19 @@
   tokenTypeClass="org.jetbrains.rust.parser.RustTokenType"
 
   tokens=[
+    par_left        = "("
+    par_right       = ")"
+    curly_left      = "{"
+    curly_right     = "}"
+    bracket_left    = "["
+    bracket_right   = "]"
+    dot             = "."
+    dot_dot         = ".."
+    dot_dot_dot     = "..."
+    semi            = ";"
+    comma           = ","
+    bang            = "!"
+
     line_comment='regexp://.*'
     block_comment='regexp:/\*(.|\n)*\*/'
     ident='regexp:\p{Alpha}\w*'

@@ -64,8 +64,17 @@ public interface RustTypes {
   IElementType VISIBILITY = new RustElementType("VISIBILITY");
   IElementType WHERE_CLAUSE = new RustElementType("WHERE_CLAUSE");
 
+  IElementType BANG = new RustTokenType("!");
   IElementType BLOCK_COMMENT = new RustTokenType("block_comment");
+  IElementType BRACKET_LEFT = new RustTokenType("[");
+  IElementType BRACKET_RIGHT = new RustTokenType("]");
+  IElementType COMMA = new RustTokenType(",");
   IElementType CONST = new RustTokenType("const");
+  IElementType CURLY_LEFT = new RustTokenType("{");
+  IElementType CURLY_RIGHT = new RustTokenType("}");
+  IElementType DOT = new RustTokenType(".");
+  IElementType DOT_DOT = new RustTokenType("..");
+  IElementType DOT_DOT_DOT = new RustTokenType("...");
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
   IElementType IDENT = new RustTokenType("ident");
@@ -80,7 +89,10 @@ public interface RustTypes {
   IElementType MOD = new RustTokenType("mod");
   IElementType MUT = new RustTokenType("mut");
   IElementType PARAM = new RustTokenType("param");
+  IElementType PAR_LEFT = new RustTokenType("(");
+  IElementType PAR_RIGHT = new RustTokenType(")");
   IElementType PUB = new RustTokenType("pub");
+  IElementType SEMI = new RustTokenType(";");
   IElementType STATIC = new RustTokenType("static");
   IElementType STR = new RustTokenType("str");
   IElementType TRUE = new RustTokenType("true");

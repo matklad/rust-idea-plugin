@@ -34,6 +34,19 @@ LIT_BOOL=true|false
 <YYINITIAL> {
   {WHITE_SPACE}          { return com.intellij.psi.TokenType.WHITE_SPACE; }
 
+  "("                    { return PAR_LEFT; }
+  ")"                    { return PAR_RIGHT; }
+  "{"                    { return CURLY_LEFT; }
+  "}"                    { return CURLY_RIGHT; }
+  "["                    { return BRACKET_LEFT; }
+  "]"                    { return BRACKET_RIGHT; }
+  "."                    { return DOT; }
+  ".."                   { return DOT_DOT; }
+  "..."                  { return DOT_DOT_DOT; }
+  ";"                    { return SEMI; }
+  ","                    { return COMMA; }
+  "!"                    { return BANG; }
+
   "byte_string_lit"      { return LIT_BYTE_STRING; }
   "byte_lit"             { return LIT_BYTE; }
   "static"               { return STATIC; }

@@ -255,11 +255,12 @@ public class RustParser implements PsiParser, LightPsiParser {
   // fn_params [ret_ty]
   public static boolean fn_decl(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "fn_decl")) return false;
+    if (!nextTokenIs(b, PAR_LEFT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<fn decl>");
+    Marker m = enter_section_(b);
     r = fn_params(b, l + 1);
     r = r && fn_decl_1(b, l + 1);
-    exit_section_(b, l, m, FN_DECL, r, false, null);
+    exit_section_(b, m, FN_DECL, r);
     return r;
   }
 
@@ -274,12 +275,13 @@ public class RustParser implements PsiParser, LightPsiParser {
   // '(' [param (',' param) * [',']] ')'
   public static boolean fn_params(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "fn_params")) return false;
+    if (!nextTokenIs(b, PAR_LEFT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<fn params>");
-    r = consumeToken(b, "(");
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PAR_LEFT);
     r = r && fn_params_1(b, l + 1);
-    r = r && consumeToken(b, ")");
-    exit_section_(b, l, m, FN_PARAMS, r, false, null);
+    r = r && consumeToken(b, PAR_RIGHT);
+    exit_section_(b, m, FN_PARAMS, r);
     return r;
   }
 
@@ -319,7 +321,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "fn_params_1_0_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, ",");
+    r = consumeToken(b, COMMA);
     r = r && consumeToken(b, PARAM);
     exit_section_(b, m, null, r);
     return r;
@@ -328,7 +330,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   // [',']
   private static boolean fn_params_1_0_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "fn_params_1_0_2")) return false;
-    consumeToken(b, ",");
+    consumeToken(b, COMMA);
     return true;
   }
 
@@ -352,9 +354,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<inner attr>");
     r = consumeToken(b, "#!");
-    r = r && consumeToken(b, "[");
+    r = r && consumeToken(b, BRACKET_LEFT);
     r = r && meta_item(b, l + 1);
-    r = r && consumeToken(b, "]");
+    r = r && consumeToken(b, BRACKET_RIGHT);
     exit_section_(b, l, m, INNER_ATTR, r, false, null);
     return r;
   }
@@ -392,7 +394,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = r && ty(b, l + 1);
     r = r && consumeToken(b, "=");
     r = r && expr(b, l + 1, -1);
-    r = r && consumeToken(b, ";");
+    r = r && consumeToken(b, SEMI);
     exit_section_(b, m, ITEM_CONST, r);
     return r;
   }
@@ -436,7 +438,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, MOD, IDENT);
     r = r && item_mod_2(b, l + 1);
-    r = r && consumeToken(b, ";");
+    r = r && consumeToken(b, SEMI);
     exit_section_(b, m, ITEM_MOD, r);
     return r;
   }
@@ -453,7 +455,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "item_mod_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, "{");
+    r = consumeToken(b, CURLY_LEFT);
     r = r && inner_attrs(b, l + 1);
     r = r && mod_items(b, l + 1);
     r = r && consumeToken(b, "} ");
@@ -475,7 +477,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = r && ty(b, l + 1);
     r = r && consumeToken(b, "=");
     r = r && expr(b, l + 1, -1);
-    r = r && consumeToken(b, ";");
+    r = r && consumeToken(b, SEMI);
     exit_section_(b, m, ITEM_STATIC, r);
     return r;
   }
@@ -546,10 +548,10 @@ public class RustParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENT);
-    r = r && consumeToken(b, "(");
+    r = r && consumeToken(b, PAR_LEFT);
     r = r && meta_item(b, l + 1);
     r = r && meta_item_2_3(b, l + 1);
-    r = r && consumeToken(b, ")");
+    r = r && consumeToken(b, PAR_RIGHT);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -571,7 +573,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "meta_item_2_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, ",");
+    r = consumeToken(b, COMMA);
     r = r && meta_item_2_3_0_1(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -593,7 +595,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "meta_item_2_3_0_1_1")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _AND_, null);
-    r = consumeToken(b, ")");
+    r = consumeToken(b, PAR_RIGHT);
     exit_section_(b, l, m, null, r, false, null);
     return r;
   }
@@ -632,9 +634,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<outer attr>");
     r = consumeToken(b, "#");
-    r = r && consumeToken(b, "[");
+    r = r && consumeToken(b, BRACKET_LEFT);
     r = r && meta_item(b, l + 1);
-    r = r && consumeToken(b, "]");
+    r = r && consumeToken(b, BRACKET_RIGHT);
     exit_section_(b, l, m, OUTER_ATTR, r, false, null);
     return r;
   }
@@ -671,7 +673,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ret_ty_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeToken(b, "!");
+    r = consumeToken(b, BANG);
     if (!r) r = ty(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -684,7 +686,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<stmt>");
     r = expr(b, l + 1, -1);
-    r = r && consumeToken(b, ";");
+    r = r && consumeToken(b, SEMI);
     exit_section_(b, l, m, STMT, r, false, null);
     return r;
   }
@@ -867,9 +869,9 @@ public class RustParser implements PsiParser, LightPsiParser {
         r = true;
         exit_section_(b, l, m, REF_EXPR, r, true, null);
       }
-      else if (g < 13 && consumeTokenSmart(b, "[")) {
+      else if (g < 13 && consumeTokenSmart(b, BRACKET_LEFT)) {
         r = report_error_(b, expr(b, l, 13));
-        r = consumeToken(b, "]") && r;
+        r = consumeToken(b, BRACKET_RIGHT) && r;
         exit_section_(b, l, m, ARRAY_REF_EXPR, r, true, null);
       }
       else if (g < 13 && call_expr_0(b, l + 1)) {
@@ -908,9 +910,10 @@ public class RustParser implements PsiParser, LightPsiParser {
 
   public static boolean not_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "not_expr")) return false;
+    if (!nextTokenIsFast(b, BANG)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, null);
-    r = consumeTokenSmart(b, "!");
+    r = consumeTokenSmart(b, BANG);
     p = r;
     r = p && expr(b, l, 11);
     exit_section_(b, l, m, NOT_EXPR, r, p, null);
@@ -954,7 +957,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = macro_expr_0(b, l + 1);
     p = r;
     r = p && expr(b, l, 12);
-    r = p && report_error_(b, consumeToken(b, ")")) && r;
+    r = p && report_error_(b, consumeToken(b, PAR_RIGHT)) && r;
     exit_section_(b, l, m, MACRO_EXPR, r, p, null);
     return r || p;
   }
@@ -965,8 +968,8 @@ public class RustParser implements PsiParser, LightPsiParser {
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokenSmart(b, IDENT);
-    r = r && consumeToken(b, "!");
-    r = r && consumeToken(b, "(");
+    r = r && consumeToken(b, BANG);
+    r = r && consumeToken(b, PAR_LEFT);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -976,7 +979,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "ref_expr_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokenSmart(b, ".");
+    r = consumeTokenSmart(b, DOT);
     r = r && consumeToken(b, IDENT);
     exit_section_(b, m, null, r);
     return r;
@@ -987,9 +990,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "call_expr_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokenSmart(b, "(");
+    r = consumeTokenSmart(b, PAR_LEFT);
     r = r && call_expr_0_1(b, l + 1);
-    r = r && consumeToken(b, ")");
+    r = r && consumeToken(b, PAR_RIGHT);
     exit_section_(b, m, null, r);
     return r;
   }
@@ -1029,7 +1032,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!recursion_guard_(b, l, "call_expr_0_1_0_1_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokenSmart(b, ",");
+    r = consumeTokenSmart(b, COMMA);
     r = r && expr(b, l + 1, -1);
     exit_section_(b, m, null, r);
     return r;
@@ -1058,12 +1061,13 @@ public class RustParser implements PsiParser, LightPsiParser {
 
   public static boolean paren_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "paren_expr")) return false;
+    if (!nextTokenIsFast(b, PAR_LEFT)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, null);
-    r = consumeTokenSmart(b, "(");
+    r = consumeTokenSmart(b, PAR_LEFT);
     p = r;
     r = p && expr(b, l, -1);
-    r = p && report_error_(b, consumeToken(b, ")")) && r;
+    r = p && report_error_(b, consumeToken(b, PAR_RIGHT)) && r;
     exit_section_(b, l, m, PAREN_EXPR, r, p, null);
     return r || p;
   }
@@ -1071,13 +1075,14 @@ public class RustParser implements PsiParser, LightPsiParser {
   // '{' stmt* [expr] '}'
   public static boolean block_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "block_expr")) return false;
+    if (!nextTokenIsFast(b, CURLY_LEFT)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<block expr>");
-    r = consumeTokenSmart(b, "{");
+    Marker m = enter_section_(b);
+    r = consumeTokenSmart(b, CURLY_LEFT);
     r = r && block_expr_1(b, l + 1);
     r = r && block_expr_2(b, l + 1);
-    r = r && consumeToken(b, "}");
-    exit_section_(b, l, m, BLOCK_EXPR, r, false, null);
+    r = r && consumeToken(b, CURLY_RIGHT);
+    exit_section_(b, m, BLOCK_EXPR, r);
     return r;
   }
 
