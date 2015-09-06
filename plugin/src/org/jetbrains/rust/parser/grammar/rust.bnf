@@ -8,7 +8,7 @@
   psiPackage="org.jetbrains.rust.psi"
   psiImplPackage="org.jetbrains.rust.psi.impl"
 
-  elementTypeHolderClass="org.jetbrains.rust.RustTypes"
+  elementTypeHolderClass="org.jetbrains.rust.psi.RustTypes"
   elementTypeClass="org.jetbrains.rust.psi.RustElementType"
   tokenTypeClass="org.jetbrains.rust.parser.RustTokenType"
 
