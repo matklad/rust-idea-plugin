@@ -54,9 +54,9 @@ outer_attrs ::= outer_attr *
 
 outer_attr ::= '#' '[' meta_item ']'
 
-meta_item ::= ident
-            | ident '=' lit
+meta_item ::= ident '=' lit
             | ident '(' meta_item (',' (meta_item | &')')) * ')'
+            | ident
 
 item_with_attrs ::= attrs_and_vis item
 
