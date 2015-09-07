@@ -5,13 +5,13 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustModItem extends PsiElement {
+public interface RustRecordStructAttr extends PsiElement {
 
   @NotNull
-  List<RustInnerAttr> getInnerAttrList();
+  RustTy getTy();
 
-  @NotNull
-  List<RustItemWithAttrs> getItemWithAttrsList();
+  @Nullable
+  RustVisibility getVisibility();
 
   @NotNull
   PsiElement getIdent();

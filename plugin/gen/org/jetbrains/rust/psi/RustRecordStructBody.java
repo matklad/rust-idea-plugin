@@ -5,15 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustItemMod extends PsiElement {
+public interface RustRecordStructBody extends PsiElement {
 
   @NotNull
-  List<RustInnerAttr> getInnerAttrList();
-
-  @NotNull
-  List<RustModItem> getModItemList();
-
-  @NotNull
-  PsiElement getIdent();
+  List<RustRecordStructAttr> getRecordStructAttrList();
 
 }

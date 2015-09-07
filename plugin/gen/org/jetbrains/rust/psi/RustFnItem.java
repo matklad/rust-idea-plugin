@@ -5,13 +5,19 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustItemConst extends PsiElement {
+public interface RustFnItem extends PsiElement {
 
   @NotNull
-  RustExpr getExpr();
+  RustBlockExpr getBlockExpr();
 
-  @NotNull
+  @Nullable
+  RustGenericParams getGenericParams();
+
+  @Nullable
   RustTy getTy();
+
+  @Nullable
+  RustWhereClause getWhereClause();
 
   @NotNull
   PsiElement getIdent();

@@ -11,39 +11,27 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustItemFnImpl extends ASTWrapperPsiElement implements RustItemFn {
+public class RustStaticItemImpl extends ASTWrapperPsiElement implements RustStaticItem {
 
-  public RustItemFnImpl(ASTNode node) {
+  public RustStaticItemImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitItemFn(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitStaticItem(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustBlockExpr getBlockExpr() {
-    return findNotNullChildByClass(RustBlockExpr.class);
+  public RustExpr getExpr() {
+    return findNotNullChildByClass(RustExpr.class);
   }
 
   @Override
-  @Nullable
-  public RustGenericParams getGenericParams() {
-    return findChildByClass(RustGenericParams.class);
-  }
-
-  @Override
-  @Nullable
+  @NotNull
   public RustTy getTy() {
-    return findChildByClass(RustTy.class);
-  }
-
-  @Override
-  @Nullable
-  public RustWhereClause getWhereClause() {
-    return findChildByClass(RustWhereClause.class);
+    return findNotNullChildByClass(RustTy.class);
   }
 
   @Override

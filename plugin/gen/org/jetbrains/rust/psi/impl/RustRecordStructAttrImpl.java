@@ -11,27 +11,27 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustModItemImpl extends ASTWrapperPsiElement implements RustModItem {
+public class RustRecordStructAttrImpl extends ASTWrapperPsiElement implements RustRecordStructAttr {
 
-  public RustModItemImpl(ASTNode node) {
+  public RustRecordStructAttrImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitModItem(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitRecordStructAttr(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public List<RustInnerAttr> getInnerAttrList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustInnerAttr.class);
+  public RustTy getTy() {
+    return findNotNullChildByClass(RustTy.class);
   }
 
   @Override
-  @NotNull
-  public List<RustItemWithAttrs> getItemWithAttrsList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustItemWithAttrs.class);
+  @Nullable
+  public RustVisibility getVisibility() {
+    return findChildByClass(RustVisibility.class);
   }
 
   @Override

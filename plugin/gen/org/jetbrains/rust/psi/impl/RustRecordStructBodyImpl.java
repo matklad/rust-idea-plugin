@@ -11,33 +11,21 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustItemConstImpl extends ASTWrapperPsiElement implements RustItemConst {
+public class RustRecordStructBodyImpl extends ASTWrapperPsiElement implements RustRecordStructBody {
 
-  public RustItemConstImpl(ASTNode node) {
+  public RustRecordStructBodyImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitItemConst(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitRecordStructBody(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustExpr getExpr() {
-    return findNotNullChildByClass(RustExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public RustTy getTy() {
-    return findNotNullChildByClass(RustTy.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  public List<RustRecordStructAttr> getRecordStructAttrList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustRecordStructAttr.class);
   }
 
 }

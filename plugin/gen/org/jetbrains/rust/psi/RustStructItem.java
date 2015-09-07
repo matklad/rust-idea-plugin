@@ -5,16 +5,16 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustItemFn extends PsiElement {
-
-  @NotNull
-  RustBlockExpr getBlockExpr();
+public interface RustStructItem extends PsiElement {
 
   @Nullable
   RustGenericParams getGenericParams();
 
   @Nullable
-  RustTy getTy();
+  RustRecordStructBody getRecordStructBody();
+
+  @Nullable
+  RustTupleStructBody getTupleStructBody();
 
   @Nullable
   RustWhereClause getWhereClause();

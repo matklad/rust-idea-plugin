@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustItemStatic extends PsiElement {
+public interface RustConstItem extends PsiElement {
 
   @NotNull
   RustExpr getExpr();

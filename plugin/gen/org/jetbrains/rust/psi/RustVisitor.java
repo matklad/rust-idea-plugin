@@ -47,6 +47,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitConstItem(@NotNull RustConstItem o) {
+    visitPsiElement(o);
+  }
+
   public void visitDerefExpr(@NotNull RustDerefExpr o) {
     visitExpr(o);
   }
@@ -67,6 +71,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitFnItem(@NotNull RustFnItem o) {
+    visitPsiElement(o);
+  }
+
   public void visitGenericParams(@NotNull RustGenericParams o) {
     visitPsiElement(o);
   }
@@ -83,19 +91,7 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
-  public void visitItemConst(@NotNull RustItemConst o) {
-    visitPsiElement(o);
-  }
-
-  public void visitItemFn(@NotNull RustItemFn o) {
-    visitPsiElement(o);
-  }
-
-  public void visitItemMod(@NotNull RustItemMod o) {
-    visitPsiElement(o);
-  }
-
-  public void visitItemStatic(@NotNull RustItemStatic o) {
+  public void visitItemWithAttrs(@NotNull RustItemWithAttrs o) {
     visitPsiElement(o);
   }
 
@@ -179,6 +175,14 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitRecordStructAttr(@NotNull RustRecordStructAttr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitRecordStructBody(@NotNull RustRecordStructBody o) {
+    visitPsiElement(o);
+  }
+
   public void visitRefExpr(@NotNull RustRefExpr o) {
     visitExpr(o);
   }
@@ -195,7 +199,23 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitStaticItem(@NotNull RustStaticItem o) {
+    visitPsiElement(o);
+  }
+
   public void visitStmt(@NotNull RustStmt o) {
+    visitPsiElement(o);
+  }
+
+  public void visitStructItem(@NotNull RustStructItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTupleStructAttr(@NotNull RustTupleStructAttr o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTupleStructBody(@NotNull RustTupleStructBody o) {
     visitPsiElement(o);
   }
 

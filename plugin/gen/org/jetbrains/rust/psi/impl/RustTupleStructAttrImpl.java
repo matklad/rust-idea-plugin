@@ -11,21 +11,21 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustItemStaticImpl extends ASTWrapperPsiElement implements RustItemStatic {
+public class RustTupleStructAttrImpl extends ASTWrapperPsiElement implements RustTupleStructAttr {
 
-  public RustItemStaticImpl(ASTNode node) {
+  public RustTupleStructAttrImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitItemStatic(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTupleStructAttr(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustExpr getExpr() {
-    return findNotNullChildByClass(RustExpr.class);
+  public RustOuterAttrs getOuterAttrs() {
+    return findNotNullChildByClass(RustOuterAttrs.class);
   }
 
   @Override
@@ -35,9 +35,9 @@ public class RustItemStaticImpl extends ASTWrapperPsiElement implements RustItem
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  @Nullable
+  public RustVisibility getVisibility() {
+    return findChildByClass(RustVisibility.class);
   }
 
 }
