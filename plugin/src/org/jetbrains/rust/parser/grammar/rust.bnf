@@ -55,7 +55,7 @@ outer_attrs ::= outer_attr *
 outer_attr ::= '#' '[' meta_item ']'
 
 meta_item ::= ident '=' lit
-            | ident '(' meta_item (',' (meta_item | &')')) * ')'
+            | ident '(' <<comma_separated_list meta_item>> ')'
             | ident
 
 item_with_attrs ::= attrs_and_vis item
@@ -72,7 +72,7 @@ extern_crate_item ::= extern crate ident [as ident] ';'
 use_item ::= use path_glob ';'
 
 path_glob ::= ident ["::" (path_glob | "*")]
-            | '{' path_item(',' path_item) * '}'
+            | '{' [<<comma_separated_list path_item>>] '}'
 
 path_item ::= ident | self
 
@@ -92,7 +92,9 @@ visibility ::= pub
 
 fn_item ::= fn ident [generic_params] fn_params [ret_ty] [where_clause] block_expr
 
-private fn_params ::= '(' [param (',' param) * [',']] ')'
+private fn_params ::= '(' [ <<comma_separated_list fn_param>> ] ')'
+
+fn_param ::= ident ':' ty
 
 private ret_ty ::= '->' ('!' | ty)
 
@@ -106,11 +108,11 @@ struct_item ::= struct ident [generic_params] ( [where_clause] ';'
                                               | tuple_struct_body [where_clause]
                                               | [where_clause] record_struct_body)
 
-tuple_struct_body ::= '(' tuple_struct_attr (',' tuple_struct_attr) * [','] ')'
+tuple_struct_body ::= '(' <<comma_separated_list tuple_struct_attr>> ')'
 
 tuple_struct_attr ::= outer_attrs [visibility] ty
 
-record_struct_body ::= '{' record_struct_attr (',' record_struct_attr) * [','] '}'
+record_struct_body ::= '{' <<comma_separated_list record_struct_attr>> '}'
 
 record_struct_attr ::= [visibility] ident ':' ty
 
@@ -196,16 +198,16 @@ macro_expr ::= ident '!' '(' expr ')'
 
 ref_expr ::= expr '.' ident
 array_ref_expr ::= expr '[' expr ']'
-call_expr ::= expr '(' [expr (',' expr)*] ')'
+call_expr ::= expr '(' [<<comma_separated_list expr>>] ')'
 
 simple_ref_expr ::= ident
 literal_expr ::= lit
 paren_expr ::= '(' expr ')'
 block_expr ::= '{' stmt* [expr] '}'
 
-// ////////////////////////////////////////////////////////////////////////
-// // Part 5: Macros and misc. rules
-// ////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////
+// Part 5: Macros and misc. rules
+////////////////////////////////////////////////////////////////////////
 
 lit ::= lit_byte
       | lit_char
@@ -215,3 +217,6 @@ lit ::= lit_byte
       | true
       | false
       | str
+
+meta comma_separated_list ::= <<param>> ( ',' <<param>> ) * [',']
+

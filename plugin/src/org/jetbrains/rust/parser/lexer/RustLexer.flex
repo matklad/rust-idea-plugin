@@ -58,7 +58,6 @@ LIT_BOOL=true|false
   "lifetimes"            { return LIFETIMES; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
-  "param"                { return PARAM; }
   "pub"                  { return PUB; }
   "static"               { return STATIC; }
   "str"                  { return STR; }
