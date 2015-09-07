@@ -62,6 +62,7 @@ LIT_BOOL=true|false
   "pub"                  { return PUB; }
   "static"               { return STATIC; }
   "str"                  { return STR; }
+  "struct"               { return STRUCT; }
   "true"                 { return TRUE; }
   "use"                  { return USE; }
   "where"                { return WHERE; }
