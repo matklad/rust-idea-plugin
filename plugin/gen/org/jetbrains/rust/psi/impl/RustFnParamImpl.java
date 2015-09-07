@@ -11,21 +11,27 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustTupleStructBodyImpl extends ASTWrapperPsiElement implements RustTupleStructBody {
+public class RustFnParamImpl extends ASTWrapperPsiElement implements RustFnParam {
 
-  public RustTupleStructBodyImpl(ASTNode node) {
+  public RustFnParamImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTupleStructBody(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitFnParam(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findNotNullChildByClass(RustCommaSeparatedList.class);
+  public RustTy getTy() {
+    return findNotNullChildByClass(RustTy.class);
+  }
+
+  @Override
+  @NotNull
+  public PsiElement getIdent() {
+    return findNotNullChildByType(IDENT);
   }
 
 }

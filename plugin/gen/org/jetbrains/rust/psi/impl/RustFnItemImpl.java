@@ -30,6 +30,12 @@ public class RustFnItemImpl extends ASTWrapperPsiElement implements RustFnItem {
 
   @Override
   @Nullable
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findChildByClass(RustCommaSeparatedList.class);
+  }
+
+  @Override
+  @Nullable
   public RustGenericParams getGenericParams() {
     return findChildByClass(RustGenericParams.class);
   }

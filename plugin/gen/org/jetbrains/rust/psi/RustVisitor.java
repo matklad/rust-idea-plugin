@@ -47,6 +47,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitCommaSeparatedList(@NotNull RustCommaSeparatedList o) {
+    visitPsiElement(o);
+  }
+
   public void visitConstItem(@NotNull RustConstItem o) {
     visitPsiElement(o);
   }
@@ -72,6 +76,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitFnItem(@NotNull RustFnItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitFnParam(@NotNull RustFnParam o) {
     visitPsiElement(o);
   }
 

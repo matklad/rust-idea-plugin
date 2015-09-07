@@ -7,7 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public interface RustCallExpr extends RustExpr {
 
+  @Nullable
+  RustCommaSeparatedList getCommaSeparatedList();
+
   @NotNull
-  List<RustExpr> getExprList();
+  RustExpr getExpr();
 
 }

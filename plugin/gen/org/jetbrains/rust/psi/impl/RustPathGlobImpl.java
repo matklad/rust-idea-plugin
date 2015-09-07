@@ -24,14 +24,14 @@ public class RustPathGlobImpl extends ASTWrapperPsiElement implements RustPathGl
 
   @Override
   @Nullable
-  public RustPathGlob getPathGlob() {
-    return findChildByClass(RustPathGlob.class);
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findChildByClass(RustCommaSeparatedList.class);
   }
 
   @Override
-  @NotNull
-  public List<RustPathItem> getPathItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustPathItem.class);
+  @Nullable
+  public RustPathGlob getPathGlob() {
+    return findChildByClass(RustPathGlob.class);
   }
 
   @Override

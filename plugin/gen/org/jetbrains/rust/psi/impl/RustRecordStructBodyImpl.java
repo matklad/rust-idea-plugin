@@ -24,8 +24,8 @@ public class RustRecordStructBodyImpl extends ASTWrapperPsiElement implements Ru
 
   @Override
   @NotNull
-  public List<RustRecordStructAttr> getRecordStructAttrList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustRecordStructAttr.class);
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findNotNullChildByClass(RustCommaSeparatedList.class);
   }
 
 }

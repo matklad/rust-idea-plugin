@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface RustTupleStructBody extends PsiElement {
 
   @NotNull
-  List<RustTupleStructAttr> getTupleStructAttrList();
+  RustCommaSeparatedList getCommaSeparatedList();
 
 }

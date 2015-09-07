@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface RustRecordStructBody extends PsiElement {
 
   @NotNull
-  List<RustRecordStructAttr> getRecordStructAttrList();
+  RustCommaSeparatedList getCommaSeparatedList();
 
 }

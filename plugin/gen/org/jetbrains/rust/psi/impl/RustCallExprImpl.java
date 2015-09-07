@@ -22,9 +22,15 @@ public class RustCallExprImpl extends RustExprImpl implements RustCallExpr {
   }
 
   @Override
+  @Nullable
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findChildByClass(RustCommaSeparatedList.class);
+  }
+
+  @Override
   @NotNull
-  public List<RustExpr> getExprList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustExpr.class);
+  public RustExpr getExpr() {
+    return findNotNullChildByClass(RustExpr.class);
   }
 
 }

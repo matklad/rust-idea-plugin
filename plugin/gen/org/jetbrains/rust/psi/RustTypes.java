@@ -19,6 +19,7 @@ public interface RustTypes {
   IElementType BXOR_EXPR = new RustElementType("BXOR_EXPR");
   IElementType CALL_EXPR = new RustElementType("CALL_EXPR");
   IElementType CAST_EXPR = new RustElementType("CAST_EXPR");
+  IElementType COMMA_SEPARATED_LIST = new RustElementType("COMMA_SEPARATED_LIST");
   IElementType CONST_ITEM = new RustElementType("CONST_ITEM");
   IElementType DEREF_EXPR = new RustElementType("DEREF_EXPR");
   IElementType DIV_EXPR = new RustElementType("DIV_EXPR");
@@ -26,6 +27,7 @@ public interface RustTypes {
   IElementType EXPR = new RustElementType("EXPR");
   IElementType EXTERN_CRATE_ITEM = new RustElementType("EXTERN_CRATE_ITEM");
   IElementType FN_ITEM = new RustElementType("FN_ITEM");
+  IElementType FN_PARAM = new RustElementType("FN_PARAM");
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
@@ -95,7 +97,6 @@ public interface RustTypes {
   IElementType LIT_STRING = new RustTokenType("lit_string");
   IElementType MOD = new RustTokenType("mod");
   IElementType MUT = new RustTokenType("mut");
-  IElementType PARAM = new RustTokenType("param");
   IElementType PAR_LEFT = new RustTokenType("(");
   IElementType PAR_RIGHT = new RustTokenType(")");
   IElementType PUB = new RustTokenType("pub");
@@ -141,6 +142,9 @@ public interface RustTypes {
       else if (type == CAST_EXPR) {
         return new RustCastExprImpl(node);
       }
+      else if (type == COMMA_SEPARATED_LIST) {
+        return new RustCommaSeparatedListImpl(node);
+      }
       else if (type == CONST_ITEM) {
         return new RustConstItemImpl(node);
       }
@@ -161,6 +165,9 @@ public interface RustTypes {
       }
       else if (type == FN_ITEM) {
         return new RustFnItemImpl(node);
+      }
+      else if (type == FN_PARAM) {
+        return new RustFnParamImpl(node);
       }
       else if (type == GENERIC_PARAMS) {
         return new RustGenericParamsImpl(node);

@@ -11,6 +11,9 @@ public interface RustFnItem extends PsiElement {
   RustBlockExpr getBlockExpr();
 
   @Nullable
+  RustCommaSeparatedList getCommaSeparatedList();
+
+  @Nullable
   RustGenericParams getGenericParams();
 
   @Nullable

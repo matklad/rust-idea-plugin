@@ -8,10 +8,10 @@ import com.intellij.psi.PsiElement;
 public interface RustPathGlob extends PsiElement {
 
   @Nullable
-  RustPathGlob getPathGlob();
+  RustCommaSeparatedList getCommaSeparatedList();
 
-  @NotNull
-  List<RustPathItem> getPathItemList();
+  @Nullable
+  RustPathGlob getPathGlob();
 
   @Nullable
   PsiElement getIdent();

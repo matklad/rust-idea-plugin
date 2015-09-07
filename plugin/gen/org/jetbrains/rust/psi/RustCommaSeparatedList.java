@@ -5,15 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustMetaItem extends PsiElement {
-
-  @Nullable
-  RustCommaSeparatedList getCommaSeparatedList();
-
-  @Nullable
-  RustLit getLit();
-
-  @NotNull
-  PsiElement getIdent();
+public interface RustCommaSeparatedList extends PsiElement {
 
 }

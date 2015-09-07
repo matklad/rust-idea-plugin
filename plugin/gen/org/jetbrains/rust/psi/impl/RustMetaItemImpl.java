@@ -24,14 +24,14 @@ public class RustMetaItemImpl extends ASTWrapperPsiElement implements RustMetaIt
 
   @Override
   @Nullable
-  public RustLit getLit() {
-    return findChildByClass(RustLit.class);
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findChildByClass(RustCommaSeparatedList.class);
   }
 
   @Override
-  @NotNull
-  public List<RustMetaItem> getMetaItemList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustMetaItem.class);
+  @Nullable
+  public RustLit getLit() {
+    return findChildByClass(RustLit.class);
   }
 
   @Override
