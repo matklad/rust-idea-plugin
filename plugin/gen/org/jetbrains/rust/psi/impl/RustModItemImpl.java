@@ -30,6 +30,12 @@ public class RustModItemImpl extends ASTWrapperPsiElement implements RustModItem
 
   @Override
   @Nullable
+  public RustExternCrateItem getExternCrateItem() {
+    return findChildByClass(RustExternCrateItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustItemConst getItemConst() {
     return findChildByClass(RustItemConst.class);
   }
@@ -50,6 +56,12 @@ public class RustModItemImpl extends ASTWrapperPsiElement implements RustModItem
   @Nullable
   public RustItemStatic getItemStatic() {
     return findChildByClass(RustItemStatic.class);
+  }
+
+  @Override
+  @Nullable
+  public RustUseItem getUseItem() {
+    return findChildByClass(RustUseItem.class);
   }
 
 }

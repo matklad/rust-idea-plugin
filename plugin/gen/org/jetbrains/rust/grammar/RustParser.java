@@ -65,6 +65,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     else if (t == EXPR) {
       r = expr(b, 0, -1);
     }
+    else if (t == EXTERN_CRATE_ITEM) {
+      r = extern_crate_item(b, 0);
+    }
     else if (t == GENERIC_PARAMS) {
       r = generic_params(b, 0);
     }
@@ -140,6 +143,12 @@ public class RustParser implements PsiParser, LightPsiParser {
     else if (t == PAREN_EXPR) {
       r = paren_expr(b, 0);
     }
+    else if (t == PATH_GLOB) {
+      r = path_glob(b, 0);
+    }
+    else if (t == PATH_ITEM) {
+      r = path_item(b, 0);
+    }
     else if (t == PLUS_EXPR) {
       r = expr(b, 0, 7);
     }
@@ -163,6 +172,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     }
     else if (t == UNARY_MIN_EXPR) {
       r = unary_min_expr(b, 0);
+    }
+    else if (t == USE_ITEM) {
+      r = use_item(b, 0);
     }
     else if (t == VISIBILITY) {
       r = visibility(b, 0);
@@ -226,7 +238,7 @@ public class RustParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // extern crate ident [as ident] ';'
-  static boolean extern_crate_item(PsiBuilder b, int l) {
+  public static boolean extern_crate_item(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "extern_crate_item")) return false;
     if (!nextTokenIs(b, EXTERN)) return false;
     boolean r;
@@ -234,7 +246,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = consumeTokens(b, 0, EXTERN, CRATE, IDENT);
     r = r && extern_crate_item_3(b, l + 1);
     r = r && consumeToken(b, SEMI);
-    exit_section_(b, m, null, r);
+    exit_section_(b, m, EXTERN_CRATE_ITEM, r);
     return r;
   }
 
@@ -337,12 +349,14 @@ public class RustParser implements PsiParser, LightPsiParser {
 
   /* ********************************************************** */
   // stmt_item
+  //                | use_item
   //                | extern_crate_item
   static boolean item(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "item")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = stmt_item(b, l + 1);
+    if (!r) r = use_item(b, l + 1);
     if (!r) r = extern_crate_item(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -640,6 +654,109 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ident ["::" (path_glob | "*")]
+  //             | '{' path_item(',' path_item) * '}'
+  public static boolean path_glob(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob")) return false;
+    if (!nextTokenIs(b, "<path glob>", CURLY_LEFT, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, "<path glob>");
+    r = path_glob_0(b, l + 1);
+    if (!r) r = path_glob_1(b, l + 1);
+    exit_section_(b, l, m, PATH_GLOB, r, false, null);
+    return r;
+  }
+
+  // ident ["::" (path_glob | "*")]
+  private static boolean path_glob_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENT);
+    r = r && path_glob_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ["::" (path_glob | "*")]
+  private static boolean path_glob_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_0_1")) return false;
+    path_glob_0_1_0(b, l + 1);
+    return true;
+  }
+
+  // "::" (path_glob | "*")
+  private static boolean path_glob_0_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_0_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "::");
+    r = r && path_glob_0_1_0_1(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // path_glob | "*"
+  private static boolean path_glob_0_1_0_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_0_1_0_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = path_glob(b, l + 1);
+    if (!r) r = consumeToken(b, "*");
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // '{' path_item(',' path_item) * '}'
+  private static boolean path_glob_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, CURLY_LEFT);
+    r = r && path_item(b, l + 1);
+    r = r && path_glob_1_2(b, l + 1);
+    r = r && consumeToken(b, CURLY_RIGHT);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // (',' path_item) *
+  private static boolean path_glob_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_1_2")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!path_glob_1_2_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "path_glob_1_2", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // ',' path_item
+  private static boolean path_glob_1_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_glob_1_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && path_item(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ident | self
+  public static boolean path_item(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "path_item")) return false;
+    if (!nextTokenIs(b, "<path item>", IDENT, SELF)) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _NONE_, "<path item>");
+    r = consumeToken(b, IDENT);
+    if (!r) r = consumeToken(b, SELF);
+    exit_section_(b, l, m, PATH_ITEM, r, false, null);
+    return r;
+  }
+
+  /* ********************************************************** */
   // '->' ('!' | ty)
   static boolean ret_ty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ret_ty")) return false;
@@ -734,6 +851,20 @@ public class RustParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENT);
     exit_section_(b, m, TY, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // use path_glob ';'
+  public static boolean use_item(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "use_item")) return false;
+    if (!nextTokenIs(b, USE)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, USE);
+    r = r && path_glob(b, l + 1);
+    r = r && consumeToken(b, SEMI);
+    exit_section_(b, m, USE_ITEM, r);
     return r;
   }
 

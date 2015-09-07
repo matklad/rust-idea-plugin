@@ -64,10 +64,17 @@ attrs_and_vis ::= outer_attrs [visibility]
 
 // items that can appear outside of a fn block
 private item ::= stmt_item
+               | use_item
                | extern_crate_item
 
 
-private extern_crate_item ::= extern crate ident [as ident] ';'
+extern_crate_item ::= extern crate ident [as ident] ';'
+use_item ::= use path_glob ';'
+
+path_glob ::= ident ["::" (path_glob | "*")]
+            | '{' path_item(',' path_item) * '}'
+
+path_item ::= ident | self
 
 // items that can appear in "stmts"
 private stmt_item ::= item_static

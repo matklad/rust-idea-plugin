@@ -38,6 +38,7 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
             RustTypes.PUB,
             RustTypes.STATIC,
             RustTypes.TRUE,
+            RustTypes.USE,
             RustTypes.WHERE
     );
     val rust_keyword =

@@ -23,6 +23,7 @@ public interface RustTypes {
   IElementType DIV_EXPR = new RustElementType("DIV_EXPR");
   IElementType EQ_EXPR = new RustElementType("EQ_EXPR");
   IElementType EXPR = new RustElementType("EXPR");
+  IElementType EXTERN_CRATE_ITEM = new RustElementType("EXTERN_CRATE_ITEM");
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
@@ -48,6 +49,8 @@ public interface RustTypes {
   IElementType OUTER_ATTR = new RustElementType("OUTER_ATTR");
   IElementType OUTER_ATTRS = new RustElementType("OUTER_ATTRS");
   IElementType PAREN_EXPR = new RustElementType("PAREN_EXPR");
+  IElementType PATH_GLOB = new RustElementType("PATH_GLOB");
+  IElementType PATH_ITEM = new RustElementType("PATH_ITEM");
   IElementType PLUS_EXPR = new RustElementType("PLUS_EXPR");
   IElementType REF_EXPR = new RustElementType("REF_EXPR");
   IElementType SHL_EXPR = new RustElementType("SHL_EXPR");
@@ -56,6 +59,7 @@ public interface RustTypes {
   IElementType STMT = new RustElementType("STMT");
   IElementType TY = new RustElementType("TY");
   IElementType UNARY_MIN_EXPR = new RustElementType("UNARY_MIN_EXPR");
+  IElementType USE_ITEM = new RustElementType("USE_ITEM");
   IElementType VISIBILITY = new RustElementType("VISIBILITY");
   IElementType WHERE_CLAUSE = new RustElementType("WHERE_CLAUSE");
 
@@ -90,10 +94,12 @@ public interface RustTypes {
   IElementType PAR_LEFT = new RustTokenType("(");
   IElementType PAR_RIGHT = new RustTokenType(")");
   IElementType PUB = new RustTokenType("pub");
+  IElementType SELF = new RustTokenType("self");
   IElementType SEMI = new RustTokenType(";");
   IElementType STATIC = new RustTokenType("static");
   IElementType STR = new RustTokenType("str");
   IElementType TRUE = new RustTokenType("true");
+  IElementType USE = new RustTokenType("use");
   IElementType WHERE = new RustTokenType("where");
 
   class Factory {
@@ -140,6 +146,9 @@ public interface RustTypes {
       }
       else if (type == EXPR) {
         return new RustExprImpl(node);
+      }
+      else if (type == EXTERN_CRATE_ITEM) {
+        return new RustExternCrateItemImpl(node);
       }
       else if (type == GENERIC_PARAMS) {
         return new RustGenericParamsImpl(node);
@@ -216,6 +225,12 @@ public interface RustTypes {
       else if (type == PAREN_EXPR) {
         return new RustParenExprImpl(node);
       }
+      else if (type == PATH_GLOB) {
+        return new RustPathGlobImpl(node);
+      }
+      else if (type == PATH_ITEM) {
+        return new RustPathItemImpl(node);
+      }
       else if (type == PLUS_EXPR) {
         return new RustPlusExprImpl(node);
       }
@@ -239,6 +254,9 @@ public interface RustTypes {
       }
       else if (type == UNARY_MIN_EXPR) {
         return new RustUnaryMinExprImpl(node);
+      }
+      else if (type == USE_ITEM) {
+        return new RustUseItemImpl(node);
       }
       else if (type == VISIBILITY) {
         return new RustVisibilityImpl(node);

@@ -63,6 +63,7 @@ LIT_BOOL=true|false
   "static"               { return STATIC; }
   "str"                  { return STR; }
   "true"                 { return TRUE; }
+  "use"                  { return USE; }
   "where"                { return WHERE; }
 
   {LINE_COMMENT}         { return LINE_COMMENT; }

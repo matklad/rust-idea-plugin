@@ -11,6 +11,9 @@ public interface RustModItem extends PsiElement {
   RustAttrsAndVis getAttrsAndVis();
 
   @Nullable
+  RustExternCrateItem getExternCrateItem();
+
+  @Nullable
   RustItemConst getItemConst();
 
   @Nullable
@@ -21,5 +24,8 @@ public interface RustModItem extends PsiElement {
 
   @Nullable
   RustItemStatic getItemStatic();
+
+  @Nullable
+  RustUseItem getUseItem();
 
 }
