@@ -26,7 +26,7 @@ LINE_COMMENT="//".*
 BLOCK_COMMENT="/"\*(.|\n)*\*"/"
 IDENT=[:letter:][a-zA-Z_0-9]*
 LIT_CHAR='.'
-LIT_STRING=(\"([^\"\\]|\\.)*\")
+LIT_STRING=(r?\"([^\"\\]|\\.)*\")
 LIT_INTEGER=[0-9]+
 LIT_BOOL=true|false
 
