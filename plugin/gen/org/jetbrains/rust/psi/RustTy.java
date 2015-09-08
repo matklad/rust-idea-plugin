@@ -7,7 +7,19 @@ import com.intellij.psi.PsiElement;
 
 public interface RustTy extends PsiElement {
 
-  @NotNull
-  PsiElement getIdent();
+  @Nullable
+  RustCommaSeparatedList getCommaSeparatedList();
+
+  @Nullable
+  RustExpr getExpr();
+
+  @Nullable
+  RustPath getPath();
+
+  @Nullable
+  RustTy getTy();
+
+  @Nullable
+  RustTySum getTySum();
 
 }

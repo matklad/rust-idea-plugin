@@ -171,6 +171,14 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitPat(@NotNull RustPat o) {
+    visitPsiElement(o);
+  }
+
+  public void visitPath(@NotNull RustPath o) {
+    visitPsiElement(o);
+  }
+
   public void visitPathGlob(@NotNull RustPathGlob o) {
     visitPsiElement(o);
   }
@@ -228,6 +236,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitTy(@NotNull RustTy o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTySum(@NotNull RustTySum o) {
     visitPsiElement(o);
   }
 

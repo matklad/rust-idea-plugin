@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustFnParam extends PsiElement {
+public interface RustPat extends PsiElement {
 
   @NotNull
-  RustPat getPat();
-
-  @NotNull
-  RustTySum getTySum();
+  PsiElement getIdent();
 
 }

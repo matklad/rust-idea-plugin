@@ -23,9 +23,33 @@ public class RustTyImpl extends ASTWrapperPsiElement implements RustTy {
   }
 
   @Override
-  @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  @Nullable
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findChildByClass(RustCommaSeparatedList.class);
+  }
+
+  @Override
+  @Nullable
+  public RustExpr getExpr() {
+    return findChildByClass(RustExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public RustPath getPath() {
+    return findChildByClass(RustPath.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTy getTy() {
+    return findChildByClass(RustTy.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTySum getTySum() {
+    return findChildByClass(RustTySum.class);
   }
 
 }

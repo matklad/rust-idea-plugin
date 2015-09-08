@@ -11,27 +11,21 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustFnParamImpl extends ASTWrapperPsiElement implements RustFnParam {
+public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
 
-  public RustFnParamImpl(ASTNode node) {
+  public RustPatImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitFnParam(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPat(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustPat getPat() {
-    return findNotNullChildByClass(RustPat.class);
-  }
-
-  @Override
-  @NotNull
-  public RustTySum getTySum() {
-    return findNotNullChildByClass(RustTySum.class);
+  public PsiElement getIdent() {
+    return findNotNullChildByType(IDENT);
   }
 
 }

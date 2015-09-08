@@ -50,6 +50,8 @@ public interface RustTypes {
   IElementType OUTER_ATTR = new RustElementType("OUTER_ATTR");
   IElementType OUTER_ATTRS = new RustElementType("OUTER_ATTRS");
   IElementType PAREN_EXPR = new RustElementType("PAREN_EXPR");
+  IElementType PAT = new RustElementType("PAT");
+  IElementType PATH = new RustElementType("PATH");
   IElementType PATH_GLOB = new RustElementType("PATH_GLOB");
   IElementType PATH_ITEM = new RustElementType("PATH_ITEM");
   IElementType PLUS_EXPR = new RustElementType("PLUS_EXPR");
@@ -65,6 +67,7 @@ public interface RustTypes {
   IElementType TUPLE_STRUCT_ATTR = new RustElementType("TUPLE_STRUCT_ATTR");
   IElementType TUPLE_STRUCT_BODY = new RustElementType("TUPLE_STRUCT_BODY");
   IElementType TY = new RustElementType("TY");
+  IElementType TY_SUM = new RustElementType("TY_SUM");
   IElementType UNARY_MIN_EXPR = new RustElementType("UNARY_MIN_EXPR");
   IElementType USE_ITEM = new RustElementType("USE_ITEM");
   IElementType VISIBILITY = new RustElementType("VISIBILITY");
@@ -72,6 +75,7 @@ public interface RustTypes {
 
   IElementType AS = new RustTokenType("as");
   IElementType BANG = new RustTokenType("!");
+  IElementType BARE_FN = new RustTokenType("bare_fn");
   IElementType BLOCK_COMMENT = new RustTokenType("block_comment");
   IElementType BRACKET_LEFT = new RustTokenType("[");
   IElementType BRACKET_RIGHT = new RustTokenType("]");
@@ -87,6 +91,7 @@ public interface RustTypes {
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
   IElementType IDENT = new RustTokenType("ident");
+  IElementType LIFETIME = new RustTokenType("lifetime");
   IElementType LIFETIMES = new RustTokenType("lifetimes");
   IElementType LINE_COMMENT = new RustTokenType("line_comment");
   IElementType LIT_BOOL = new RustTokenType("lit_bool");
@@ -99,6 +104,7 @@ public interface RustTypes {
   IElementType MUT = new RustTokenType("mut");
   IElementType PAR_LEFT = new RustTokenType("(");
   IElementType PAR_RIGHT = new RustTokenType(")");
+  IElementType PTR = new RustTokenType("ptr");
   IElementType PUB = new RustTokenType("pub");
   IElementType SELF = new RustTokenType("self");
   IElementType SEMI = new RustTokenType(";");
@@ -235,6 +241,12 @@ public interface RustTypes {
       else if (type == PAREN_EXPR) {
         return new RustParenExprImpl(node);
       }
+      else if (type == PAT) {
+        return new RustPatImpl(node);
+      }
+      else if (type == PATH) {
+        return new RustPathImpl(node);
+      }
       else if (type == PATH_GLOB) {
         return new RustPathGlobImpl(node);
       }
@@ -279,6 +291,9 @@ public interface RustTypes {
       }
       else if (type == TY) {
         return new RustTyImpl(node);
+      }
+      else if (type == TY_SUM) {
+        return new RustTySumImpl(node);
       }
       else if (type == UNARY_MIN_EXPR) {
         return new RustUnaryMinExprImpl(node);
