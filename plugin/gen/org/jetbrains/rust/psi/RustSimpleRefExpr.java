@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface RustSimpleRefExpr extends RustExpr {
 
   @NotNull
-  PsiElement getIdent();
+  RustPath getPath();
 
 }

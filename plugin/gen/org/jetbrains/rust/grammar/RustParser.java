@@ -386,13 +386,13 @@ public class RustParser implements PsiParser, LightPsiParser {
   // pat ':' ty_sum
   public static boolean fn_param(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "fn_param")) return false;
-    if (!nextTokenIs(b, IDENT)) return false;
+    if (!nextTokenIs(b, "<fn param>", IDENT, MUT)) return false;
     boolean r;
-    Marker m = enter_section_(b);
+    Marker m = enter_section_(b, l, _NONE_, "<fn param>");
     r = pat(b, l + 1);
     r = r && consumeToken(b, ":");
     r = r && ty_sum(b, l + 1);
-    exit_section_(b, m, FN_PARAM, r);
+    exit_section_(b, l, m, FN_PARAM, r, false, null);
     return r;
   }
 
@@ -625,15 +625,23 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ident
+  // [mut] ident
   public static boolean pat(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "pat")) return false;
-    if (!nextTokenIs(b, IDENT)) return false;
+    if (!nextTokenIs(b, "<pat>", IDENT, MUT)) return false;
     boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, IDENT);
-    exit_section_(b, m, PAT, r);
+    Marker m = enter_section_(b, l, _NONE_, "<pat>");
+    r = pat_0(b, l + 1);
+    r = r && consumeToken(b, IDENT);
+    exit_section_(b, l, m, PAT, r, false, null);
     return r;
+  }
+
+  // [mut]
+  private static boolean pat_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "pat_0")) return false;
+    consumeToken(b, MUT);
+    return true;
   }
 
   /* ********************************************************** */
@@ -880,14 +888,76 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // expr ';'
+  // let pat [':' ty_sum] ['=' expr] ';'
+  //        | expr ';'
   public static boolean stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<stmt>");
+    r = stmt_0(b, l + 1);
+    if (!r) r = stmt_1(b, l + 1);
+    exit_section_(b, l, m, STMT, r, false, null);
+    return r;
+  }
+
+  // let pat [':' ty_sum] ['=' expr] ';'
+  private static boolean stmt_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LET);
+    r = r && pat(b, l + 1);
+    r = r && stmt_0_2(b, l + 1);
+    r = r && stmt_0_3(b, l + 1);
+    r = r && consumeToken(b, SEMI);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // [':' ty_sum]
+  private static boolean stmt_0_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_0_2")) return false;
+    stmt_0_2_0(b, l + 1);
+    return true;
+  }
+
+  // ':' ty_sum
+  private static boolean stmt_0_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_0_2_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, ":");
+    r = r && ty_sum(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // ['=' expr]
+  private static boolean stmt_0_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_0_3")) return false;
+    stmt_0_3_0(b, l + 1);
+    return true;
+  }
+
+  // '=' expr
+  private static boolean stmt_0_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_0_3_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "=");
+    r = r && expr(b, l + 1, -1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // expr ';'
+  private static boolean stmt_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
     r = expr(b, l + 1, -1);
     r = r && consumeToken(b, SEMI);
-    exit_section_(b, l, m, STMT, r, false, null);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -1455,13 +1525,13 @@ public class RustParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ident
+  // path
   public static boolean simple_ref_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "simple_ref_expr")) return false;
     if (!nextTokenIsFast(b, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b);
-    r = consumeTokenSmart(b, IDENT);
+    r = path(b, l + 1);
     exit_section_(b, m, SIMPLE_REF_EXPR, r);
     return r;
   }

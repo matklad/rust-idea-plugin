@@ -23,8 +23,8 @@ public class RustSimpleRefExprImpl extends RustExprImpl implements RustSimpleRef
 
   @Override
   @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  public RustPath getPath() {
+    return findNotNullChildByClass(RustPath.class);
   }
 
 }

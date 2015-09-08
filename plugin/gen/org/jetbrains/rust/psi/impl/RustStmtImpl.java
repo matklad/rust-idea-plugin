@@ -23,9 +23,21 @@ public class RustStmtImpl extends ASTWrapperPsiElement implements RustStmt {
   }
 
   @Override
-  @NotNull
+  @Nullable
   public RustExpr getExpr() {
-    return findNotNullChildByClass(RustExpr.class);
+    return findChildByClass(RustExpr.class);
+  }
+
+  @Override
+  @Nullable
+  public RustPat getPat() {
+    return findChildByClass(RustPat.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTySum getTySum() {
+    return findChildByClass(RustTySum.class);
   }
 
 }

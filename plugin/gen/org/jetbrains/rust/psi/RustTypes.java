@@ -91,6 +91,7 @@ public interface RustTypes {
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
   IElementType IDENT = new RustTokenType("ident");
+  IElementType LET = new RustTokenType("let");
   IElementType LIFETIME = new RustTokenType("lifetime");
   IElementType LIFETIMES = new RustTokenType("lifetimes");
   IElementType LINE_COMMENT = new RustTokenType("line_comment");

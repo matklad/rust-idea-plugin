@@ -7,7 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface RustStmt extends PsiElement {
 
-  @NotNull
+  @Nullable
   RustExpr getExpr();
+
+  @Nullable
+  RustPat getPat();
+
+  @Nullable
+  RustTySum getTySum();
 
 }
