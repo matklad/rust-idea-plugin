@@ -27,4 +27,10 @@ public class RustTupleExprImpl extends RustExprImpl implements RustTupleExpr {
     return findChildByClass(RustCommaSeparatedList.class);
   }
 
+  @Override
+  @Nullable
+  public RustExpr getExpr() {
+    return findChildByClass(RustExpr.class);
+  }
+
 }

@@ -234,8 +234,8 @@ call_expr ::= expr '(' [<<comma_separated_list expr>>] ')'
 
 simple_ref_expr ::= path
 literal_expr ::= lit
-paren_expr ::= '(' expr ')'
-tuple_expr ::= '('[<<comma_separated_list expr>>] ')'
+paren_expr ::= &('(' expr ')') '(' expr ')'
+tuple_expr ::= '(' expr ',' [<<comma_separated_list expr>>] ')'
 block_expr ::= '{' stmt* [expr] '}'
 
 lambda_expr ::= '|' [<<comma_separated_list lambda_param>>] '|' [ret_ty] expr

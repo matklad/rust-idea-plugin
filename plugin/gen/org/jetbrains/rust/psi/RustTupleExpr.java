@@ -10,4 +10,7 @@ public interface RustTupleExpr extends RustExpr {
   @Nullable
   RustCommaSeparatedList getCommaSeparatedList();
 
+  @Nullable
+  RustExpr getExpr();
+
 }

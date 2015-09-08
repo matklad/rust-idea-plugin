@@ -1366,7 +1366,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   // 11: PREFIX(unary_min_expr) PREFIX(deref_expr) PREFIX(not_expr) PREFIX(borrow_expr)
   // 12: ATOM(macro_expr)
   // 13: POSTFIX(ref_expr) BINARY(array_ref_expr) POSTFIX(call_expr)
-  // 14: ATOM(simple_ref_expr) ATOM(literal_expr) PREFIX(paren_expr) ATOM(tuple_expr) ATOM(block_expr) PREFIX(lambda_expr)
+  // 14: ATOM(simple_ref_expr) ATOM(literal_expr) PREFIX(paren_expr) PREFIX(tuple_expr) ATOM(block_expr) PREFIX(lambda_expr)
   public static boolean expr(PsiBuilder b, int l, int g) {
     if (!recursion_guard_(b, l, "expr")) return false;
     addVariant(b, "<expr>");
@@ -1631,7 +1631,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!nextTokenIsFast(b, PAR_LEFT)) return false;
     boolean r, p;
     Marker m = enter_section_(b, l, _NONE_, null);
-    r = consumeTokenSmart(b, PAR_LEFT);
+    r = paren_expr_0(b, l + 1);
     p = r;
     r = p && expr(b, l, -1);
     r = p && report_error_(b, consumeToken(b, PAR_RIGHT)) && r;
@@ -1639,22 +1639,67 @@ public class RustParser implements PsiParser, LightPsiParser {
     return r || p;
   }
 
-  // '('[<<comma_separated_list expr>>] ')'
-  public static boolean tuple_expr(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tuple_expr")) return false;
-    if (!nextTokenIsFast(b, PAR_LEFT)) return false;
+  // &('(' expr ')') '('
+  private static boolean paren_expr_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "paren_expr_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = paren_expr_0_0(b, l + 1);
+    r = r && consumeToken(b, PAR_LEFT);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  // &('(' expr ')')
+  private static boolean paren_expr_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "paren_expr_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b, l, _AND_, null);
+    r = paren_expr_0_0_0(b, l + 1);
+    exit_section_(b, l, m, null, r, false, null);
+    return r;
+  }
+
+  // '(' expr ')'
+  private static boolean paren_expr_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "paren_expr_0_0_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeTokenSmart(b, PAR_LEFT);
-    r = r && tuple_expr_1(b, l + 1);
+    r = r && expr(b, l + 1, -1);
     r = r && consumeToken(b, PAR_RIGHT);
-    exit_section_(b, m, TUPLE_EXPR, r);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  public static boolean tuple_expr(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_expr")) return false;
+    if (!nextTokenIsFast(b, PAR_LEFT)) return false;
+    boolean r, p;
+    Marker m = enter_section_(b, l, _NONE_, null);
+    r = consumeTokenSmart(b, PAR_LEFT);
+    p = r;
+    r = p && expr(b, l, -1);
+    r = p && report_error_(b, tuple_expr_1(b, l + 1)) && r;
+    exit_section_(b, l, m, TUPLE_EXPR, r, p, null);
+    return r || p;
+  }
+
+  // ',' [<<comma_separated_list expr>>] ')'
+  private static boolean tuple_expr_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_expr_1")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COMMA);
+    r = r && tuple_expr_1_1(b, l + 1);
+    r = r && consumeToken(b, PAR_RIGHT);
+    exit_section_(b, m, null, r);
     return r;
   }
 
   // [<<comma_separated_list expr>>]
-  private static boolean tuple_expr_1(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "tuple_expr_1")) return false;
+  private static boolean tuple_expr_1_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "tuple_expr_1_1")) return false;
     comma_separated_list(b, l + 1, expr_parser_);
     return true;
   }
