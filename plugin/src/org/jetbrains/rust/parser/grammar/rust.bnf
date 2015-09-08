@@ -186,7 +186,12 @@ private add_group ::= plus_expr | minus_expr
 private mul_group ::= mul_expr | div_expr | mod_expr
 private unary_group ::= unary_min_expr | deref_expr | not_expr | borrow_expr
 private ref_group ::= ref_expr | array_ref_expr | call_expr
-private primary_group ::= simple_ref_expr | literal_expr | paren_expr | block_expr | lambda_expr
+private primary_group ::= simple_ref_expr
+                        | literal_expr
+                        | paren_expr
+                        | tuple_expr
+                        | block_expr
+                        | lambda_expr
 
 // public rules for each expression
 assign_expr ::= expr '=' expr { rightAssociative=true }
@@ -230,6 +235,7 @@ call_expr ::= expr '(' [<<comma_separated_list expr>>] ')'
 simple_ref_expr ::= path
 literal_expr ::= lit
 paren_expr ::= '(' expr ')'
+tuple_expr ::= '('[<<comma_separated_list expr>>] ')'
 block_expr ::= '{' stmt* [expr] '}'
 
 lambda_expr ::= '|' [<<comma_separated_list lambda_param>>] '|' [ret_ty] expr
