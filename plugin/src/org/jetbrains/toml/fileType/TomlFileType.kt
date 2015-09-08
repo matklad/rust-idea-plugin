@@ -4,11 +4,12 @@ import com.intellij.openapi.fileTypes.LanguageFileType
 import com.intellij.openapi.vfs.VirtualFile
 import org.jetbrains.rust.icons.RustIcons
 import org.jetbrains.toml.TomlLanguage
+import org.jetbrains.toml.parser.TomlIcons
 import javax.swing.Icon
 
 public class TomlFileType : LanguageFileType(TomlLanguage.INSTANCE) {
 
-    private var myIcon: Icon = RustIcons.RUST
+    private var myIcon: Icon = TomlIcons.CARGO
 
     override fun getName(): String =
             "TOML file"
