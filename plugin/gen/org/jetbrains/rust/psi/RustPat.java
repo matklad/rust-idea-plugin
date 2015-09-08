@@ -7,7 +7,13 @@ import com.intellij.psi.PsiElement;
 
 public interface RustPat extends PsiElement {
 
-  @NotNull
-  PsiElement getIdent();
+  @Nullable
+  RustCommaSeparatedList getCommaSeparatedList();
+
+  @Nullable
+  RustPat getPat();
+
+  @Nullable
+  RustPath getPath();
 
 }

@@ -11,33 +11,27 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
+public class RustLambdaParamImpl extends ASTWrapperPsiElement implements RustLambdaParam {
 
-  public RustPatImpl(ASTNode node) {
+  public RustLambdaParamImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPat(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitLambdaParam(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findChildByClass(RustCommaSeparatedList.class);
-  }
-
-  @Override
-  @Nullable
+  @NotNull
   public RustPat getPat() {
-    return findChildByClass(RustPat.class);
+    return findNotNullChildByClass(RustPat.class);
   }
 
   @Override
   @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
+  public RustTySum getTySum() {
+    return findChildByClass(RustTySum.class);
   }
 
 }

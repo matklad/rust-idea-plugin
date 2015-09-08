@@ -8,17 +8,16 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
+public class RustTupleExprImpl extends RustExprImpl implements RustTupleExpr {
 
-  public RustPatImpl(ASTNode node) {
+  public RustTupleExprImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPat(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTupleExpr(this);
     else super.accept(visitor);
   }
 
@@ -26,18 +25,6 @@ public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
   @Nullable
   public RustCommaSeparatedList getCommaSeparatedList() {
     return findChildByClass(RustCommaSeparatedList.class);
-  }
-
-  @Override
-  @Nullable
-  public RustPat getPat() {
-    return findChildByClass(RustPat.class);
-  }
-
-  @Override
-  @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
   }
 
 }

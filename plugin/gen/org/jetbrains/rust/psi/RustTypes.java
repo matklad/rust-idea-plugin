@@ -33,6 +33,8 @@ public interface RustTypes {
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
   IElementType INNER_ATTR = new RustElementType("INNER_ATTR");
   IElementType ITEM_WITH_ATTRS = new RustElementType("ITEM_WITH_ATTRS");
+  IElementType LAMBDA_EXPR = new RustElementType("LAMBDA_EXPR");
+  IElementType LAMBDA_PARAM = new RustElementType("LAMBDA_PARAM");
   IElementType LAND_EXPR = new RustElementType("LAND_EXPR");
   IElementType LEQ_EXPR = new RustElementType("LEQ_EXPR");
   IElementType LIT = new RustElementType("LIT");
@@ -64,6 +66,7 @@ public interface RustTypes {
   IElementType STATIC_ITEM = new RustElementType("STATIC_ITEM");
   IElementType STMT = new RustElementType("STMT");
   IElementType STRUCT_ITEM = new RustElementType("STRUCT_ITEM");
+  IElementType TUPLE_EXPR = new RustElementType("TUPLE_EXPR");
   IElementType TUPLE_STRUCT_ATTR = new RustElementType("TUPLE_STRUCT_ATTR");
   IElementType TUPLE_STRUCT_BODY = new RustElementType("TUPLE_STRUCT_BODY");
   IElementType TY = new RustElementType("TY");
@@ -73,12 +76,15 @@ public interface RustTypes {
   IElementType VISIBILITY = new RustElementType("VISIBILITY");
   IElementType WHERE_CLAUSE = new RustElementType("WHERE_CLAUSE");
 
+  IElementType AMPERSAND = new RustTokenType("&");
   IElementType AS = new RustTokenType("as");
+  IElementType ASSIGN = new RustTokenType("=");
   IElementType BANG = new RustTokenType("!");
   IElementType BARE_FN = new RustTokenType("bare_fn");
   IElementType BLOCK_COMMENT = new RustTokenType("block_comment");
   IElementType BRACKET_LEFT = new RustTokenType("[");
   IElementType BRACKET_RIGHT = new RustTokenType("]");
+  IElementType COLON = new RustTokenType(":");
   IElementType COMMA = new RustTokenType(",");
   IElementType CONST = new RustTokenType("const");
   IElementType CRATE = new RustTokenType("crate");
@@ -90,7 +96,9 @@ public interface RustTypes {
   IElementType EXTERN = new RustTokenType("extern");
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
+  IElementType GREATER = new RustTokenType(">");
   IElementType IDENT = new RustTokenType("ident");
+  IElementType LESS = new RustTokenType("<");
   IElementType LET = new RustTokenType("let");
   IElementType LIFETIME = new RustTokenType("lifetime");
   IElementType LIFETIMES = new RustTokenType("lifetimes");
@@ -101,10 +109,13 @@ public interface RustTypes {
   IElementType LIT_CHAR = new RustTokenType("lit_char");
   IElementType LIT_INTEGER = new RustTokenType("lit_integer");
   IElementType LIT_STRING = new RustTokenType("lit_string");
+  IElementType MINUS = new RustTokenType("-");
   IElementType MOD = new RustTokenType("mod");
   IElementType MUT = new RustTokenType("mut");
   IElementType PAR_LEFT = new RustTokenType("(");
   IElementType PAR_RIGHT = new RustTokenType(")");
+  IElementType PIPE = new RustTokenType("|");
+  IElementType PLUS = new RustTokenType("+");
   IElementType PTR = new RustTokenType("ptr");
   IElementType PUB = new RustTokenType("pub");
   IElementType SELF = new RustTokenType("self");
@@ -190,6 +201,12 @@ public interface RustTypes {
       }
       else if (type == ITEM_WITH_ATTRS) {
         return new RustItemWithAttrsImpl(node);
+      }
+      else if (type == LAMBDA_EXPR) {
+        return new RustLambdaExprImpl(node);
+      }
+      else if (type == LAMBDA_PARAM) {
+        return new RustLambdaParamImpl(node);
       }
       else if (type == LAND_EXPR) {
         return new RustLandExprImpl(node);
@@ -283,6 +300,9 @@ public interface RustTypes {
       }
       else if (type == STRUCT_ITEM) {
         return new RustStructItemImpl(node);
+      }
+      else if (type == TUPLE_EXPR) {
+        return new RustTupleExprImpl(node);
       }
       else if (type == TUPLE_STRUCT_ATTR) {
         return new RustTupleStructAttrImpl(node);

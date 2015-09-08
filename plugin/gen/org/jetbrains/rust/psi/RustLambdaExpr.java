@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustMacroExpr extends RustExpr {
+public interface RustLambdaExpr extends RustExpr {
 
-  @NotNull
+  @Nullable
   RustCommaSeparatedList getCommaSeparatedList();
 
-  @NotNull
-  PsiElement getIdent();
+  @Nullable
+  RustExpr getExpr();
+
+  @Nullable
+  RustTy getTy();
 
 }

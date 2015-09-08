@@ -103,6 +103,14 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitLambdaExpr(@NotNull RustLambdaExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitLambdaParam(@NotNull RustLambdaParam o) {
+    visitPsiElement(o);
+  }
+
   public void visitLandExpr(@NotNull RustLandExpr o) {
     visitExpr(o);
   }
@@ -225,6 +233,10 @@ public class RustVisitor extends PsiElementVisitor {
 
   public void visitStructItem(@NotNull RustStructItem o) {
     visitPsiElement(o);
+  }
+
+  public void visitTupleExpr(@NotNull RustTupleExpr o) {
+    visitExpr(o);
   }
 
   public void visitTupleStructAttr(@NotNull RustTupleStructAttr o) {

@@ -22,9 +22,9 @@ public class RustMacroExprImpl extends RustExprImpl implements RustMacroExpr {
   }
 
   @Override
-  @Nullable
-  public RustExpr getExpr() {
-    return findChildByClass(RustExpr.class);
+  @NotNull
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findNotNullChildByClass(RustCommaSeparatedList.class);
   }
 
   @Override
