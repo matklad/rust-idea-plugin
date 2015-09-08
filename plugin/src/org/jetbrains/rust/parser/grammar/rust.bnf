@@ -32,7 +32,7 @@
     ident='regexp:\p{Alpha}\w*'
 
     lit_char="regexp:'.'"
-    lit_string="regexp:(\"([^\"\\]|\\.)*\")"
+    lit_string="regexp:(r?\"([^\"\\]|\\.)*\")"
     lit_byte_string='byte_string_lit'
     lit_byte='byte_lit'
     lit_integer='regexp:\d+'
@@ -120,7 +120,11 @@ record_struct_attr ::= [visibility] ident ':' ty
 // Part 2: Patterns
 ////////////////////////////////////////////////////////////////////////
 
-pat ::= [mut] ident
+pat ::= '_'
+      | ['&'][mut] pat
+      | '(' <<comma_separated_list pat>> ')'
+      | '[' <<comma_separated_list pat>> ']'
+      | path
 
 ////////////////////////////////////////////////////////////////////////
 // Part 3: Types
