@@ -40,12 +40,20 @@ LIT_BOOL=true|false
   "}"                    { return CURLY_RIGHT; }
   "["                    { return BRACKET_LEFT; }
   "]"                    { return BRACKET_RIGHT; }
+  "|"                    { return PIPE; }
+  "&"                    { return AMPERSAND; }
   "."                    { return DOT; }
   ".."                   { return DOT_DOT; }
   "..."                  { return DOT_DOT_DOT; }
   ";"                    { return SEMI; }
   ","                    { return COMMA; }
   "!"                    { return BANG; }
+  ":"                    { return COLON; }
+  "="                    { return ASSIGN; }
+  "-"                    { return MINUS; }
+  "+"                    { return PLUS; }
+  "<"                    { return LESS; }
+  ">"                    { return GREATER; }
 
   "as"                   { return AS; }
   "byte_lit"             { return LIT_BYTE; }

@@ -19,12 +19,21 @@
     curly_right     = "}"
     bracket_left    = "["
     bracket_right   = "]"
+    pipe            = "|"
+    ampersand       = "&"
     dot             = "."
     dot_dot         = ".."
     dot_dot_dot     = "..."
     semi            = ";"
     comma           = ","
     bang            = "!"
+    colon           = ":"
+    assign          = "="
+    minus           = "-"
+    plus            = "+"
+    less            = "<"
+    greater         = ">"
+
 
     white_space='regexp:\s+'
     line_comment='regexp://.*'
@@ -121,7 +130,8 @@ record_struct_attr ::= [visibility] ident ':' ty
 ////////////////////////////////////////////////////////////////////////
 
 pat ::= '_'
-      | ['&'][mut] pat
+      | '&' pat
+      | mut pat
       | '(' <<comma_separated_list pat>> ')'
       | '[' <<comma_separated_list pat>> ']'
       | path
@@ -141,7 +151,7 @@ ty ::= '(' ty ')'
      | bare_fn
      | path
 
-path ::= ident ("::" ident) *
+path ::= ident ("::" ident)*
 
 ////////////////////////////////////////////////////////////////////////
 // Part 4: Blocks, statements, and expressions
@@ -176,7 +186,7 @@ private add_group ::= plus_expr | minus_expr
 private mul_group ::= mul_expr | div_expr | mod_expr
 private unary_group ::= unary_min_expr | deref_expr | not_expr | borrow_expr
 private ref_group ::= ref_expr | array_ref_expr | call_expr
-private primary_group ::= simple_ref_expr | literal_expr | paren_expr | block_expr
+private primary_group ::= simple_ref_expr | literal_expr | paren_expr | block_expr | lambda_expr
 
 // public rules for each expression
 assign_expr ::= expr '=' expr { rightAssociative=true }
@@ -211,7 +221,7 @@ deref_expr ::= '*' expr
 not_expr ::= '!' expr
 borrow_expr ::= '&' [mut] expr
 
-macro_expr ::= ident '!' '(' expr ')'
+macro_expr ::= ident '!' '(' <<comma_separated_list expr>> ')'
 
 ref_expr ::= expr '.' ident
 array_ref_expr ::= expr '[' expr ']'
@@ -221,6 +231,10 @@ simple_ref_expr ::= path
 literal_expr ::= lit
 paren_expr ::= '(' expr ')'
 block_expr ::= '{' stmt* [expr] '}'
+
+lambda_expr ::= '|' [<<comma_separated_list lambda_param>>] '|' [ret_ty] expr
+
+lambda_param ::= pat [":" ty_sum]
 
 ////////////////////////////////////////////////////////////////////////
 // Part 5: Macros and misc. rules
@@ -236,4 +250,3 @@ lit ::= lit_byte
       | str
 
 meta comma_separated_list ::= <<param>> ( ',' <<param>> ) * [',']
-
