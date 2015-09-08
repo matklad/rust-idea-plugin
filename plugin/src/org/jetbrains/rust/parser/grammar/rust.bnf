@@ -94,7 +94,7 @@ fn_item ::= fn ident [generic_params] fn_params [ret_ty] [where_clause] block_ex
 
 private fn_params ::= '(' [ <<comma_separated_list fn_param>> ] ')'
 
-fn_param ::= ident ':' ty
+fn_param ::= pat ':' ty_sum
 
 private ret_ty ::= '->' ('!' | ty)
 
@@ -120,12 +120,24 @@ record_struct_attr ::= [visibility] ident ':' ty
 // // Part 2: Patterns
 // ////////////////////////////////////////////////////////////////////////
 
+pat ::= ident
+
 // ////////////////////////////////////////////////////////////////////////
 // // Part 3: Types
 // ////////////////////////////////////////////////////////////////////////
 
-ty ::= ident
+ty_sum ::= ty
 
+ty ::= '(' ty ')'
+     | '(' <<comma_separated_list ty>> ')'
+     | '*' ptr
+     | '[' ty_sum ']'
+     | '[' ty_sum ';' expr ']'
+     | '&' [lifetime] [mut] ty
+     | bare_fn
+     | path
+
+path ::= ident ("::" ident) *
 
 // ////////////////////////////////////////////////////////////////////////
 // // Part 4: Blocks, statements, and expressions

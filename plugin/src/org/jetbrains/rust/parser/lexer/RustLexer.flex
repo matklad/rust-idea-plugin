@@ -60,7 +60,6 @@ LIT_BOOL=true|false
   "mut"                  { return MUT; }
   "pub"                  { return PUB; }
   "static"               { return STATIC; }
-  "str"                  { return STR; }
   "struct"               { return STRUCT; }
   "true"                 { return TRUE; }
   "use"                  { return USE; }
