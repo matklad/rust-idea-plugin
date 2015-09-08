@@ -120,7 +120,7 @@ record_struct_attr ::= [visibility] ident ':' ty
 // // Part 2: Patterns
 // ////////////////////////////////////////////////////////////////////////
 
-pat ::= ident
+pat ::= [mut] ident
 
 // ////////////////////////////////////////////////////////////////////////
 // // Part 3: Types
@@ -143,7 +143,8 @@ path ::= ident ("::" ident) *
 // // Part 4: Blocks, statements, and expressions
 // ////////////////////////////////////////////////////////////////////////
 
-stmt ::= expr ';'
+stmt ::= let pat [':' ty_sum] ['=' expr] ';'
+       | expr ';'
 
 
 // the root expression rule
@@ -212,7 +213,7 @@ ref_expr ::= expr '.' ident
 array_ref_expr ::= expr '[' expr ']'
 call_expr ::= expr '(' [<<comma_separated_list expr>>] ')'
 
-simple_ref_expr ::= ident
+simple_ref_expr ::= path
 literal_expr ::= lit
 paren_expr ::= '(' expr ')'
 block_expr ::= '{' stmt* [expr] '}'

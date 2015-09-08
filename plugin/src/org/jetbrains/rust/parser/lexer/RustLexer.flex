@@ -55,6 +55,7 @@ LIT_BOOL=true|false
   "extern"               { return EXTERN; }
   "false"                { return FALSE; }
   "fn"                   { return FN; }
+  "let"                  { return LET; }
   "lifetimes"            { return LIFETIMES; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
