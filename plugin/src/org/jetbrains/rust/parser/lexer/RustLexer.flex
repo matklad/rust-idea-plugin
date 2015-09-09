@@ -64,6 +64,7 @@ LIT_BOOL=true|false
   "extern"               { return EXTERN; }
   "false"                { return FALSE; }
   "fn"                   { return FN; }
+  "for"                  { return FOR; }
   "impl"                 { return IMPL; }
   "let"                  { return LET; }
   "lifetimes"            { return LIFETIMES; }
