@@ -43,6 +43,7 @@
     lit_char="regexp:'.'"
     lit_string="regexp:(r?\"([^\"\\]|\\.)*\")"
     lit_byte_string='byte_string_lit'
+    lit_float='regexp:\d+\.\d+'
     lit_byte='byte_lit'
     lit_integer='regexp:\d+'
     lit_bool='regexp:true|false'
@@ -94,7 +95,7 @@ static_item ::= static [mut] ident ':' ty '=' expr ';'
 
 const_item ::= const ident ':' ty '=' expr ';'
 
-private block_item ::= fn_item | mod_item | struct_item
+private block_item ::= fn_item | mod_item | struct_item | impl_item
 
 
 visibility ::= pub
@@ -124,6 +125,23 @@ tuple_struct_attr ::= outer_attrs [visibility] ty
 record_struct_body ::= '{' <<comma_separated_list record_struct_attr>> '}'
 
 record_struct_attr ::= [visibility] ident ':' ty
+
+impl_item ::= [unsafe] impl [generic_params] ty_sum [for ty_sum] [where_clause]
+              '{' inner_attr* ([visibility] impl_member)* '}'
+
+impl_member ::= type ident '=' ty_sum ';'
+              | const ident ':' ty_sum '=' expr ';'
+              | member_fn_item
+
+member_fn_item ::= fn ident [generic_params] member_fn_params [ret_ty] [where_clause] block_expr
+
+member_fn_params ::= '(' ')'
+                   | '(' self_param [','] ')'
+                   | '(' self_param ',' <<comma_separated_list fn_param>> ')'
+                   | '(' <<comma_separated_list fn_param>> ')'
+
+self_param ::= ['&' [lifetime]] [mut] self
+
 
 ////////////////////////////////////////////////////////////////////////
 // Part 2: Patterns
@@ -232,7 +250,7 @@ ref_expr ::= expr '.' ident
 array_ref_expr ::= expr '[' expr ']'
 call_expr ::= expr '(' [<<comma_separated_list expr>>] ')'
 
-simple_ref_expr ::= path
+simple_ref_expr ::= path | self
 literal_expr ::= lit
 paren_expr ::= &('(' expr ')') '(' expr ')'
 tuple_expr ::= '(' expr ',' [<<comma_separated_list expr>>] ')'
@@ -249,6 +267,7 @@ lambda_param ::= pat [":" ty_sum]
 lit ::= lit_byte
       | lit_char
       | lit_integer
+      | lit_float
       | lit_string
       | lit_byte_string
       | true

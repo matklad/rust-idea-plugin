@@ -27,7 +27,8 @@ BLOCK_COMMENT="/"\*(.|\n)*\*"/"
 IDENT=[:letter:][a-zA-Z_0-9]*
 LIT_CHAR='.'
 LIT_STRING=(r?\"([^\"\\]|\\.)*\")
-LIT_INTEGER=[0-9]+
+LIT_FLOAT=[:digit:]+\.[:digit:]+
+LIT_INTEGER=[:digit:]+
 LIT_BOOL=true|false
 
 %%
@@ -63,24 +64,28 @@ LIT_BOOL=true|false
   "extern"               { return EXTERN; }
   "false"                { return FALSE; }
   "fn"                   { return FN; }
+  "impl"                 { return IMPL; }
   "let"                  { return LET; }
   "lifetimes"            { return LIFETIMES; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
   "pub"                  { return PUB; }
+  "self"                 { return SELF; }
   "static"               { return STATIC; }
   "struct"               { return STRUCT; }
   "true"                 { return TRUE; }
+  "type"                 { return TYPE; }
   "use"                  { return USE; }
   "where"                { return WHERE; }
 
   {LINE_COMMENT}         { return LINE_COMMENT; }
   {BLOCK_COMMENT}        { return BLOCK_COMMENT; }
+  {LIT_BOOL}             { return LIT_BOOL; }
   {IDENT}                { return IDENT; }
   {LIT_CHAR}             { return LIT_CHAR; }
   {LIT_STRING}           { return LIT_STRING; }
+  {LIT_FLOAT}            { return LIT_FLOAT; }
   {LIT_INTEGER}          { return LIT_INTEGER; }
-  {LIT_BOOL}             { return LIT_BOOL; }
 
   [^] { return com.intellij.psi.TokenType.BAD_CHARACTER; }
 }
