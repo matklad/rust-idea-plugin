@@ -10,21 +10,33 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
 import org.jetbrains.rust.psi.*;
 
-public class RustSimpleRefExprImpl extends RustExprImpl implements RustSimpleRefExpr {
+public class RustStructExprImpl extends RustExprImpl implements RustStructExpr {
 
-  public RustSimpleRefExprImpl(ASTNode node) {
+  public RustStructExprImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitSimpleRefExpr(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitStructExpr(this);
     else super.accept(visitor);
   }
 
   @Override
+  @NotNull
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findNotNullChildByClass(RustCommaSeparatedList.class);
+  }
+
+  @Override
   @Nullable
+  public RustExpr getExpr() {
+    return findChildByClass(RustExpr.class);
+  }
+
+  @Override
+  @NotNull
   public RustPath getPath() {
-    return findChildByClass(RustPath.class);
+    return findNotNullChildByClass(RustPath.class);
   }
 
 }

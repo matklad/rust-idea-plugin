@@ -5,9 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustSimpleRefExpr extends RustExpr {
-
-  @Nullable
-  RustPath getPath();
+public interface RustSelfParam extends PsiElement {
 
 }

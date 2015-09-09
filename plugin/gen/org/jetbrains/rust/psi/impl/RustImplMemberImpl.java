@@ -11,39 +11,39 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustLitImpl extends ASTWrapperPsiElement implements RustLit {
+public class RustImplMemberImpl extends ASTWrapperPsiElement implements RustImplMember {
 
-  public RustLitImpl(ASTNode node) {
+  public RustImplMemberImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitLit(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitImplMember(this);
     else super.accept(visitor);
   }
 
   @Override
   @Nullable
-  public PsiElement getLitChar() {
-    return findChildByType(LIT_CHAR);
+  public RustExpr getExpr() {
+    return findChildByClass(RustExpr.class);
   }
 
   @Override
   @Nullable
-  public PsiElement getLitFloat() {
-    return findChildByType(LIT_FLOAT);
+  public RustMemberFnItem getMemberFnItem() {
+    return findChildByClass(RustMemberFnItem.class);
   }
 
   @Override
   @Nullable
-  public PsiElement getLitInteger() {
-    return findChildByType(LIT_INTEGER);
+  public RustTySum getTySum() {
+    return findChildByClass(RustTySum.class);
   }
 
   @Override
   @Nullable
-  public PsiElement getLitString() {
-    return findChildByType(LIT_STRING);
+  public PsiElement getIdent() {
+    return findChildByType(IDENT);
   }
 
 }

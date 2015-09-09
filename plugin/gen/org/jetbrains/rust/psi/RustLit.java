@@ -11,6 +11,9 @@ public interface RustLit extends PsiElement {
   PsiElement getLitChar();
 
   @Nullable
+  PsiElement getLitFloat();
+
+  @Nullable
   PsiElement getLitInteger();
 
   @Nullable

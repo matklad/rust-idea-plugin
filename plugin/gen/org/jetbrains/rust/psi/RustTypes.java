@@ -31,6 +31,8 @@ public interface RustTypes {
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
+  IElementType IMPL_ITEM = new RustElementType("IMPL_ITEM");
+  IElementType IMPL_MEMBER = new RustElementType("IMPL_MEMBER");
   IElementType INNER_ATTR = new RustElementType("INNER_ATTR");
   IElementType ITEM_WITH_ATTRS = new RustElementType("ITEM_WITH_ATTRS");
   IElementType LAMBDA_EXPR = new RustElementType("LAMBDA_EXPR");
@@ -42,6 +44,8 @@ public interface RustTypes {
   IElementType LOR_EXPR = new RustElementType("LOR_EXPR");
   IElementType LT_EXPR = new RustElementType("LT_EXPR");
   IElementType MACRO_EXPR = new RustElementType("MACRO_EXPR");
+  IElementType MEMBER_FN_ITEM = new RustElementType("MEMBER_FN_ITEM");
+  IElementType MEMBER_FN_PARAMS = new RustElementType("MEMBER_FN_PARAMS");
   IElementType META_ITEM = new RustElementType("META_ITEM");
   IElementType MINUS_EXPR = new RustElementType("MINUS_EXPR");
   IElementType MOD_EXPR = new RustElementType("MOD_EXPR");
@@ -60,11 +64,14 @@ public interface RustTypes {
   IElementType RECORD_STRUCT_ATTR = new RustElementType("RECORD_STRUCT_ATTR");
   IElementType RECORD_STRUCT_BODY = new RustElementType("RECORD_STRUCT_BODY");
   IElementType REF_EXPR = new RustElementType("REF_EXPR");
+  IElementType SELF_PARAM = new RustElementType("SELF_PARAM");
   IElementType SHL_EXPR = new RustElementType("SHL_EXPR");
   IElementType SHR_EXPR = new RustElementType("SHR_EXPR");
   IElementType SIMPLE_REF_EXPR = new RustElementType("SIMPLE_REF_EXPR");
   IElementType STATIC_ITEM = new RustElementType("STATIC_ITEM");
   IElementType STMT = new RustElementType("STMT");
+  IElementType STRUCT_EXPR = new RustElementType("STRUCT_EXPR");
+  IElementType STRUCT_FIELD = new RustElementType("STRUCT_FIELD");
   IElementType STRUCT_ITEM = new RustElementType("STRUCT_ITEM");
   IElementType TUPLE_EXPR = new RustElementType("TUPLE_EXPR");
   IElementType TUPLE_STRUCT_ATTR = new RustElementType("TUPLE_STRUCT_ATTR");
@@ -96,8 +103,10 @@ public interface RustTypes {
   IElementType EXTERN = new RustTokenType("extern");
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
+  IElementType FOR = new RustTokenType("for");
   IElementType GREATER = new RustTokenType(">");
   IElementType IDENT = new RustTokenType("ident");
+  IElementType IMPL = new RustTokenType("impl");
   IElementType LESS = new RustTokenType("<");
   IElementType LET = new RustTokenType("let");
   IElementType LIFETIME = new RustTokenType("lifetime");
@@ -107,6 +116,7 @@ public interface RustTypes {
   IElementType LIT_BYTE = new RustTokenType("byte_lit");
   IElementType LIT_BYTE_STRING = new RustTokenType("byte_string_lit");
   IElementType LIT_CHAR = new RustTokenType("lit_char");
+  IElementType LIT_FLOAT = new RustTokenType("lit_float");
   IElementType LIT_INTEGER = new RustTokenType("lit_integer");
   IElementType LIT_STRING = new RustTokenType("lit_string");
   IElementType MINUS = new RustTokenType("-");
@@ -124,6 +134,8 @@ public interface RustTypes {
   IElementType STR = new RustTokenType("str");
   IElementType STRUCT = new RustTokenType("struct");
   IElementType TRUE = new RustTokenType("true");
+  IElementType TYPE = new RustTokenType("type");
+  IElementType UNSAFE = new RustTokenType("unsafe");
   IElementType USE = new RustTokenType("use");
   IElementType WHERE = new RustTokenType("where");
 
@@ -196,6 +208,12 @@ public interface RustTypes {
       else if (type == GT_EXPR) {
         return new RustGtExprImpl(node);
       }
+      else if (type == IMPL_ITEM) {
+        return new RustImplItemImpl(node);
+      }
+      else if (type == IMPL_MEMBER) {
+        return new RustImplMemberImpl(node);
+      }
       else if (type == INNER_ATTR) {
         return new RustInnerAttrImpl(node);
       }
@@ -228,6 +246,12 @@ public interface RustTypes {
       }
       else if (type == MACRO_EXPR) {
         return new RustMacroExprImpl(node);
+      }
+      else if (type == MEMBER_FN_ITEM) {
+        return new RustMemberFnItemImpl(node);
+      }
+      else if (type == MEMBER_FN_PARAMS) {
+        return new RustMemberFnParamsImpl(node);
       }
       else if (type == META_ITEM) {
         return new RustMetaItemImpl(node);
@@ -283,6 +307,9 @@ public interface RustTypes {
       else if (type == REF_EXPR) {
         return new RustRefExprImpl(node);
       }
+      else if (type == SELF_PARAM) {
+        return new RustSelfParamImpl(node);
+      }
       else if (type == SHL_EXPR) {
         return new RustShlExprImpl(node);
       }
@@ -297,6 +324,12 @@ public interface RustTypes {
       }
       else if (type == STMT) {
         return new RustStmtImpl(node);
+      }
+      else if (type == STRUCT_EXPR) {
+        return new RustStructExprImpl(node);
+      }
+      else if (type == STRUCT_FIELD) {
+        return new RustStructFieldImpl(node);
       }
       else if (type == STRUCT_ITEM) {
         return new RustStructItemImpl(node);

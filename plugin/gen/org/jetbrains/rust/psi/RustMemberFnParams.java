@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustSimpleRefExpr extends RustExpr {
+public interface RustMemberFnParams extends PsiElement {
 
   @Nullable
-  RustPath getPath();
+  RustCommaSeparatedList getCommaSeparatedList();
+
+  @Nullable
+  RustSelfParam getSelfParam();
 
 }
