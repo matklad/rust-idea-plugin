@@ -87,6 +87,7 @@ public interface RustTypes {
   IElementType WHERE_CLAUSE = new RustElementType("WHERE_CLAUSE");
 
   IElementType AMPERSAND = new RustTokenType("&");
+  IElementType AMPERSAND_AMPERSAND = new RustTokenType("&&");
   IElementType AS = new RustTokenType("as");
   IElementType ASSIGN = new RustTokenType("=");
   IElementType BANG = new RustTokenType("!");
@@ -130,6 +131,7 @@ public interface RustTypes {
   IElementType PAR_LEFT = new RustTokenType("(");
   IElementType PAR_RIGHT = new RustTokenType(")");
   IElementType PIPE = new RustTokenType("|");
+  IElementType PIPE_PIPE = new RustTokenType("||");
   IElementType PLUS = new RustTokenType("+");
   IElementType PTR = new RustTokenType("ptr");
   IElementType PUB = new RustTokenType("pub");

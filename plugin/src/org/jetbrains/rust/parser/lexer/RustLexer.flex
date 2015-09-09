@@ -42,7 +42,9 @@ LIT_BOOL=true|false
   "["                    { return BRACKET_LEFT; }
   "]"                    { return BRACKET_RIGHT; }
   "|"                    { return PIPE; }
+  "||"                   { return PIPE_PIPE; }
   "&"                    { return AMPERSAND; }
+  "&&"                   { return AMPERSAND_AMPERSAND; }
   "."                    { return DOT; }
   ".."                   { return DOT_DOT; }
   "..."                  { return DOT_DOT_DOT; }

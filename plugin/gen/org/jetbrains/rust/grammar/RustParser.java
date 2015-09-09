@@ -1826,11 +1826,11 @@ public class RustParser implements PsiParser, LightPsiParser {
         r = expr(b, l, -1);
         exit_section_(b, l, m, ASSIGN_EXPR, r, true, null);
       }
-      else if (g < 1 && consumeTokenSmart(b, "||")) {
+      else if (g < 1 && consumeTokenSmart(b, PIPE_PIPE)) {
         r = expr(b, l, 1);
         exit_section_(b, l, m, LOR_EXPR, r, true, null);
       }
-      else if (g < 2 && consumeTokenSmart(b, "&&")) {
+      else if (g < 2 && consumeTokenSmart(b, AMPERSAND_AMPERSAND)) {
         r = expr(b, l, 2);
         exit_section_(b, l, m, LAND_EXPR, r, true, null);
       }
