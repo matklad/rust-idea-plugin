@@ -31,6 +31,7 @@ public interface RustTypes {
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
+  IElementType IF_EXPR = new RustElementType("IF_EXPR");
   IElementType IMPL_ITEM = new RustElementType("IMPL_ITEM");
   IElementType IMPL_MEMBER = new RustElementType("IMPL_MEMBER");
   IElementType INNER_ATTR = new RustElementType("INNER_ATTR");
@@ -64,6 +65,7 @@ public interface RustTypes {
   IElementType RECORD_STRUCT_ATTR = new RustElementType("RECORD_STRUCT_ATTR");
   IElementType RECORD_STRUCT_BODY = new RustElementType("RECORD_STRUCT_BODY");
   IElementType REF_EXPR = new RustElementType("REF_EXPR");
+  IElementType RETURN_EXPR = new RustElementType("RETURN_EXPR");
   IElementType SELF_PARAM = new RustElementType("SELF_PARAM");
   IElementType SHL_EXPR = new RustElementType("SHL_EXPR");
   IElementType SHR_EXPR = new RustElementType("SHR_EXPR");
@@ -104,6 +106,7 @@ public interface RustTypes {
   IElementType DOT = new RustTokenType(".");
   IElementType DOT_DOT = new RustTokenType("..");
   IElementType DOT_DOT_DOT = new RustTokenType("...");
+  IElementType ELSE = new RustTokenType("else");
   IElementType EXTERN = new RustTokenType("extern");
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
@@ -111,6 +114,7 @@ public interface RustTypes {
   IElementType GREATER = new RustTokenType(">");
   IElementType GREATER_EQUAL = new RustTokenType(">=");
   IElementType IDENT = new RustTokenType("ident");
+  IElementType IF = new RustTokenType("if");
   IElementType IMPL = new RustTokenType("impl");
   IElementType LESS = new RustTokenType("<");
   IElementType LESS_EQUAL = new RustTokenType("<=");
@@ -135,6 +139,7 @@ public interface RustTypes {
   IElementType PLUS = new RustTokenType("+");
   IElementType PTR = new RustTokenType("ptr");
   IElementType PUB = new RustTokenType("pub");
+  IElementType RETURN = new RustTokenType("return");
   IElementType SELF = new RustTokenType("self");
   IElementType SEMI = new RustTokenType(";");
   IElementType STATIC = new RustTokenType("static");
@@ -214,6 +219,9 @@ public interface RustTypes {
       }
       else if (type == GT_EXPR) {
         return new RustGtExprImpl(node);
+      }
+      else if (type == IF_EXPR) {
+        return new RustIfExprImpl(node);
       }
       else if (type == IMPL_ITEM) {
         return new RustImplItemImpl(node);
@@ -313,6 +321,9 @@ public interface RustTypes {
       }
       else if (type == REF_EXPR) {
         return new RustRefExprImpl(node);
+      }
+      else if (type == RETURN_EXPR) {
+        return new RustReturnExprImpl(node);
       }
       else if (type == SELF_PARAM) {
         return new RustSelfParamImpl(node);

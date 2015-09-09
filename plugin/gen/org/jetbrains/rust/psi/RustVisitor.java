@@ -95,6 +95,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitIfExpr(@NotNull RustIfExpr o) {
+    visitExpr(o);
+  }
+
   public void visitImplItem(@NotNull RustImplItem o) {
     visitPsiElement(o);
   }
@@ -224,6 +228,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitRefExpr(@NotNull RustRefExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitReturnExpr(@NotNull RustReturnExpr o) {
     visitExpr(o);
   }
 

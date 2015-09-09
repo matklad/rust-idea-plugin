@@ -65,16 +65,19 @@ LIT_BOOL=true|false
   "byte_string_lit"      { return LIT_BYTE_STRING; }
   "const"                { return CONST; }
   "crate"                { return CRATE; }
+  "else"                 { return ELSE; }
   "extern"               { return EXTERN; }
   "false"                { return FALSE; }
   "fn"                   { return FN; }
   "for"                  { return FOR; }
+  "if"                   { return IF; }
   "impl"                 { return IMPL; }
   "let"                  { return LET; }
   "lifetimes"            { return LIFETIMES; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
   "pub"                  { return PUB; }
+  "return"               { return RETURN; }
   "self"                 { return SELF; }
   "static"               { return STATIC; }
   "struct"               { return STRUCT; }

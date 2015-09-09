@@ -221,6 +221,8 @@ private primary_group ::= struct_expr
                         | tuple_expr
                         | block_expr
                         | lambda_expr
+                        | return_expr
+                        | if_expr
 
 // public rules for each expression
 assign_expr ::= expr '=' expr { rightAssociative=true }
@@ -272,6 +274,10 @@ lambda_param ::= pat [":" ty_sum]
 
 struct_expr ::= path '{' <<comma_separated_list struct_field>> ['..' expr]'}'
 struct_field ::= ident ':' expr
+
+return_expr ::= return [expr]
+
+if_expr ::= if (let pat '=' expr | expr) block_expr [else block_expr]
 
 ////////////////////////////////////////////////////////////////////////
 // Part 5: Macros and misc. rules
