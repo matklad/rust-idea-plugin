@@ -36,12 +36,6 @@ public class RustTyImpl extends ASTWrapperPsiElement implements RustTy {
 
   @Override
   @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
-  }
-
-  @Override
-  @Nullable
   public RustTy getTy() {
     return findChildByClass(RustTy.class);
   }
@@ -50,6 +44,12 @@ public class RustTyImpl extends ASTWrapperPsiElement implements RustTy {
   @Nullable
   public RustTySum getTySum() {
     return findChildByClass(RustTySum.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTypePath getTypePath() {
+    return findChildByClass(RustTypePath.class);
   }
 
 }

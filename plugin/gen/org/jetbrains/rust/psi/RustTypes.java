@@ -77,6 +77,9 @@ public interface RustTypes {
   IElementType TUPLE_STRUCT_ATTR = new RustElementType("TUPLE_STRUCT_ATTR");
   IElementType TUPLE_STRUCT_BODY = new RustElementType("TUPLE_STRUCT_BODY");
   IElementType TY = new RustElementType("TY");
+  IElementType TYPE_PATH = new RustElementType("TYPE_PATH");
+  IElementType TYPE_PATH_SEGMENT = new RustElementType("TYPE_PATH_SEGMENT");
+  IElementType TY_PARAM = new RustElementType("TY_PARAM");
   IElementType TY_SUM = new RustElementType("TY_SUM");
   IElementType UNARY_MIN_EXPR = new RustElementType("UNARY_MIN_EXPR");
   IElementType USE_ITEM = new RustElementType("USE_ITEM");
@@ -105,9 +108,11 @@ public interface RustTypes {
   IElementType FN = new RustTokenType("fn");
   IElementType FOR = new RustTokenType("for");
   IElementType GREATER = new RustTokenType(">");
+  IElementType GREATER_EQUAL = new RustTokenType(">=");
   IElementType IDENT = new RustTokenType("ident");
   IElementType IMPL = new RustTokenType("impl");
   IElementType LESS = new RustTokenType("<");
+  IElementType LESS_EQUAL = new RustTokenType("<=");
   IElementType LET = new RustTokenType("let");
   IElementType LIFETIME = new RustTokenType("lifetime");
   IElementType LIFETIMES = new RustTokenType("lifetimes");
@@ -345,6 +350,15 @@ public interface RustTypes {
       }
       else if (type == TY) {
         return new RustTyImpl(node);
+      }
+      else if (type == TYPE_PATH) {
+        return new RustTypePathImpl(node);
+      }
+      else if (type == TYPE_PATH_SEGMENT) {
+        return new RustTypePathSegmentImpl(node);
+      }
+      else if (type == TY_PARAM) {
+        return new RustTyParamImpl(node);
       }
       else if (type == TY_SUM) {
         return new RustTySumImpl(node);

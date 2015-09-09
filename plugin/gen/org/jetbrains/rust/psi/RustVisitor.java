@@ -279,7 +279,19 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTyParam(@NotNull RustTyParam o) {
+    visitPsiElement(o);
+  }
+
   public void visitTySum(@NotNull RustTySum o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypePath(@NotNull RustTypePath o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypePathSegment(@NotNull RustTypePathSegment o) {
     visitPsiElement(o);
   }
 

@@ -5,9 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustGenericParams extends PsiElement {
+public interface RustTyParam extends PsiElement {
 
   @NotNull
-  RustCommaSeparatedList getCommaSeparatedList();
+  PsiElement getIdent();
 
 }

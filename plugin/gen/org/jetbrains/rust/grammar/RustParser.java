@@ -224,8 +224,17 @@ public class RustParser implements PsiParser, LightPsiParser {
     else if (t == TY) {
       r = ty(b, 0);
     }
+    else if (t == TY_PARAM) {
+      r = ty_param(b, 0);
+    }
     else if (t == TY_SUM) {
       r = ty_sum(b, 0);
+    }
+    else if (t == TYPE_PATH) {
+      r = type_path(b, 0);
+    }
+    else if (t == TYPE_PATH_SEGMENT) {
+      r = type_path_segment(b, 0);
     }
     else if (t == UNARY_MIN_EXPR) {
       r = unary_min_expr(b, 0);
@@ -448,17 +457,25 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // '<' lifetimes '>'
+  // '<' [lifetimes]  <<comma_separated_list ty_param>> '>'
   public static boolean generic_params(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "generic_params")) return false;
     if (!nextTokenIs(b, LESS)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LESS);
-    r = r && consumeToken(b, LIFETIMES);
+    r = r && generic_params_1(b, l + 1);
+    r = r && comma_separated_list(b, l + 1, ty_param_parser_);
     r = r && consumeToken(b, GREATER);
     exit_section_(b, m, GENERIC_PARAMS, r);
     return r;
+  }
+
+  // [lifetimes]
+  private static boolean generic_params_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "generic_params_1")) return false;
+    consumeToken(b, LIFETIMES);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1537,7 +1554,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   //      | '[' ty_sum ';' expr ']'
   //      | '&' [lifetime] [mut] ty
   //      | bare_fn
-  //      | path
+  //      | type_path
   public static boolean ty(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ty")) return false;
     boolean r;
@@ -1549,7 +1566,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!r) r = ty_4(b, l + 1);
     if (!r) r = ty_5(b, l + 1);
     if (!r) r = consumeToken(b, BARE_FN);
-    if (!r) r = path(b, l + 1);
+    if (!r) r = type_path(b, l + 1);
     exit_section_(b, l, m, TY, r, false, null);
     return r;
   }
@@ -1643,6 +1660,18 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
+  // ident
+  public static boolean ty_param(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ty_param")) return false;
+    if (!nextTokenIs(b, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENT);
+    exit_section_(b, m, TY_PARAM, r);
+    return r;
+  }
+
+  /* ********************************************************** */
   // ty
   public static boolean ty_sum(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ty_sum")) return false;
@@ -1651,6 +1680,62 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = ty(b, l + 1);
     exit_section_(b, l, m, TY_SUM, r, false, null);
     return r;
+  }
+
+  /* ********************************************************** */
+  // type_path_segment ("::" type_path_segment)*
+  public static boolean type_path(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_path")) return false;
+    if (!nextTokenIs(b, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = type_path_segment(b, l + 1);
+    r = r && type_path_1(b, l + 1);
+    exit_section_(b, m, TYPE_PATH, r);
+    return r;
+  }
+
+  // ("::" type_path_segment)*
+  private static boolean type_path_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_path_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!type_path_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "type_path_1", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // "::" type_path_segment
+  private static boolean type_path_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_path_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "::");
+    r = r && type_path_segment(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // ident [generic_params]
+  public static boolean type_path_segment(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_path_segment")) return false;
+    if (!nextTokenIs(b, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, IDENT);
+    r = r && type_path_segment_1(b, l + 1);
+    exit_section_(b, m, TYPE_PATH_SEGMENT, r);
+    return r;
+  }
+
+  // [generic_params]
+  private static boolean type_path_segment_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "type_path_segment_1")) return false;
+    generic_params(b, l + 1);
+    return true;
   }
 
   /* ********************************************************** */
@@ -1765,11 +1850,11 @@ public class RustParser implements PsiParser, LightPsiParser {
         r = expr(b, l, 3);
         exit_section_(b, l, m, GT_EXPR, r, true, null);
       }
-      else if (g < 3 && consumeTokenSmart(b, "<=")) {
+      else if (g < 3 && consumeTokenSmart(b, LESS_EQUAL)) {
         r = expr(b, l, 3);
         exit_section_(b, l, m, LEQ_EXPR, r, true, null);
       }
-      else if (g < 3 && consumeTokenSmart(b, ">=")) {
+      else if (g < 3 && consumeTokenSmart(b, GREATER_EQUAL)) {
         r = expr(b, l, 3);
         exit_section_(b, l, m, GEQ_EXPR, r, true, null);
       }
@@ -2196,6 +2281,11 @@ public class RustParser implements PsiParser, LightPsiParser {
   final static Parser tuple_struct_attr_parser_ = new Parser() {
     public boolean parse(PsiBuilder b, int l) {
       return tuple_struct_attr(b, l + 1);
+    }
+  };
+  final static Parser ty_param_parser_ = new Parser() {
+    public boolean parse(PsiBuilder b, int l) {
+      return ty_param(b, l + 1);
     }
   };
   final static Parser ty_parser_ = new Parser() {

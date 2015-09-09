@@ -14,12 +14,12 @@ public interface RustTy extends PsiElement {
   RustExpr getExpr();
 
   @Nullable
-  RustPath getPath();
-
-  @Nullable
   RustTy getTy();
 
   @Nullable
   RustTySum getTySum();
+
+  @Nullable
+  RustTypePath getTypePath();
 
 }

@@ -11,21 +11,27 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustGenericParamsImpl extends ASTWrapperPsiElement implements RustGenericParams {
+public class RustTypePathSegmentImpl extends ASTWrapperPsiElement implements RustTypePathSegment {
 
-  public RustGenericParamsImpl(ASTNode node) {
+  public RustTypePathSegmentImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitGenericParams(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTypePathSegment(this);
     else super.accept(visitor);
   }
 
   @Override
+  @Nullable
+  public RustGenericParams getGenericParams() {
+    return findChildByClass(RustGenericParams.class);
+  }
+
+  @Override
   @NotNull
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findNotNullChildByClass(RustCommaSeparatedList.class);
+  public PsiElement getIdent() {
+    return findNotNullChildByType(IDENT);
   }
 
 }
