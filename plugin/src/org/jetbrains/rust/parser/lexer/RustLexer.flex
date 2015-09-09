@@ -53,6 +53,8 @@ LIT_BOOL=true|false
   "="                    { return ASSIGN; }
   "-"                    { return MINUS; }
   "+"                    { return PLUS; }
+  "<="                   { return LESS_EQUAL; }
+  ">="                   { return GREATER_EQUAL; }
   "<"                    { return LESS; }
   ">"                    { return GREATER; }
 

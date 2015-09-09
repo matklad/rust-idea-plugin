@@ -31,6 +31,9 @@
     assign          = "="
     minus           = "-"
     plus            = "+"
+    less_equal      = "<="
+    greater_equal   = ">="
+
     less            = "<"
     greater         = ">"
 
