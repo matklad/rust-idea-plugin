@@ -111,7 +111,7 @@ fn_param ::= pat ':' ty_sum
 
 private ret_ty ::= '->' ('!' | ty)
 
-generic_params ::= '<' lifetimes '>'
+generic_params ::= '<' [lifetimes]  <<comma_separated_list ty_param>> '>'
 
 where_clause ::= where
 
@@ -170,7 +170,12 @@ ty ::= '(' ty ')'
      | '[' ty_sum ';' expr ']'
      | '&' [lifetime] [mut] ty
      | bare_fn
-     | path
+     | type_path
+
+ty_param ::= ident
+
+type_path ::= type_path_segment ("::" type_path_segment)*
+type_path_segment ::= ident [generic_params]
 
 path ::= ident ("::" ident)*
 
