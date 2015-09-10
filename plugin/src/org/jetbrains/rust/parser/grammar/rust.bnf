@@ -117,7 +117,7 @@ generic_params ::= '<' [lifetimes]  <<comma_separated_list ty_param>> '>'
 
 where_clause ::= where
 
-mod_item ::= mod ident ['{' inner_attr* item_with_attrs* '} ']';'
+mod_item ::= mod ident ['{' inner_attr* item_with_attrs* '}']';'
 
 struct_item ::= struct ident [generic_params] ( [where_clause] ';'
                                               | tuple_struct_body [where_clause]
@@ -186,6 +186,7 @@ path ::= ident ("::" ident)*
 ////////////////////////////////////////////////////////////////////////
 
 stmt ::= let pat [':' ty_sum] ['=' expr] ';'
+       | statement_like_expr
        | expr ';'
 
 
@@ -223,6 +224,9 @@ private primary_group ::= struct_expr
                         | lambda_expr
                         | return_expr
                         | if_expr
+
+
+statement_like_expr ::= if_expr | block_expr
 
 // public rules for each expression
 assign_expr ::= expr '=' expr { rightAssociative=true }
