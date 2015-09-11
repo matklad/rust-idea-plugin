@@ -24,7 +24,9 @@ WHITE_SPACE=({LINE_WS}|{EOL})+
 
 LINE_COMMENT="//".*
 BLOCK_COMMENT="/"\*(.|\n)*\*"/"
-IDENT=[:letter:][a-zA-Z_0-9]*
+IDENT_START=[:letter:] | _
+IDENT_CONT=[a-zA-Z_0-9]
+IDENT={IDENT_START} {IDENT_CONT}*
 LIT_CHAR='.'
 LIT_STRING=(r?\"([^\"\\]|\\.)*\")
 LIT_FLOAT=[:digit:]+\.[:digit:]+

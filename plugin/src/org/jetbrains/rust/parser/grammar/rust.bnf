@@ -177,7 +177,7 @@ ty ::= '(' ty ')'
 ty_param ::= ident
 
 type_path ::= type_path_segment ("::" type_path_segment)*
-type_path_segment ::= ident [generic_params]
+type_path_segment ::= ident ['<' <<comma_separated_list ty_sum>> '>']
 
 path ::= ident ("::" ident)*
 
