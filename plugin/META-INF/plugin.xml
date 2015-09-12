@@ -23,6 +23,7 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
+        <compileServer.plugin classpath="rust-jps-plugin.jar"/>
         <fileTypeFactory implementation="org.jetbrains.rust.fileType.RustFileTypeFactory"/>
         <lang.braceMatcher language="Rust"
                            implementationClass="org.jetbrains.rust.highlight.RustBraceMatcher"/>
