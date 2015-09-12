@@ -43,7 +43,7 @@
     white_space='regexp:\s+'
     line_comment='regexp://.*'
     block_comment='regexp:/\*(.|\n)*\*/'
-    ident='regexp:\p{Alpha}\w*'
+    ident='regexp:(\p{Alpha}|_)*'
 
     lit_char="regexp:'.'"
     lit_string="regexp:(r?\"([^\"\\]|\\.)*\")"
@@ -192,6 +192,7 @@ stmt ::= let pat [':' ty_sum] ['=' expr] ';'
 
 // the root expression rule
 expr ::= assign_expr
+       | range_expr
        | lor_expr
        | land_expr
        | comp_group
@@ -230,6 +231,7 @@ statement_like_expr ::= if_expr | block_expr
 
 // public rules for each expression
 assign_expr ::= expr '=' expr { rightAssociative=true }
+range_expr ::= expr '..' expr
 lor_expr ::= expr '||' expr
 land_expr ::= expr '&&' expr
 
@@ -264,7 +266,8 @@ borrow_expr ::= '&' [mut] expr
 macro_expr ::= ident '!' '(' <<comma_separated_list expr>> ')'
 
 ref_expr ::= expr '.' ident
-array_ref_expr ::= expr '[' expr ']'
+array_ref_expr ::= expr '[' index_expr ']'
+private index_expr ::= expr
 call_expr ::= expr '(' [<<comma_separated_list expr>>] ')'
 
 simple_ref_expr ::= path | self
