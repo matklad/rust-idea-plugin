@@ -54,13 +54,14 @@ LIT_BOOL=true|false
   ","                    { return COMMA; }
   "!"                    { return BANG; }
   ":"                    { return COLON; }
-  "="                    { return ASSIGN; }
   "-"                    { return MINUS; }
   "+"                    { return PLUS; }
+  "=="                   { return EQUAL_EQUAL; }
   "<="                   { return LESS_EQUAL; }
   ">="                   { return GREATER_EQUAL; }
   "<"                    { return LESS; }
   ">"                    { return GREATER; }
+  "="                    { return ASSIGN; }
 
   "as"                   { return AS; }
   "byte_lit"             { return LIT_BYTE; }

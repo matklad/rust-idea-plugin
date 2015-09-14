@@ -30,14 +30,14 @@
     comma               = ","
     bang                = "!"
     colon               = ":"
-    assign              = "="
     minus               = "-"
     plus                = "+"
+    equal_equal         = "=="
     less_equal          = "<="
     greater_equal       = ">="
-
     less                = "<"
     greater             = ">"
+    assign              = "="
 
 
     white_space='regexp:\s+'
