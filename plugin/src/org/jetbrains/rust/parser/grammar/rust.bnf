@@ -38,7 +38,7 @@
     less                = "<"
     greater             = ">"
     assign              = "="
-
+    hash                = "#"
 
     white_space='regexp:\s+'
     line_comment='regexp://.*'
@@ -118,7 +118,7 @@ generic_params ::= '<' [lifetimes]  <<comma_separated_list ty_param>> '>'
 
 where_clause ::= where
 
-mod_item ::= mod ident ['{' inner_attr* item_with_attrs* '}']';'
+mod_item ::= mod ident ('{' inner_attr* item_with_attrs* '}' | ';')
 
 struct_item ::= struct ident [generic_params] ( [where_clause] ';'
                                               | tuple_struct_body [where_clause]

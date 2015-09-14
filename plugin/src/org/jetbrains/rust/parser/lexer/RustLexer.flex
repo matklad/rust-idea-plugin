@@ -63,6 +63,7 @@ LIT_BOOL=true|false
   "<"                    { return LESS; }
   ">"                    { return GREATER; }
   "="                    { return ASSIGN; }
+  "#"                    { return HASH; }
 
   "as"                   { return AS; }
   "byte_lit"             { return LIT_BYTE; }
