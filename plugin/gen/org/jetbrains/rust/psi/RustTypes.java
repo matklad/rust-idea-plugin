@@ -45,6 +45,7 @@ public interface RustTypes {
   IElementType LOR_EXPR = new RustElementType("LOR_EXPR");
   IElementType LT_EXPR = new RustElementType("LT_EXPR");
   IElementType MACRO_EXPR = new RustElementType("MACRO_EXPR");
+  IElementType MATCH_EXPR = new RustElementType("MATCH_EXPR");
   IElementType MEMBER_FN_ITEM = new RustElementType("MEMBER_FN_ITEM");
   IElementType MEMBER_FN_PARAMS = new RustElementType("MEMBER_FN_PARAMS");
   IElementType META_ITEM = new RustElementType("META_ITEM");
@@ -61,7 +62,9 @@ public interface RustTypes {
   IElementType PATH = new RustElementType("PATH");
   IElementType PATH_GLOB = new RustElementType("PATH_GLOB");
   IElementType PATH_ITEM = new RustElementType("PATH_ITEM");
+  IElementType PATS = new RustElementType("PATS");
   IElementType PLUS_EXPR = new RustElementType("PLUS_EXPR");
+  IElementType RANGE_EXPR = new RustElementType("RANGE_EXPR");
   IElementType RECORD_STRUCT_ATTR = new RustElementType("RECORD_STRUCT_ATTR");
   IElementType RECORD_STRUCT_BODY = new RustElementType("RECORD_STRUCT_BODY");
   IElementType REF_EXPR = new RustElementType("REF_EXPR");
@@ -70,6 +73,7 @@ public interface RustTypes {
   IElementType SHL_EXPR = new RustElementType("SHL_EXPR");
   IElementType SHR_EXPR = new RustElementType("SHR_EXPR");
   IElementType SIMPLE_REF_EXPR = new RustElementType("SIMPLE_REF_EXPR");
+  IElementType STATEMENT_LIKE_EXPR = new RustElementType("STATEMENT_LIKE_EXPR");
   IElementType STATIC_ITEM = new RustElementType("STATIC_ITEM");
   IElementType STMT = new RustElementType("STMT");
   IElementType STRUCT_EXPR = new RustElementType("STRUCT_EXPR");
@@ -129,6 +133,7 @@ public interface RustTypes {
   IElementType LIT_FLOAT = new RustTokenType("lit_float");
   IElementType LIT_INTEGER = new RustTokenType("lit_integer");
   IElementType LIT_STRING = new RustTokenType("lit_string");
+  IElementType MATCH = new RustTokenType("match");
   IElementType MINUS = new RustTokenType("-");
   IElementType MOD = new RustTokenType("mod");
   IElementType MUT = new RustTokenType("mut");
@@ -262,6 +267,9 @@ public interface RustTypes {
       else if (type == MACRO_EXPR) {
         return new RustMacroExprImpl(node);
       }
+      else if (type == MATCH_EXPR) {
+        return new RustMatchExprImpl(node);
+      }
       else if (type == MEMBER_FN_ITEM) {
         return new RustMemberFnItemImpl(node);
       }
@@ -310,8 +318,14 @@ public interface RustTypes {
       else if (type == PATH_ITEM) {
         return new RustPathItemImpl(node);
       }
+      else if (type == PATS) {
+        return new RustPatsImpl(node);
+      }
       else if (type == PLUS_EXPR) {
         return new RustPlusExprImpl(node);
+      }
+      else if (type == RANGE_EXPR) {
+        return new RustRangeExprImpl(node);
       }
       else if (type == RECORD_STRUCT_ATTR) {
         return new RustRecordStructAttrImpl(node);
@@ -336,6 +350,9 @@ public interface RustTypes {
       }
       else if (type == SIMPLE_REF_EXPR) {
         return new RustSimpleRefExprImpl(node);
+      }
+      else if (type == STATEMENT_LIKE_EXPR) {
+        return new RustStatementLikeExprImpl(node);
       }
       else if (type == STATIC_ITEM) {
         return new RustStaticItemImpl(node);

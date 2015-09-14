@@ -8,30 +8,29 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustTypePathSegmentImpl extends ASTWrapperPsiElement implements RustTypePathSegment {
+public class RustMatchExprImpl extends RustExprImpl implements RustMatchExpr {
 
-  public RustTypePathSegmentImpl(ASTNode node) {
+  public RustMatchExprImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTypePathSegment(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitMatchExpr(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findChildByClass(RustCommaSeparatedList.class);
+  @NotNull
+  public List<RustExpr> getExprList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustExpr.class);
   }
 
   @Override
   @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  public List<RustPats> getPatsList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustPats.class);
   }
 
 }

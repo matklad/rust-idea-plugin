@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustTypePathSegment extends PsiElement {
-
-  @Nullable
-  RustCommaSeparatedList getCommaSeparatedList();
+public interface RustPats extends PsiElement {
 
   @NotNull
-  PsiElement getIdent();
+  List<RustPat> getPatList();
 
 }

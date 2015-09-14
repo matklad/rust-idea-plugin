@@ -151,6 +151,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitMatchExpr(@NotNull RustMatchExpr o) {
+    visitExpr(o);
+  }
+
   public void visitMemberFnItem(@NotNull RustMemberFnItem o) {
     visitPsiElement(o);
   }
@@ -215,7 +219,15 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitPats(@NotNull RustPats o) {
+    visitPsiElement(o);
+  }
+
   public void visitPlusExpr(@NotNull RustPlusExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitRangeExpr(@NotNull RustRangeExpr o) {
     visitExpr(o);
   }
 
@@ -248,6 +260,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitSimpleRefExpr(@NotNull RustSimpleRefExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitStatementLikeExpr(@NotNull RustStatementLikeExpr o) {
     visitExpr(o);
   }
 
