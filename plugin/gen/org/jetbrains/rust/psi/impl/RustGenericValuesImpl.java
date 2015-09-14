@@ -8,16 +8,17 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustStructExprImpl extends RustExprImpl implements RustStructExpr {
+public class RustGenericValuesImpl extends ASTWrapperPsiElement implements RustGenericValues {
 
-  public RustStructExprImpl(ASTNode node) {
+  public RustGenericValuesImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitStructExpr(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitGenericValues(this);
     else super.accept(visitor);
   }
 
@@ -25,18 +26,6 @@ public class RustStructExprImpl extends RustExprImpl implements RustStructExpr {
   @NotNull
   public RustCommaSeparatedList getCommaSeparatedList() {
     return findNotNullChildByClass(RustCommaSeparatedList.class);
-  }
-
-  @Override
-  @Nullable
-  public RustExpr getExpr() {
-    return findChildByClass(RustExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public RustExprPath getExprPath() {
-    return findNotNullChildByClass(RustExprPath.class);
   }
 
 }

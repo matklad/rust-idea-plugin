@@ -33,4 +33,10 @@ public class RustCallExprImpl extends RustExprImpl implements RustCallExpr {
     return findNotNullChildByClass(RustExpr.class);
   }
 
+  @Override
+  @Nullable
+  public RustGenericValues getGenericValues() {
+    return findChildByClass(RustGenericValues.class);
+  }
+
 }

@@ -8,23 +8,24 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustSimpleRefExprImpl extends RustExprImpl implements RustSimpleRefExpr {
+public class RustExprPathImpl extends ASTWrapperPsiElement implements RustExprPath {
 
-  public RustSimpleRefExprImpl(ASTNode node) {
+  public RustExprPathImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitSimpleRefExpr(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitExprPath(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustExprPath getExprPath() {
-    return findChildByClass(RustExprPath.class);
+  @NotNull
+  public List<RustExprPathSegment> getExprPathSegmentList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustExprPathSegment.class);
   }
 
 }

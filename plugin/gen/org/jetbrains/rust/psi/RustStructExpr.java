@@ -14,6 +14,6 @@ public interface RustStructExpr extends RustExpr {
   RustExpr getExpr();
 
   @NotNull
-  RustPath getPath();
+  RustExprPath getExprPath();
 
 }

@@ -71,6 +71,14 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitExprPath(@NotNull RustExprPath o) {
+    visitPsiElement(o);
+  }
+
+  public void visitExprPathSegment(@NotNull RustExprPathSegment o) {
+    visitPsiElement(o);
+  }
+
   public void visitExternCrateItem(@NotNull RustExternCrateItem o) {
     visitPsiElement(o);
   }
@@ -84,6 +92,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitGenericParams(@NotNull RustGenericParams o) {
+    visitPsiElement(o);
+  }
+
+  public void visitGenericValues(@NotNull RustGenericValues o) {
     visitPsiElement(o);
   }
 

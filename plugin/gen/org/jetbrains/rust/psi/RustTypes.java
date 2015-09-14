@@ -25,10 +25,13 @@ public interface RustTypes {
   IElementType DIV_EXPR = new RustElementType("DIV_EXPR");
   IElementType EQ_EXPR = new RustElementType("EQ_EXPR");
   IElementType EXPR = new RustElementType("EXPR");
+  IElementType EXPR_PATH = new RustElementType("EXPR_PATH");
+  IElementType EXPR_PATH_SEGMENT = new RustElementType("EXPR_PATH_SEGMENT");
   IElementType EXTERN_CRATE_ITEM = new RustElementType("EXTERN_CRATE_ITEM");
   IElementType FN_ITEM = new RustElementType("FN_ITEM");
   IElementType FN_PARAM = new RustElementType("FN_PARAM");
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
+  IElementType GENERIC_VALUES = new RustElementType("GENERIC_VALUES");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
   IElementType GT_EXPR = new RustElementType("GT_EXPR");
   IElementType IF_EXPR = new RustElementType("IF_EXPR");
@@ -111,6 +114,7 @@ public interface RustTypes {
   IElementType DOT_DOT = new RustTokenType("..");
   IElementType DOT_DOT_DOT = new RustTokenType("...");
   IElementType ELSE = new RustTokenType("else");
+  IElementType EQUAL_EQUAL = new RustTokenType("==");
   IElementType EXTERN = new RustTokenType("extern");
   IElementType FALSE = new RustTokenType("false");
   IElementType FN = new RustTokenType("fn");
@@ -207,6 +211,12 @@ public interface RustTypes {
       else if (type == EXPR) {
         return new RustExprImpl(node);
       }
+      else if (type == EXPR_PATH) {
+        return new RustExprPathImpl(node);
+      }
+      else if (type == EXPR_PATH_SEGMENT) {
+        return new RustExprPathSegmentImpl(node);
+      }
       else if (type == EXTERN_CRATE_ITEM) {
         return new RustExternCrateItemImpl(node);
       }
@@ -218,6 +228,9 @@ public interface RustTypes {
       }
       else if (type == GENERIC_PARAMS) {
         return new RustGenericParamsImpl(node);
+      }
+      else if (type == GENERIC_VALUES) {
+        return new RustGenericValuesImpl(node);
       }
       else if (type == GEQ_EXPR) {
         return new RustGeqExprImpl(node);
