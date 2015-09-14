@@ -27,6 +27,7 @@ BLOCK_COMMENT="/"\*(.|\n)*\*"/"
 IDENT_START=[:letter:] | _
 IDENT_CONT=[a-zA-Z_0-9]
 IDENT={IDENT_START} {IDENT_CONT}*
+LIFETIME=\'{IDENT}
 LIT_CHAR='.'
 LIT_STRING=(r?\"([^\"\\]|\\.)*\")
 LIT_FLOAT=[:digit:]+\.[:digit:]+
@@ -94,6 +95,7 @@ LIT_BOOL=true|false
   {BLOCK_COMMENT}        { return BLOCK_COMMENT; }
   {LIT_BOOL}             { return LIT_BOOL; }
   {IDENT}                { return IDENT; }
+  {LIFETIME}             { return LIFETIME; }
   {LIT_CHAR}             { return LIT_CHAR; }
   {LIT_STRING}           { return LIT_STRING; }
   {LIT_FLOAT}            { return LIT_FLOAT; }

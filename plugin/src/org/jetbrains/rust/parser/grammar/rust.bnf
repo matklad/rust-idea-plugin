@@ -44,6 +44,7 @@
     line_comment='regexp://.*'
     block_comment='regexp:/\*(.|\n)*\*/'
     ident='regexp:(\p{Alpha}|_)*'
+    lifetime="regexp:'(\p{Alpha}|_)*"
 
     lit_char="regexp:'.'"
     lit_string="regexp:(r?\"([^\"\\]|\\.)*\")"
@@ -180,7 +181,7 @@ ty ::= '(' ty ')'
 ty_param ::= ident
 
 type_path ::= type_path_segment ("::" type_path_segment)*
-type_path_segment ::= ident ['<' <<comma_separated_list ty_sum>> '>']
+type_path_segment ::= ident [generic_values]
 
 path ::= ident ("::" ident)*
 
@@ -189,9 +190,9 @@ path ::= ident ("::" ident)*
 ////////////////////////////////////////////////////////////////////////
 
 expr_path ::= expr_path_segment ("::" expr_path_segment)*
-expr_path_segment ::= ident [generic_values]
+expr_path_segment ::= ident ["::" generic_values]
 
-generic_values ::= "::" '<' <<comma_separated_list ty_sum>> '>'
+generic_values ::= '<' <<comma_separated_list ty_sum>> '>'
 
 stmt ::= let pat [':' ty_sum] ['=' expr] ';'
        | statement_like_expr
@@ -278,7 +279,7 @@ macro_expr ::= ident '!' '(' <<comma_separated_list expr>> ')'
 ref_expr ::= expr '.' ident
 array_ref_expr ::= expr '[' index_expr ']'
 private index_expr ::= expr
-call_expr ::= expr [generic_values] '(' [<<comma_separated_list expr>>] ')'
+call_expr ::= expr ["::" generic_values] '(' [<<comma_separated_list expr>>] ')'
 
 simple_ref_expr ::= expr_path | self
 literal_expr ::= lit
