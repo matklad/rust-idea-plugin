@@ -157,7 +157,10 @@ pat ::= '_'
       | mut pat
       | '(' <<comma_separated_list pat>> ')'
       | '[' <<comma_separated_list pat>> ']'
+      | path '(' <<comma_separated_list pat>> ')'
       | path
+
+pats ::= pat ('|' pat)*
 
 ////////////////////////////////////////////////////////////////////////
 // Part 3: Types
@@ -225,6 +228,7 @@ private primary_group ::= struct_expr
                         | lambda_expr
                         | return_expr
                         | if_expr
+                        | match_expr
 
 
 statement_like_expr ::= if_expr | block_expr
@@ -244,6 +248,7 @@ geq_expr ::= expr '>=' expr
 
 bor_expr ::= expr '|' expr
 bxor_expr ::= expr '^' expr
+
 band_expr ::= expr '&' expr
 
 shl_expr ::= expr '<<' expr
@@ -285,6 +290,11 @@ struct_field ::= ident ':' expr
 return_expr ::= return [expr]
 
 if_expr ::= if (let pat '=' expr | expr) block_expr [else block_expr]
+
+match_expr ::= match expr '{'
+    (pats [if expr] '=>' (block_expr | expr ','))*
+    [pats [if expr] '=>' expr]
+'}'
 
 ////////////////////////////////////////////////////////////////////////
 // Part 5: Macros and misc. rules

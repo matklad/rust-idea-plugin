@@ -76,6 +76,7 @@ LIT_BOOL=true|false
   "impl"                 { return IMPL; }
   "let"                  { return LET; }
   "lifetimes"            { return LIFETIMES; }
+  "match"                { return MATCH; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
   "pub"                  { return PUB; }
