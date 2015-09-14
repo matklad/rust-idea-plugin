@@ -429,7 +429,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ident [generic_values]
+  // ident ["::" generic_values]
   public static boolean expr_path_segment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_path_segment")) return false;
     if (!nextTokenIs(b, IDENT)) return false;
@@ -441,11 +441,22 @@ public class RustParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [generic_values]
+  // ["::" generic_values]
   private static boolean expr_path_segment_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "expr_path_segment_1")) return false;
-    generic_values(b, l + 1);
+    expr_path_segment_1_0(b, l + 1);
     return true;
+  }
+
+  // "::" generic_values
+  private static boolean expr_path_segment_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "expr_path_segment_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, "::");
+    r = r && generic_values(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   /* ********************************************************** */
@@ -564,16 +575,16 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // "::" '<' <<comma_separated_list ty_sum>> '>'
+  // '<' <<comma_separated_list ty_sum>> '>'
   public static boolean generic_values(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "generic_values")) return false;
+    if (!nextTokenIs(b, LESS)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<generic values>");
-    r = consumeToken(b, "::");
-    r = r && consumeToken(b, LESS);
+    Marker m = enter_section_(b);
+    r = consumeToken(b, LESS);
     r = r && comma_separated_list(b, l + 1, ty_sum_parser_);
     r = r && consumeToken(b, GREATER);
-    exit_section_(b, l, m, GENERIC_VALUES, r, false, null);
+    exit_section_(b, m, GENERIC_VALUES, r);
     return r;
   }
 
@@ -982,7 +993,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // mod ident ['{' inner_attr* item_with_attrs* '}']';'
+  // mod ident ('{' inner_attr* item_with_attrs* '}' | ';')
   public static boolean mod_item(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mod_item")) return false;
     if (!nextTokenIs(b, MOD)) return false;
@@ -990,16 +1001,19 @@ public class RustParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = consumeTokens(b, 0, MOD, IDENT);
     r = r && mod_item_2(b, l + 1);
-    r = r && consumeToken(b, SEMI);
     exit_section_(b, m, MOD_ITEM, r);
     return r;
   }
 
-  // ['{' inner_attr* item_with_attrs* '}']
+  // '{' inner_attr* item_with_attrs* '}' | ';'
   private static boolean mod_item_2(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "mod_item_2")) return false;
-    mod_item_2_0(b, l + 1);
-    return true;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = mod_item_2_0(b, l + 1);
+    if (!r) r = consumeToken(b, SEMI);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   // '{' inner_attr* item_with_attrs* '}'
@@ -1043,13 +1057,14 @@ public class RustParser implements PsiParser, LightPsiParser {
   // '#' '[' meta_item ']'
   public static boolean outer_attr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "outer_attr")) return false;
+    if (!nextTokenIs(b, HASH)) return false;
     boolean r;
-    Marker m = enter_section_(b, l, _NONE_, "<outer attr>");
-    r = consumeToken(b, "#");
+    Marker m = enter_section_(b);
+    r = consumeToken(b, HASH);
     r = r && consumeToken(b, BRACKET_LEFT);
     r = r && meta_item(b, l + 1);
     r = r && consumeToken(b, BRACKET_RIGHT);
-    exit_section_(b, l, m, OUTER_ATTR, r, false, null);
+    exit_section_(b, m, OUTER_ATTR, r);
     return r;
   }
 
@@ -1889,7 +1904,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ident ['<' <<comma_separated_list ty_sum>> '>']
+  // ident [generic_values]
   public static boolean type_path_segment(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_path_segment")) return false;
     if (!nextTokenIs(b, IDENT)) return false;
@@ -1901,23 +1916,11 @@ public class RustParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // ['<' <<comma_separated_list ty_sum>> '>']
+  // [generic_values]
   private static boolean type_path_segment_1(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "type_path_segment_1")) return false;
-    type_path_segment_1_0(b, l + 1);
+    generic_values(b, l + 1);
     return true;
-  }
-
-  // '<' <<comma_separated_list ty_sum>> '>'
-  private static boolean type_path_segment_1_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "type_path_segment_1_0")) return false;
-    boolean r;
-    Marker m = enter_section_(b);
-    r = consumeToken(b, LESS);
-    r = r && comma_separated_list(b, l + 1, ty_sum_parser_);
-    r = r && consumeToken(b, GREATER);
-    exit_section_(b, m, null, r);
-    return r;
   }
 
   /* ********************************************************** */
@@ -2215,7 +2218,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [generic_values] '(' [<<comma_separated_list expr>>] ')'
+  // ["::" generic_values] '(' [<<comma_separated_list expr>>] ')'
   private static boolean call_expr_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "call_expr_0")) return false;
     boolean r;
@@ -2228,11 +2231,22 @@ public class RustParser implements PsiParser, LightPsiParser {
     return r;
   }
 
-  // [generic_values]
+  // ["::" generic_values]
   private static boolean call_expr_0_0(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "call_expr_0_0")) return false;
-    generic_values(b, l + 1);
+    call_expr_0_0_0(b, l + 1);
     return true;
+  }
+
+  // "::" generic_values
+  private static boolean call_expr_0_0_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "call_expr_0_0_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeTokenSmart(b, "::");
+    r = r && generic_values(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
   }
 
   // [<<comma_separated_list expr>>]

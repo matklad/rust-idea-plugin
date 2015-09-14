@@ -52,4 +52,10 @@ public class RustTyImpl extends ASTWrapperPsiElement implements RustTy {
     return findChildByClass(RustTypePath.class);
   }
 
+  @Override
+  @Nullable
+  public PsiElement getLifetime() {
+    return findChildByType(LIFETIME);
+  }
+
 }

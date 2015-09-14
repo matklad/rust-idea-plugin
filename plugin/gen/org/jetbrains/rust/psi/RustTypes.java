@@ -121,6 +121,7 @@ public interface RustTypes {
   IElementType FOR = new RustTokenType("for");
   IElementType GREATER = new RustTokenType(">");
   IElementType GREATER_EQUAL = new RustTokenType(">=");
+  IElementType HASH = new RustTokenType("#");
   IElementType IDENT = new RustTokenType("ident");
   IElementType IF = new RustTokenType("if");
   IElementType IMPL = new RustTokenType("impl");

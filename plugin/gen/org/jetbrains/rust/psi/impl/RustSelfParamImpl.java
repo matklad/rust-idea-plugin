@@ -22,4 +22,10 @@ public class RustSelfParamImpl extends ASTWrapperPsiElement implements RustSelfP
     else super.accept(visitor);
   }
 
+  @Override
+  @Nullable
+  public PsiElement getLifetime() {
+    return findChildByType(LIFETIME);
+  }
+
 }

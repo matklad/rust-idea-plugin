@@ -22,4 +22,7 @@ public interface RustTy extends PsiElement {
   @Nullable
   RustTypePath getTypePath();
 
+  @Nullable
+  PsiElement getLifetime();
+
 }

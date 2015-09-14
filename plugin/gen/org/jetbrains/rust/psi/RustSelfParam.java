@@ -7,4 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface RustSelfParam extends PsiElement {
 
+  @Nullable
+  PsiElement getLifetime();
+
 }

@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface RustTypePathSegment extends PsiElement {
 
   @Nullable
-  RustCommaSeparatedList getCommaSeparatedList();
+  RustGenericValues getGenericValues();
 
   @NotNull
   PsiElement getIdent();
