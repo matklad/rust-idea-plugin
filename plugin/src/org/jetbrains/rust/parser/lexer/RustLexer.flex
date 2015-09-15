@@ -87,6 +87,7 @@ LIT_BOOL=true|false
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
   "pub"                  { return PUB; }
+  "ref"                  { return REF; }
   "return"               { return RETURN; }
   "self"                 { return SELF; }
   "static"               { return STATIC; }

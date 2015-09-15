@@ -44,6 +44,7 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
             RustTypes.MOD,
             RustTypes.MUT,
             RustTypes.PUB,
+            RustTypes.REF,
             RustTypes.RETURN,
             RustTypes.SELF,
             RustTypes.STATIC,

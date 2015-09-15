@@ -170,7 +170,8 @@ trait_member ::= type ty_param ';'
 
 pat ::= '_'
       | '&' pat
-      | mut pat
+      | mut ident
+      | ref [mut] ident
       | '(' <<comma_separated_list pat>> ')'
       | '[' <<comma_separated_list pat>> ']'
       | path '(' <<comma_separated_list pat>> ')'
@@ -178,7 +179,7 @@ pat ::= '_'
       | path
       | lit
 
-pat_field ::= ident [':' pat]
+pat_field ::= ident ':' pat | [ref] [mut] ident
 
 pats ::= pat ('|' pat)*
 
