@@ -266,7 +266,8 @@ statement_like_expr ::= block_expr
                       | for_expr
 
 // public rules for each expression
-assign_expr ::= expr '=' expr { rightAssociative=true }
+assign_expr ::= expr  [bin_op] '=' expr { rightAssociative=true }
+bin_op ::= '+' | '-' | '*' | '/' | '%' | '<<' | '>>' | '|' | '&'
 range_expr ::= expr '..' expr
 lor_expr ::= expr '||' expr
 land_expr ::= expr '&&' expr
