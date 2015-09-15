@@ -88,7 +88,7 @@ private item ::= stmt_item
 extern_crate_item ::= extern crate ident [as ident] ';'
 use_item ::= use path_glob ';'
 
-path_glob ::= ident ["::" (path_glob | "*")]
+path_glob ::= path_item ["::" (path_glob | "*")]
             | '{' [<<comma_separated_list path_item>>] '}'
 
 path_item ::= ident | self
