@@ -298,7 +298,7 @@ borrow_expr ::= '&' [mut] expr
 
 macro_expr ::= ident '!' '(' [<<comma_separated_list expr>>] ')'
 
-ref_expr ::= expr '.' ident
+ref_expr ::= expr '.' (ident | lit_integer)
 array_ref_expr ::= expr '[' index_expr ']'
 private index_expr ::= expr
 call_expr ::= expr ["::" generic_values] '(' [<<comma_separated_list expr>>] ')'
