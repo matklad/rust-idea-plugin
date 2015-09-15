@@ -30,6 +30,7 @@ public interface RustTypes {
   IElementType EXTERN_CRATE_ITEM = new RustElementType("EXTERN_CRATE_ITEM");
   IElementType FN_ITEM = new RustElementType("FN_ITEM");
   IElementType FN_PARAM = new RustElementType("FN_PARAM");
+  IElementType FOR_EXPR = new RustElementType("FOR_EXPR");
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GENERIC_VALUES = new RustElementType("GENERIC_VALUES");
   IElementType GEQ_EXPR = new RustElementType("GEQ_EXPR");
@@ -130,6 +131,7 @@ public interface RustTypes {
   IElementType IDENT = new RustTokenType("ident");
   IElementType IF = new RustTokenType("if");
   IElementType IMPL = new RustTokenType("impl");
+  IElementType IN = new RustTokenType("in");
   IElementType LESS = new RustTokenType("<");
   IElementType LESS_EQUAL = new RustTokenType("<=");
   IElementType LET = new RustTokenType("let");
@@ -231,6 +233,9 @@ public interface RustTypes {
       }
       else if (type == FN_PARAM) {
         return new RustFnParamImpl(node);
+      }
+      else if (type == FOR_EXPR) {
+        return new RustForExprImpl(node);
       }
       else if (type == GENERIC_PARAMS) {
         return new RustGenericParamsImpl(node);

@@ -91,6 +91,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitForExpr(@NotNull RustForExpr o) {
+    visitExpr(o);
+  }
+
   public void visitGenericParams(@NotNull RustGenericParams o) {
     visitPsiElement(o);
   }
