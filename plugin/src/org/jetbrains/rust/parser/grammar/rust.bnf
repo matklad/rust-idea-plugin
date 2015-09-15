@@ -300,7 +300,7 @@ paren_expr ::= &('(' expr ')') '(' expr ')'
 tuple_expr ::= '(' expr ',' [<<comma_separated_list expr>>] ')'
 block_expr ::= '{' stmt* [expr] '}'
 
-lambda_expr ::= '|' [<<comma_separated_list lambda_param>>] '|' [ret_ty] expr
+lambda_expr ::= ('||' | '|' [<<comma_separated_list lambda_param>>] '|') [ret_ty] expr
 lambda_param ::= pat [":" ty_sum]
 
 struct_expr ::= expr_path '{' <<comma_separated_list struct_field>> ['..' expr]'}'
