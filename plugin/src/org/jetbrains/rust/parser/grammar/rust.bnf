@@ -37,6 +37,7 @@
     greater_equal       = ">="
     less                = "<"
     greater             = ">"
+    fat_arrow           = "=>"
     assign              = "="
     hash                = "#"
 
@@ -160,6 +161,7 @@ pat ::= '_'
       | '[' <<comma_separated_list pat>> ']'
       | path '(' <<comma_separated_list pat>> ')'
       | path
+      | lit
 
 pats ::= pat ('|' pat)*
 
@@ -274,7 +276,7 @@ deref_expr ::= '*' expr
 not_expr ::= '!' expr
 borrow_expr ::= '&' [mut] expr
 
-macro_expr ::= ident '!' '(' <<comma_separated_list expr>> ')'
+macro_expr ::= ident '!' '(' [<<comma_separated_list expr>>] ')'
 
 ref_expr ::= expr '.' ident
 array_ref_expr ::= expr '[' index_expr ']'
