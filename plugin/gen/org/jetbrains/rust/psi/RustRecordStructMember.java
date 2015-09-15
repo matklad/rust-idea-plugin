@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface RustRecordStructMember extends PsiElement {
 
   @NotNull
-  RustTy getTy();
+  RustTySum getTySum();
 
   @Nullable
   RustVisibility getVisibility();

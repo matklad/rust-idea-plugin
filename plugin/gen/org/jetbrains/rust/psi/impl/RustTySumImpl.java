@@ -28,4 +28,10 @@ public class RustTySumImpl extends ASTWrapperPsiElement implements RustTySum {
     return findNotNullChildByClass(RustTy.class);
   }
 
+  @Override
+  @Nullable
+  public RustTyParamBounds getTyParamBounds() {
+    return findChildByClass(RustTyParamBounds.class);
+  }
+
 }

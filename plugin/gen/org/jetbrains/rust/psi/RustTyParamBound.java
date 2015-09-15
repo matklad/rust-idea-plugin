@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustTySum extends PsiElement {
-
-  @NotNull
-  RustTy getTy();
+public interface RustTyParamBound extends PsiElement {
 
   @Nullable
-  RustTyParamBounds getTyParamBounds();
+  RustPath getPath();
+
+  @Nullable
+  PsiElement getLifetime();
 
 }

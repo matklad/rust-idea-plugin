@@ -24,8 +24,8 @@ public class RustTyParamBoundsImpl extends ASTWrapperPsiElement implements RustT
 
   @Override
   @NotNull
-  public List<RustPath> getPathList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustPath.class);
+  public List<RustTyParamBound> getTyParamBoundList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustTyParamBound.class);
   }
 
 }

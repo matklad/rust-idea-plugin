@@ -11,33 +11,27 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustRecordStructMemberImpl extends ASTWrapperPsiElement implements RustRecordStructMember {
+public class RustTyParamBoundImpl extends ASTWrapperPsiElement implements RustTyParamBound {
 
-  public RustRecordStructMemberImpl(ASTNode node) {
+  public RustTyParamBoundImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitRecordStructMember(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTyParamBound(this);
     else super.accept(visitor);
   }
 
   @Override
-  @NotNull
-  public RustTySum getTySum() {
-    return findNotNullChildByClass(RustTySum.class);
+  @Nullable
+  public RustPath getPath() {
+    return findChildByClass(RustPath.class);
   }
 
   @Override
   @Nullable
-  public RustVisibility getVisibility() {
-    return findChildByClass(RustVisibility.class);
-  }
-
-  @Override
-  @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  public PsiElement getLifetime() {
+    return findChildByType(LIFETIME);
   }
 
 }

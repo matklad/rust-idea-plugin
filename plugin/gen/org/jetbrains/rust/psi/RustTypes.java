@@ -67,6 +67,7 @@ public interface RustTypes {
   IElementType PATH_GLOB = new RustElementType("PATH_GLOB");
   IElementType PATH_ITEM = new RustElementType("PATH_ITEM");
   IElementType PATS = new RustElementType("PATS");
+  IElementType PAT_FIELD = new RustElementType("PAT_FIELD");
   IElementType PLUS_EXPR = new RustElementType("PLUS_EXPR");
   IElementType RANGE_EXPR = new RustElementType("RANGE_EXPR");
   IElementType RECORD_STRUCT_BODY = new RustElementType("RECORD_STRUCT_BODY");
@@ -93,6 +94,7 @@ public interface RustTypes {
   IElementType TYPE_PATH = new RustElementType("TYPE_PATH");
   IElementType TYPE_PATH_SEGMENT = new RustElementType("TYPE_PATH_SEGMENT");
   IElementType TY_PARAM = new RustElementType("TY_PARAM");
+  IElementType TY_PARAM_BOUND = new RustElementType("TY_PARAM_BOUND");
   IElementType TY_PARAM_BOUNDS = new RustElementType("TY_PARAM_BOUNDS");
   IElementType TY_SUM = new RustElementType("TY_SUM");
   IElementType UNARY_MIN_EXPR = new RustElementType("UNARY_MIN_EXPR");
@@ -345,6 +347,9 @@ public interface RustTypes {
       else if (type == PATS) {
         return new RustPatsImpl(node);
       }
+      else if (type == PAT_FIELD) {
+        return new RustPatFieldImpl(node);
+      }
       else if (type == PLUS_EXPR) {
         return new RustPlusExprImpl(node);
       }
@@ -422,6 +427,9 @@ public interface RustTypes {
       }
       else if (type == TY_PARAM) {
         return new RustTyParamImpl(node);
+      }
+      else if (type == TY_PARAM_BOUND) {
+        return new RustTyParamBoundImpl(node);
       }
       else if (type == TY_PARAM_BOUNDS) {
         return new RustTyParamBoundsImpl(node);

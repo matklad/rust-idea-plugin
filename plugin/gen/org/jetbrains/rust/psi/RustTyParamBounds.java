@@ -8,6 +8,6 @@ import com.intellij.psi.PsiElement;
 public interface RustTyParamBounds extends PsiElement {
 
   @NotNull
-  List<RustPath> getPathList();
+  List<RustTyParamBound> getTyParamBoundList();
 
 }
