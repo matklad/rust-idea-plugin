@@ -67,6 +67,7 @@ LIT_BOOL=true|false
   "<"                    { return LESS; }
   ">"                    { return GREATER; }
   "=>"                   { return FAT_ARROW; }
+  "->"                   { return THIN_ARROW; }
   "="                    { return ASSIGN; }
   "#"                    { return HASH; }
 

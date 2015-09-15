@@ -38,6 +38,7 @@
     less                = "<"
     greater             = ">"
     fat_arrow           = "=>"
+    thin_arrow          = "->"
     assign              = "="
     hash                = "#"
 
@@ -202,7 +203,7 @@ ty ::= '(' ty_sum ')'
 ty_param ::= ident [':' ty_param_bounds]
 
 ty_param_bounds ::= ty_param_bound ('+' ty_param_bound)*
-ty_param_bound ::= lifetime | path
+ty_param_bound ::= lifetime | type_path
 
 // XXX: things like `Fn(f64, f64) -> f64` are also paths
 type_path ::= type_path_segment ("::" type_path_segment)*
