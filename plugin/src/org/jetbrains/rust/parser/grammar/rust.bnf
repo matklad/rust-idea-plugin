@@ -180,7 +180,9 @@ ty ::= '(' ty ')'
      | bare_fn
      | type_path
 
-ty_param ::= ident
+ty_param ::= ident [':' ty_param_bounds]
+
+ty_param_bounds ::= path ('+' path)*
 
 type_path ::= type_path_segment ("::" type_path_segment)*
 type_path_segment ::= ident [generic_values]
@@ -196,7 +198,8 @@ expr_path_segment ::= ident ["::" generic_values]
 
 generic_values ::= '<' <<comma_separated_list ty_sum>> '>'
 
-stmt ::= let pat [':' ty_sum] ['=' expr] ';'
+stmt ::= stmt_item
+       | let pat [':' ty_sum] ['=' expr] ';'
        | statement_like_expr
        | expr ';'
 
