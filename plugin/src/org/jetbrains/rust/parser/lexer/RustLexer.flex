@@ -30,8 +30,10 @@ IDENT={IDENT_START} {IDENT_CONT}*
 LIFETIME=\'{IDENT}
 LIT_CHAR='.'
 LIT_STRING=(r?\"([^\"\\]|\\.)*\")
-LIT_FLOAT=[:digit:]+\.[:digit:]+
 LIT_INTEGER=[:digit:]+
+FLOAT_DECIMAL=[:digit:]+\.[:digit:]+
+FLOAT_EXP=[:digit:]+(\.[:digit:]+)?e[+-][:digit:]+
+LIT_FLOAT={FLOAT_DECIMAL}|{FLOAT_EXP}
 LIT_BOOL=true|false
 
 %%
