@@ -131,7 +131,7 @@ tuple_struct_member ::= outer_attrs [visibility] ty
 
 record_struct_body ::= '{' <<comma_separated_list record_struct_member>> '}'
 
-record_struct_member ::= [visibility] ident ':' ty
+record_struct_member ::= [visibility] ident ':' ty_sum
 
 impl_item ::= [unsafe] impl [generic_params] ty_sum [for ty_sum] [where_clause]
               '{' inner_attr* ([visibility] impl_member)* '}'
@@ -176,9 +176,9 @@ pats ::= pat ('|' pat)*
 // Part 3: Types
 ////////////////////////////////////////////////////////////////////////
 
-ty_sum ::= ty
+ty_sum ::= ty ['+' ty_param_bounds]
 
-ty ::= '(' ty ')'
+ty ::= '(' ty_sum ')'
      | '()'
      | '(' <<comma_separated_list ty>> ')'
      | '*' ptr
@@ -190,7 +190,8 @@ ty ::= '(' ty ')'
 
 ty_param ::= ident [':' ty_param_bounds]
 
-ty_param_bounds ::= path ('+' path)*
+ty_param_bounds ::= ty_param_bound ('+' ty_param_bound)*
+ty_param_bound ::= lifetime | path
 
 type_path ::= type_path_segment ("::" type_path_segment)*
 type_path_segment ::= ident [generic_values]
