@@ -117,7 +117,7 @@ private ret_ty ::= '->' ('!' | ty)
 
 generic_params ::= '<' [lifetime] [<<comma_separated_list ty_param>>] '>'
 
-where_clause ::= where
+where_clause ::= where (ty ':' ty_param_bounds)+
 
 mod_item ::= mod ident ('{' inner_attr* item_with_attrs* '}' | ';')
 
