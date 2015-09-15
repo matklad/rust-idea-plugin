@@ -115,7 +115,7 @@ fn_param ::= pat ':' ty_sum
 
 private ret_ty ::= '->' ('!' | ty)
 
-generic_params ::= '<' [lifetimes]  <<comma_separated_list ty_param>> '>'
+generic_params ::= '<' [lifetime] [<<comma_separated_list ty_param>>] '>'
 
 where_clause ::= where
 
@@ -179,6 +179,7 @@ pats ::= pat ('|' pat)*
 ty_sum ::= ty
 
 ty ::= '(' ty ')'
+     | '()'
      | '(' <<comma_separated_list ty>> ')'
      | '*' ptr
      | '[' ty_sum ']'

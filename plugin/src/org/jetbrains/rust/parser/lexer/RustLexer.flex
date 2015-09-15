@@ -79,7 +79,6 @@ LIT_BOOL=true|false
   "if"                   { return IF; }
   "impl"                 { return IMPL; }
   "let"                  { return LET; }
-  "lifetimes"            { return LIFETIMES; }
   "match"                { return MATCH; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
