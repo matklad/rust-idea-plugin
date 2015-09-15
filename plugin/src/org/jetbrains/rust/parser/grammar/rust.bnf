@@ -326,7 +326,7 @@ struct_field ::= ident ':' expr
 
 return_expr ::= return [expr]
 
-if_expr ::= if (let pat '=' expr | expr) block_expr [else block_expr]
+if_expr ::= if (let pat '=' expr | expr) block_expr [else (if_expr | block_expr)]
 
 match_expr ::= match expr '{'
     (pats [if expr] '=>' (block_expr [',']| expr ','))*
