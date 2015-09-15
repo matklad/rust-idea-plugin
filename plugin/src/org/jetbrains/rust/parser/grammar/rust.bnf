@@ -203,8 +203,9 @@ ty_param ::= ident [':' ty_param_bounds]
 ty_param_bounds ::= ty_param_bound ('+' ty_param_bound)*
 ty_param_bound ::= lifetime | path
 
+// XXX: things like `Fn(f64, f64) -> f64` are also paths
 type_path ::= type_path_segment ("::" type_path_segment)*
-type_path_segment ::= ident [generic_values]
+type_path_segment ::= ident [generic_values | '(' [<<comma_separated_list ty_sum>>] ')' [ret_ty]]
 
 path ::= ident ("::" ident)*
 
