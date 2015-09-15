@@ -167,8 +167,11 @@ pat ::= '_'
       | '(' <<comma_separated_list pat>> ')'
       | '[' <<comma_separated_list pat>> ']'
       | path '(' <<comma_separated_list pat>> ')'
+      | path '{' <<comma_separated_list pat_field>> ['..']'}'
       | path
       | lit
+
+pat_field ::= ident [':' pat]
 
 pats ::= pat ('|' pat)*
 
@@ -328,6 +331,7 @@ lit ::= lit_byte
       | lit_float
       | lit_string
       | lit_byte_string
+      | '()'
       | true
       | false
       | str
