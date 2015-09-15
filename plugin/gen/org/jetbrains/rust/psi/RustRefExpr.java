@@ -10,7 +10,10 @@ public interface RustRefExpr extends RustExpr {
   @NotNull
   RustExpr getExpr();
 
-  @NotNull
+  @Nullable
   PsiElement getIdent();
+
+  @Nullable
+  PsiElement getLitInteger();
 
 }

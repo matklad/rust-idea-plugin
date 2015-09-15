@@ -11,27 +11,21 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustWhereClauseImpl extends ASTWrapperPsiElement implements RustWhereClause {
+public class RustEnumBodyImpl extends ASTWrapperPsiElement implements RustEnumBody {
 
-  public RustWhereClauseImpl(ASTNode node) {
+  public RustEnumBodyImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitWhereClause(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitEnumBody(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public List<RustTy> getTyList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustTy.class);
-  }
-
-  @Override
-  @NotNull
-  public List<RustTyParamBounds> getTyParamBoundsList() {
-    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustTyParamBounds.class);
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findNotNullChildByClass(RustCommaSeparatedList.class);
   }
 
 }

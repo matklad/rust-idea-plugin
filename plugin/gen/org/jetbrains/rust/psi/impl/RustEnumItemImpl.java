@@ -11,45 +11,33 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
+public class RustEnumItemImpl extends ASTWrapperPsiElement implements RustEnumItem {
 
-  public RustPatImpl(ASTNode node) {
+  public RustEnumItemImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPat(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitEnumItem(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findChildByClass(RustCommaSeparatedList.class);
+  @NotNull
+  public RustEnumBody getEnumBody() {
+    return findNotNullChildByClass(RustEnumBody.class);
   }
 
   @Override
   @Nullable
-  public RustLit getLit() {
-    return findChildByClass(RustLit.class);
+  public RustGenericParams getGenericParams() {
+    return findChildByClass(RustGenericParams.class);
   }
 
   @Override
-  @Nullable
-  public RustPat getPat() {
-    return findChildByClass(RustPat.class);
-  }
-
-  @Override
-  @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
-  }
-
-  @Override
-  @Nullable
+  @NotNull
   public PsiElement getIdent() {
-    return findChildByType(IDENT);
+    return findNotNullChildByType(IDENT);
   }
 
 }

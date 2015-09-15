@@ -8,7 +8,7 @@ import com.intellij.psi.PsiElement;
 public interface RustTyParamBound extends PsiElement {
 
   @Nullable
-  RustPath getPath();
+  RustTypePath getTypePath();
 
   @Nullable
   PsiElement getLifetime();

@@ -36,6 +36,12 @@ public class RustItemWithAttrsImpl extends ASTWrapperPsiElement implements RustI
 
   @Override
   @Nullable
+  public RustEnumItem getEnumItem() {
+    return findChildByClass(RustEnumItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustExternCrateItem getExternCrateItem() {
     return findChildByClass(RustExternCrateItem.class);
   }
@@ -74,6 +80,12 @@ public class RustItemWithAttrsImpl extends ASTWrapperPsiElement implements RustI
   @Nullable
   public RustTraitItem getTraitItem() {
     return findChildByClass(RustTraitItem.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTypeItem getTypeItem() {
+    return findChildByClass(RustTypeItem.class);
   }
 
   @Override

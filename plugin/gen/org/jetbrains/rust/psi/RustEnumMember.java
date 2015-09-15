@@ -5,21 +5,21 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustPat extends PsiElement {
+public interface RustEnumMember extends PsiElement {
+
+  @NotNull
+  RustOuterAttrs getOuterAttrs();
 
   @Nullable
-  RustCommaSeparatedList getCommaSeparatedList();
+  RustRecordStructBody getRecordStructBody();
 
   @Nullable
-  RustLit getLit();
+  RustTupleStructBody getTupleStructBody();
 
   @Nullable
-  RustPat getPat();
+  RustVisibility getVisibility();
 
-  @Nullable
-  RustPath getPath();
-
-  @Nullable
+  @NotNull
   PsiElement getIdent();
 
 }

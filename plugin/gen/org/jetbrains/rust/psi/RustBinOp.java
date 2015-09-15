@@ -5,12 +5,6 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustWhereClause extends PsiElement {
-
-  @NotNull
-  List<RustTy> getTyList();
-
-  @NotNull
-  List<RustTyParamBounds> getTyParamBoundsList();
+public interface RustBinOp extends PsiElement {
 
 }

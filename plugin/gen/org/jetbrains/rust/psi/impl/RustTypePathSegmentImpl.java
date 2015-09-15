@@ -24,8 +24,20 @@ public class RustTypePathSegmentImpl extends ASTWrapperPsiElement implements Rus
 
   @Override
   @Nullable
+  public RustCommaSeparatedList getCommaSeparatedList() {
+    return findChildByClass(RustCommaSeparatedList.class);
+  }
+
+  @Override
+  @Nullable
   public RustGenericValues getGenericValues() {
     return findChildByClass(RustGenericValues.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTy getTy() {
+    return findChildByClass(RustTy.class);
   }
 
   @Override

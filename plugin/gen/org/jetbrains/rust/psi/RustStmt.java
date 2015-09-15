@@ -11,6 +11,9 @@ public interface RustStmt extends PsiElement {
   RustConstItem getConstItem();
 
   @Nullable
+  RustEnumItem getEnumItem();
+
+  @Nullable
   RustExpr getExpr();
 
   @Nullable
@@ -36,5 +39,8 @@ public interface RustStmt extends PsiElement {
 
   @Nullable
   RustTySum getTySum();
+
+  @Nullable
+  RustTypeItem getTypeItem();
 
 }

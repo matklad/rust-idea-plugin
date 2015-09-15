@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustWhereClause extends PsiElement {
+public interface RustEnumItem extends PsiElement {
 
   @NotNull
-  List<RustTy> getTyList();
+  RustEnumBody getEnumBody();
+
+  @Nullable
+  RustGenericParams getGenericParams();
 
   @NotNull
-  List<RustTyParamBounds> getTyParamBoundsList();
+  PsiElement getIdent();
 
 }

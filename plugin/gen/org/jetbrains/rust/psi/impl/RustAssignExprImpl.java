@@ -22,6 +22,12 @@ public class RustAssignExprImpl extends RustExprImpl implements RustAssignExpr {
   }
 
   @Override
+  @Nullable
+  public RustBinOp getBinOp() {
+    return findChildByClass(RustBinOp.class);
+  }
+
+  @Override
   @NotNull
   public List<RustExpr> getExprList() {
     return PsiTreeUtil.getChildrenOfTypeAsList(this, RustExpr.class);

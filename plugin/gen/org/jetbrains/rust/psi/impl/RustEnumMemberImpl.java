@@ -11,45 +11,45 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
+public class RustEnumMemberImpl extends ASTWrapperPsiElement implements RustEnumMember {
 
-  public RustPatImpl(ASTNode node) {
+  public RustEnumMemberImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPat(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitEnumMember(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findChildByClass(RustCommaSeparatedList.class);
+  @NotNull
+  public RustOuterAttrs getOuterAttrs() {
+    return findNotNullChildByClass(RustOuterAttrs.class);
   }
 
   @Override
   @Nullable
-  public RustLit getLit() {
-    return findChildByClass(RustLit.class);
+  public RustRecordStructBody getRecordStructBody() {
+    return findChildByClass(RustRecordStructBody.class);
   }
 
   @Override
   @Nullable
-  public RustPat getPat() {
-    return findChildByClass(RustPat.class);
+  public RustTupleStructBody getTupleStructBody() {
+    return findChildByClass(RustTupleStructBody.class);
   }
 
   @Override
   @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
+  public RustVisibility getVisibility() {
+    return findChildByClass(RustVisibility.class);
   }
 
   @Override
-  @Nullable
+  @NotNull
   public PsiElement getIdent() {
-    return findChildByType(IDENT);
+    return findNotNullChildByType(IDENT);
   }
 
 }

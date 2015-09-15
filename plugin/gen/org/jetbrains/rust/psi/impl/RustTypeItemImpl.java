@@ -11,45 +11,39 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
+public class RustTypeItemImpl extends ASTWrapperPsiElement implements RustTypeItem {
 
-  public RustPatImpl(ASTNode node) {
+  public RustTypeItemImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPat(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTypeItem(this);
     else super.accept(visitor);
   }
 
   @Override
   @Nullable
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findChildByClass(RustCommaSeparatedList.class);
+  public RustGenericParams getGenericParams() {
+    return findChildByClass(RustGenericParams.class);
+  }
+
+  @Override
+  @NotNull
+  public RustTySum getTySum() {
+    return findNotNullChildByClass(RustTySum.class);
   }
 
   @Override
   @Nullable
-  public RustLit getLit() {
-    return findChildByClass(RustLit.class);
+  public RustWhereClause getWhereClause() {
+    return findChildByClass(RustWhereClause.class);
   }
 
   @Override
-  @Nullable
-  public RustPat getPat() {
-    return findChildByClass(RustPat.class);
-  }
-
-  @Override
-  @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
-  }
-
-  @Override
-  @Nullable
+  @NotNull
   public PsiElement getIdent() {
-    return findChildByType(IDENT);
+    return findNotNullChildByType(IDENT);
   }
 
 }

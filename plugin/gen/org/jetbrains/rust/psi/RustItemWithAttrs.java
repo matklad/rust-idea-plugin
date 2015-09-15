@@ -14,6 +14,9 @@ public interface RustItemWithAttrs extends PsiElement {
   RustConstItem getConstItem();
 
   @Nullable
+  RustEnumItem getEnumItem();
+
+  @Nullable
   RustExternCrateItem getExternCrateItem();
 
   @Nullable
@@ -33,6 +36,9 @@ public interface RustItemWithAttrs extends PsiElement {
 
   @Nullable
   RustTraitItem getTraitItem();
+
+  @Nullable
+  RustTypeItem getTypeItem();
 
   @Nullable
   RustUseItem getUseItem();

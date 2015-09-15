@@ -24,8 +24,8 @@ public class RustTyParamBoundImpl extends ASTWrapperPsiElement implements RustTy
 
   @Override
   @Nullable
-  public RustPath getPath() {
-    return findChildByClass(RustPath.class);
+  public RustTypePath getTypePath() {
+    return findChildByClass(RustTypePath.class);
   }
 
   @Override

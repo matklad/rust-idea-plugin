@@ -30,6 +30,12 @@ public class RustStmtImpl extends ASTWrapperPsiElement implements RustStmt {
 
   @Override
   @Nullable
+  public RustEnumItem getEnumItem() {
+    return findChildByClass(RustEnumItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustExpr getExpr() {
     return findChildByClass(RustExpr.class);
   }
@@ -80,6 +86,12 @@ public class RustStmtImpl extends ASTWrapperPsiElement implements RustStmt {
   @Nullable
   public RustTySum getTySum() {
     return findChildByClass(RustTySum.class);
+  }
+
+  @Override
+  @Nullable
+  public RustTypeItem getTypeItem() {
+    return findChildByClass(RustTypeItem.class);
   }
 
 }

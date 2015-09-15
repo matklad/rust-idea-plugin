@@ -28,9 +28,15 @@ public class RustRefExprImpl extends RustExprImpl implements RustRefExpr {
   }
 
   @Override
-  @NotNull
+  @Nullable
   public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+    return findChildByType(IDENT);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getLitInteger() {
+    return findChildByType(LIT_INTEGER);
   }
 
 }

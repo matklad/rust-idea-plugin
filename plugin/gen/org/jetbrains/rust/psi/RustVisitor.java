@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class RustVisitor extends PsiElementVisitor {
 
+  public void visitArrayExpr(@NotNull RustArrayExpr o) {
+    visitExpr(o);
+  }
+
   public void visitArrayRefExpr(@NotNull RustArrayRefExpr o) {
     visitExpr(o);
   }
@@ -21,6 +25,10 @@ public class RustVisitor extends PsiElementVisitor {
 
   public void visitBandExpr(@NotNull RustBandExpr o) {
     visitExpr(o);
+  }
+
+  public void visitBinOp(@NotNull RustBinOp o) {
+    visitPsiElement(o);
   }
 
   public void visitBlockExpr(@NotNull RustBlockExpr o) {
@@ -61,6 +69,18 @@ public class RustVisitor extends PsiElementVisitor {
 
   public void visitDivExpr(@NotNull RustDivExpr o) {
     visitExpr(o);
+  }
+
+  public void visitEnumBody(@NotNull RustEnumBody o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumItem(@NotNull RustEnumItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitEnumMember(@NotNull RustEnumMember o) {
+    visitPsiElement(o);
   }
 
   public void visitEqExpr(@NotNull RustEqExpr o) {
@@ -348,6 +368,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitTySum(@NotNull RustTySum o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTypeItem(@NotNull RustTypeItem o) {
     visitPsiElement(o);
   }
 

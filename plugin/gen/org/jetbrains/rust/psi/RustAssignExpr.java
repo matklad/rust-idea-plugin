@@ -7,6 +7,9 @@ import com.intellij.psi.PsiElement;
 
 public interface RustAssignExpr extends RustExpr {
 
+  @Nullable
+  RustBinOp getBinOp();
+
   @NotNull
   List<RustExpr> getExprList();
 

@@ -9,10 +9,12 @@ import org.jetbrains.rust.psi.impl.*;
 
 public interface RustTypes {
 
+  IElementType ARRAY_EXPR = new RustElementType("ARRAY_EXPR");
   IElementType ARRAY_REF_EXPR = new RustElementType("ARRAY_REF_EXPR");
   IElementType ASSIGN_EXPR = new RustElementType("ASSIGN_EXPR");
   IElementType ATTRS_AND_VIS = new RustElementType("ATTRS_AND_VIS");
   IElementType BAND_EXPR = new RustElementType("BAND_EXPR");
+  IElementType BIN_OP = new RustElementType("BIN_OP");
   IElementType BLOCK_EXPR = new RustElementType("BLOCK_EXPR");
   IElementType BORROW_EXPR = new RustElementType("BORROW_EXPR");
   IElementType BOR_EXPR = new RustElementType("BOR_EXPR");
@@ -23,6 +25,9 @@ public interface RustTypes {
   IElementType CONST_ITEM = new RustElementType("CONST_ITEM");
   IElementType DEREF_EXPR = new RustElementType("DEREF_EXPR");
   IElementType DIV_EXPR = new RustElementType("DIV_EXPR");
+  IElementType ENUM_BODY = new RustElementType("ENUM_BODY");
+  IElementType ENUM_ITEM = new RustElementType("ENUM_ITEM");
+  IElementType ENUM_MEMBER = new RustElementType("ENUM_MEMBER");
   IElementType EQ_EXPR = new RustElementType("EQ_EXPR");
   IElementType EXPR = new RustElementType("EXPR");
   IElementType EXPR_PATH = new RustElementType("EXPR_PATH");
@@ -91,6 +96,7 @@ public interface RustTypes {
   IElementType TUPLE_STRUCT_BODY = new RustElementType("TUPLE_STRUCT_BODY");
   IElementType TUPLE_STRUCT_MEMBER = new RustElementType("TUPLE_STRUCT_MEMBER");
   IElementType TY = new RustElementType("TY");
+  IElementType TYPE_ITEM = new RustElementType("TYPE_ITEM");
   IElementType TYPE_PATH = new RustElementType("TYPE_PATH");
   IElementType TYPE_PATH_SEGMENT = new RustElementType("TYPE_PATH_SEGMENT");
   IElementType TY_PARAM = new RustElementType("TY_PARAM");
@@ -121,6 +127,7 @@ public interface RustTypes {
   IElementType DOT_DOT = new RustTokenType("..");
   IElementType DOT_DOT_DOT = new RustTokenType("...");
   IElementType ELSE = new RustTokenType("else");
+  IElementType ENUM = new RustTokenType("enum");
   IElementType EQUAL_EQUAL = new RustTokenType("==");
   IElementType EXTERN = new RustTokenType("extern");
   IElementType FALSE = new RustTokenType("false");
@@ -157,12 +164,14 @@ public interface RustTypes {
   IElementType PLUS = new RustTokenType("+");
   IElementType PTR = new RustTokenType("ptr");
   IElementType PUB = new RustTokenType("pub");
+  IElementType REF = new RustTokenType("ref");
   IElementType RETURN = new RustTokenType("return");
   IElementType SELF = new RustTokenType("self");
   IElementType SEMI = new RustTokenType(";");
   IElementType STATIC = new RustTokenType("static");
   IElementType STR = new RustTokenType("str");
   IElementType STRUCT = new RustTokenType("struct");
+  IElementType THIN_ARROW = new RustTokenType("->");
   IElementType TRAIT = new RustTokenType("trait");
   IElementType TRUE = new RustTokenType("true");
   IElementType TYPE = new RustTokenType("type");
@@ -173,7 +182,10 @@ public interface RustTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == ARRAY_REF_EXPR) {
+       if (type == ARRAY_EXPR) {
+        return new RustArrayExprImpl(node);
+      }
+      else if (type == ARRAY_REF_EXPR) {
         return new RustArrayRefExprImpl(node);
       }
       else if (type == ASSIGN_EXPR) {
@@ -184,6 +196,9 @@ public interface RustTypes {
       }
       else if (type == BAND_EXPR) {
         return new RustBandExprImpl(node);
+      }
+      else if (type == BIN_OP) {
+        return new RustBinOpImpl(node);
       }
       else if (type == BLOCK_EXPR) {
         return new RustBlockExprImpl(node);
@@ -214,6 +229,15 @@ public interface RustTypes {
       }
       else if (type == DIV_EXPR) {
         return new RustDivExprImpl(node);
+      }
+      else if (type == ENUM_BODY) {
+        return new RustEnumBodyImpl(node);
+      }
+      else if (type == ENUM_ITEM) {
+        return new RustEnumItemImpl(node);
+      }
+      else if (type == ENUM_MEMBER) {
+        return new RustEnumMemberImpl(node);
       }
       else if (type == EQ_EXPR) {
         return new RustEqExprImpl(node);
@@ -418,6 +442,9 @@ public interface RustTypes {
       }
       else if (type == TY) {
         return new RustTyImpl(node);
+      }
+      else if (type == TYPE_ITEM) {
+        return new RustTypeItemImpl(node);
       }
       else if (type == TYPE_PATH) {
         return new RustTypePathImpl(node);
