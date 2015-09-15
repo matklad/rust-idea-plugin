@@ -30,6 +30,12 @@ public class RustPatImpl extends ASTWrapperPsiElement implements RustPat {
 
   @Override
   @Nullable
+  public RustLit getLit() {
+    return findChildByClass(RustLit.class);
+  }
+
+  @Override
+  @Nullable
   public RustPat getPat() {
     return findChildByClass(RustPat.class);
   }

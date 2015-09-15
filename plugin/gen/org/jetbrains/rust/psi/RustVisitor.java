@@ -319,6 +319,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTyParamBounds(@NotNull RustTyParamBounds o) {
+    visitPsiElement(o);
+  }
+
   public void visitTySum(@NotNull RustTySum o) {
     visitPsiElement(o);
   }

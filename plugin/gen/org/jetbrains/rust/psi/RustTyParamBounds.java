@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustTyParam extends PsiElement {
-
-  @Nullable
-  RustTyParamBounds getTyParamBounds();
+public interface RustTyParamBounds extends PsiElement {
 
   @NotNull
-  PsiElement getIdent();
+  List<RustPath> getPathList();
 
 }

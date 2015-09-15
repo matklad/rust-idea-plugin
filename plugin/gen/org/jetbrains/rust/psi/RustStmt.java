@@ -8,10 +8,28 @@ import com.intellij.psi.PsiElement;
 public interface RustStmt extends PsiElement {
 
   @Nullable
+  RustConstItem getConstItem();
+
+  @Nullable
   RustExpr getExpr();
 
   @Nullable
+  RustFnItem getFnItem();
+
+  @Nullable
+  RustImplItem getImplItem();
+
+  @Nullable
+  RustModItem getModItem();
+
+  @Nullable
   RustPat getPat();
+
+  @Nullable
+  RustStaticItem getStaticItem();
+
+  @Nullable
+  RustStructItem getStructItem();
 
   @Nullable
   RustTySum getTySum();

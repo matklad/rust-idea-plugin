@@ -254,6 +254,9 @@ public class RustParser implements PsiParser, LightPsiParser {
     else if (t == TY_PARAM) {
       r = ty_param(b, 0);
     }
+    else if (t == TY_PARAM_BOUNDS) {
+      r = ty_param_bounds(b, 0);
+    }
     else if (t == TY_SUM) {
       r = ty_sum(b, 0);
     }
@@ -1091,6 +1094,7 @@ public class RustParser implements PsiParser, LightPsiParser {
   //       | '[' <<comma_separated_list pat>> ']'
   //       | path '(' <<comma_separated_list pat>> ')'
   //       | path
+  //       | lit
   public static boolean pat(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "pat")) return false;
     boolean r;
@@ -1102,6 +1106,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     if (!r) r = pat_4(b, l + 1);
     if (!r) r = pat_5(b, l + 1);
     if (!r) r = path(b, l + 1);
+    if (!r) r = lit(b, l + 1);
     exit_section_(b, l, m, PAT, r, false, null);
     return r;
   }
@@ -1502,44 +1507,46 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // let pat [':' ty_sum] ['=' expr] ';'
+  // stmt_item
+  //        | let pat [':' ty_sum] ['=' expr] ';'
   //        | statement_like_expr
   //        | expr ';'
   public static boolean stmt(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "stmt")) return false;
     boolean r;
     Marker m = enter_section_(b, l, _NONE_, "<stmt>");
-    r = stmt_0(b, l + 1);
+    r = stmt_item(b, l + 1);
+    if (!r) r = stmt_1(b, l + 1);
     if (!r) r = statement_like_expr(b, l + 1);
-    if (!r) r = stmt_2(b, l + 1);
+    if (!r) r = stmt_3(b, l + 1);
     exit_section_(b, l, m, STMT, r, false, null);
     return r;
   }
 
   // let pat [':' ty_sum] ['=' expr] ';'
-  private static boolean stmt_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmt_0")) return false;
+  private static boolean stmt_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_1")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, LET);
     r = r && pat(b, l + 1);
-    r = r && stmt_0_2(b, l + 1);
-    r = r && stmt_0_3(b, l + 1);
+    r = r && stmt_1_2(b, l + 1);
+    r = r && stmt_1_3(b, l + 1);
     r = r && consumeToken(b, SEMI);
     exit_section_(b, m, null, r);
     return r;
   }
 
   // [':' ty_sum]
-  private static boolean stmt_0_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmt_0_2")) return false;
-    stmt_0_2_0(b, l + 1);
+  private static boolean stmt_1_2(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_1_2")) return false;
+    stmt_1_2_0(b, l + 1);
     return true;
   }
 
   // ':' ty_sum
-  private static boolean stmt_0_2_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmt_0_2_0")) return false;
+  private static boolean stmt_1_2_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_1_2_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, COLON);
@@ -1549,15 +1556,15 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   // ['=' expr]
-  private static boolean stmt_0_3(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmt_0_3")) return false;
-    stmt_0_3_0(b, l + 1);
+  private static boolean stmt_1_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_1_3")) return false;
+    stmt_1_3_0(b, l + 1);
     return true;
   }
 
   // '=' expr
-  private static boolean stmt_0_3_0(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmt_0_3_0")) return false;
+  private static boolean stmt_1_3_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_1_3_0")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, ASSIGN);
@@ -1567,8 +1574,8 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   // expr ';'
-  private static boolean stmt_2(PsiBuilder b, int l) {
-    if (!recursion_guard_(b, l, "stmt_2")) return false;
+  private static boolean stmt_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "stmt_3")) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = expr(b, l + 1, -1);
@@ -1845,14 +1852,69 @@ public class RustParser implements PsiParser, LightPsiParser {
   }
 
   /* ********************************************************** */
-  // ident
+  // ident [':' ty_param_bounds]
   public static boolean ty_param(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "ty_param")) return false;
     if (!nextTokenIs(b, IDENT)) return false;
     boolean r;
     Marker m = enter_section_(b);
     r = consumeToken(b, IDENT);
+    r = r && ty_param_1(b, l + 1);
     exit_section_(b, m, TY_PARAM, r);
+    return r;
+  }
+
+  // [':' ty_param_bounds]
+  private static boolean ty_param_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ty_param_1")) return false;
+    ty_param_1_0(b, l + 1);
+    return true;
+  }
+
+  // ':' ty_param_bounds
+  private static boolean ty_param_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ty_param_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, COLON);
+    r = r && ty_param_bounds(b, l + 1);
+    exit_section_(b, m, null, r);
+    return r;
+  }
+
+  /* ********************************************************** */
+  // path ('+' path)*
+  public static boolean ty_param_bounds(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ty_param_bounds")) return false;
+    if (!nextTokenIs(b, IDENT)) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = path(b, l + 1);
+    r = r && ty_param_bounds_1(b, l + 1);
+    exit_section_(b, m, TY_PARAM_BOUNDS, r);
+    return r;
+  }
+
+  // ('+' path)*
+  private static boolean ty_param_bounds_1(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ty_param_bounds_1")) return false;
+    int c = current_position_(b);
+    while (true) {
+      if (!ty_param_bounds_1_0(b, l + 1)) break;
+      if (!empty_element_parsed_guard_(b, "ty_param_bounds_1", c)) break;
+      c = current_position_(b);
+    }
+    return true;
+  }
+
+  // '+' path
+  private static boolean ty_param_bounds_1_0(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "ty_param_bounds_1_0")) return false;
+    boolean r;
+    Marker m = enter_section_(b);
+    r = consumeToken(b, PLUS);
+    r = r && path(b, l + 1);
+    exit_section_(b, m, null, r);
     return r;
   }
 
@@ -2180,7 +2242,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     return true;
   }
 
-  // ident '!' '(' <<comma_separated_list expr>> ')'
+  // ident '!' '(' [<<comma_separated_list expr>>] ')'
   public static boolean macro_expr(PsiBuilder b, int l) {
     if (!recursion_guard_(b, l, "macro_expr")) return false;
     if (!nextTokenIsFast(b, IDENT)) return false;
@@ -2189,10 +2251,17 @@ public class RustParser implements PsiParser, LightPsiParser {
     r = consumeTokenSmart(b, IDENT);
     r = r && consumeToken(b, BANG);
     r = r && consumeToken(b, PAR_LEFT);
-    r = r && comma_separated_list(b, l + 1, expr_parser_);
+    r = r && macro_expr_3(b, l + 1);
     r = r && consumeToken(b, PAR_RIGHT);
     exit_section_(b, m, MACRO_EXPR, r);
     return r;
+  }
+
+  // [<<comma_separated_list expr>>]
+  private static boolean macro_expr_3(PsiBuilder b, int l) {
+    if (!recursion_guard_(b, l, "macro_expr_3")) return false;
+    comma_separated_list(b, l + 1, expr_parser_);
+    return true;
   }
 
   // '.' ident
@@ -2574,7 +2643,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = pats(b, l + 1);
     r = r && match_expr_3_0_1(b, l + 1);
-    r = r && consumeToken(b, "=>");
+    r = r && consumeToken(b, FAT_ARROW);
     r = r && match_expr_3_0_3(b, l + 1);
     exit_section_(b, m, null, r);
     return r;
@@ -2634,7 +2703,7 @@ public class RustParser implements PsiParser, LightPsiParser {
     Marker m = enter_section_(b);
     r = pats(b, l + 1);
     r = r && match_expr_4_0_1(b, l + 1);
-    r = r && consumeToken(b, "=>");
+    r = r && consumeToken(b, FAT_ARROW);
     r = r && expr(b, l + 1, -1);
     exit_section_(b, m, null, r);
     return r;

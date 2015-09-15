@@ -11,6 +11,9 @@ public interface RustPat extends PsiElement {
   RustCommaSeparatedList getCommaSeparatedList();
 
   @Nullable
+  RustLit getLit();
+
+  @Nullable
   RustPat getPat();
 
   @Nullable

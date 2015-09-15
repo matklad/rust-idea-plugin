@@ -89,6 +89,7 @@ public interface RustTypes {
   IElementType TYPE_PATH = new RustElementType("TYPE_PATH");
   IElementType TYPE_PATH_SEGMENT = new RustElementType("TYPE_PATH_SEGMENT");
   IElementType TY_PARAM = new RustElementType("TY_PARAM");
+  IElementType TY_PARAM_BOUNDS = new RustElementType("TY_PARAM_BOUNDS");
   IElementType TY_SUM = new RustElementType("TY_SUM");
   IElementType UNARY_MIN_EXPR = new RustElementType("UNARY_MIN_EXPR");
   IElementType USE_ITEM = new RustElementType("USE_ITEM");
@@ -117,6 +118,7 @@ public interface RustTypes {
   IElementType EQUAL_EQUAL = new RustTokenType("==");
   IElementType EXTERN = new RustTokenType("extern");
   IElementType FALSE = new RustTokenType("false");
+  IElementType FAT_ARROW = new RustTokenType("=>");
   IElementType FN = new RustTokenType("fn");
   IElementType FOR = new RustTokenType("for");
   IElementType GREATER = new RustTokenType(">");
@@ -403,6 +405,9 @@ public interface RustTypes {
       }
       else if (type == TY_PARAM) {
         return new RustTyParamImpl(node);
+      }
+      else if (type == TY_PARAM_BOUNDS) {
+        return new RustTyParamBoundsImpl(node);
       }
       else if (type == TY_SUM) {
         return new RustTySumImpl(node);

@@ -11,27 +11,21 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustTyParamImpl extends ASTWrapperPsiElement implements RustTyParam {
+public class RustTyParamBoundsImpl extends ASTWrapperPsiElement implements RustTyParamBounds {
 
-  public RustTyParamImpl(ASTNode node) {
+  public RustTyParamBoundsImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTyParam(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTyParamBounds(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustTyParamBounds getTyParamBounds() {
-    return findChildByClass(RustTyParamBounds.class);
-  }
-
-  @Override
   @NotNull
-  public PsiElement getIdent() {
-    return findNotNullChildByType(IDENT);
+  public List<RustPath> getPathList() {
+    return PsiTreeUtil.getChildrenOfTypeAsList(this, RustPath.class);
   }
 
 }

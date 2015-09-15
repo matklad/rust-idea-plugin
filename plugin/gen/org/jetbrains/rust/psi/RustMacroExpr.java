@@ -7,7 +7,7 @@ import com.intellij.psi.PsiElement;
 
 public interface RustMacroExpr extends RustExpr {
 
-  @NotNull
+  @Nullable
   RustCommaSeparatedList getCommaSeparatedList();
 
   @NotNull
