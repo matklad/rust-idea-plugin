@@ -5,12 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustGenericParams extends PsiElement {
+public interface RustTraitBody extends PsiElement {
 
-  @Nullable
-  RustCommaSeparatedList getCommaSeparatedList();
+  @NotNull
+  List<RustOuterAttrs> getOuterAttrsList();
 
-  @Nullable
-  PsiElement getLifetime();
+  @NotNull
+  List<RustTraitMember> getTraitMemberList();
 
 }

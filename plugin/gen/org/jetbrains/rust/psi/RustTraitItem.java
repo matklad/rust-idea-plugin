@@ -5,13 +5,19 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustRecordStructAttr extends PsiElement {
-
-  @NotNull
-  RustTy getTy();
+public interface RustTraitItem extends PsiElement {
 
   @Nullable
-  RustVisibility getVisibility();
+  RustGenericParams getGenericParams();
+
+  @NotNull
+  RustTraitBody getTraitBody();
+
+  @Nullable
+  RustTyParamBounds getTyParamBounds();
+
+  @Nullable
+  RustWhereClause getWhereClause();
 
   @NotNull
   PsiElement getIdent();

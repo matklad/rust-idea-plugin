@@ -68,8 +68,8 @@ public interface RustTypes {
   IElementType PATS = new RustElementType("PATS");
   IElementType PLUS_EXPR = new RustElementType("PLUS_EXPR");
   IElementType RANGE_EXPR = new RustElementType("RANGE_EXPR");
-  IElementType RECORD_STRUCT_ATTR = new RustElementType("RECORD_STRUCT_ATTR");
   IElementType RECORD_STRUCT_BODY = new RustElementType("RECORD_STRUCT_BODY");
+  IElementType RECORD_STRUCT_MEMBER = new RustElementType("RECORD_STRUCT_MEMBER");
   IElementType REF_EXPR = new RustElementType("REF_EXPR");
   IElementType RETURN_EXPR = new RustElementType("RETURN_EXPR");
   IElementType SELF_PARAM = new RustElementType("SELF_PARAM");
@@ -82,9 +82,12 @@ public interface RustTypes {
   IElementType STRUCT_EXPR = new RustElementType("STRUCT_EXPR");
   IElementType STRUCT_FIELD = new RustElementType("STRUCT_FIELD");
   IElementType STRUCT_ITEM = new RustElementType("STRUCT_ITEM");
+  IElementType TRAIT_BODY = new RustElementType("TRAIT_BODY");
+  IElementType TRAIT_ITEM = new RustElementType("TRAIT_ITEM");
+  IElementType TRAIT_MEMBER = new RustElementType("TRAIT_MEMBER");
   IElementType TUPLE_EXPR = new RustElementType("TUPLE_EXPR");
-  IElementType TUPLE_STRUCT_ATTR = new RustElementType("TUPLE_STRUCT_ATTR");
   IElementType TUPLE_STRUCT_BODY = new RustElementType("TUPLE_STRUCT_BODY");
+  IElementType TUPLE_STRUCT_MEMBER = new RustElementType("TUPLE_STRUCT_MEMBER");
   IElementType TY = new RustElementType("TY");
   IElementType TYPE_PATH = new RustElementType("TYPE_PATH");
   IElementType TYPE_PATH_SEGMENT = new RustElementType("TYPE_PATH_SEGMENT");
@@ -131,7 +134,6 @@ public interface RustTypes {
   IElementType LESS_EQUAL = new RustTokenType("<=");
   IElementType LET = new RustTokenType("let");
   IElementType LIFETIME = new RustTokenType("lifetime");
-  IElementType LIFETIMES = new RustTokenType("lifetimes");
   IElementType LINE_COMMENT = new RustTokenType("line_comment");
   IElementType LIT_BOOL = new RustTokenType("lit_bool");
   IElementType LIT_BYTE = new RustTokenType("byte_lit");
@@ -157,6 +159,7 @@ public interface RustTypes {
   IElementType STATIC = new RustTokenType("static");
   IElementType STR = new RustTokenType("str");
   IElementType STRUCT = new RustTokenType("struct");
+  IElementType TRAIT = new RustTokenType("trait");
   IElementType TRUE = new RustTokenType("true");
   IElementType TYPE = new RustTokenType("type");
   IElementType UNSAFE = new RustTokenType("unsafe");
@@ -343,11 +346,11 @@ public interface RustTypes {
       else if (type == RANGE_EXPR) {
         return new RustRangeExprImpl(node);
       }
-      else if (type == RECORD_STRUCT_ATTR) {
-        return new RustRecordStructAttrImpl(node);
-      }
       else if (type == RECORD_STRUCT_BODY) {
         return new RustRecordStructBodyImpl(node);
+      }
+      else if (type == RECORD_STRUCT_MEMBER) {
+        return new RustRecordStructMemberImpl(node);
       }
       else if (type == REF_EXPR) {
         return new RustRefExprImpl(node);
@@ -385,14 +388,23 @@ public interface RustTypes {
       else if (type == STRUCT_ITEM) {
         return new RustStructItemImpl(node);
       }
+      else if (type == TRAIT_BODY) {
+        return new RustTraitBodyImpl(node);
+      }
+      else if (type == TRAIT_ITEM) {
+        return new RustTraitItemImpl(node);
+      }
+      else if (type == TRAIT_MEMBER) {
+        return new RustTraitMemberImpl(node);
+      }
       else if (type == TUPLE_EXPR) {
         return new RustTupleExprImpl(node);
       }
-      else if (type == TUPLE_STRUCT_ATTR) {
-        return new RustTupleStructAttrImpl(node);
-      }
       else if (type == TUPLE_STRUCT_BODY) {
         return new RustTupleStructBodyImpl(node);
+      }
+      else if (type == TUPLE_STRUCT_MEMBER) {
+        return new RustTupleStructMemberImpl(node);
       }
       else if (type == TY) {
         return new RustTyImpl(node);

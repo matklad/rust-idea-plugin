@@ -32,6 +32,9 @@ public interface RustStmt extends PsiElement {
   RustStructItem getStructItem();
 
   @Nullable
+  RustTraitItem getTraitItem();
+
+  @Nullable
   RustTySum getTySum();
 
 }

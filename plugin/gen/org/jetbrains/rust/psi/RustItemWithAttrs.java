@@ -32,6 +32,9 @@ public interface RustItemWithAttrs extends PsiElement {
   RustStructItem getStructItem();
 
   @Nullable
+  RustTraitItem getTraitItem();
+
+  @Nullable
   RustUseItem getUseItem();
 
 }

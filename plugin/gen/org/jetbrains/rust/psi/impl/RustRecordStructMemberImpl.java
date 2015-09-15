@@ -11,33 +11,33 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustPathGlobImpl extends ASTWrapperPsiElement implements RustPathGlob {
+public class RustRecordStructMemberImpl extends ASTWrapperPsiElement implements RustRecordStructMember {
 
-  public RustPathGlobImpl(ASTNode node) {
+  public RustRecordStructMemberImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitPathGlob(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitRecordStructMember(this);
     else super.accept(visitor);
   }
 
   @Override
-  @Nullable
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findChildByClass(RustCommaSeparatedList.class);
+  @NotNull
+  public RustTy getTy() {
+    return findNotNullChildByClass(RustTy.class);
   }
 
   @Override
   @Nullable
-  public RustPathGlob getPathGlob() {
-    return findChildByClass(RustPathGlob.class);
+  public RustVisibility getVisibility() {
+    return findChildByClass(RustVisibility.class);
   }
 
   @Override
-  @Nullable
-  public RustPathItem getPathItem() {
-    return findChildByClass(RustPathItem.class);
+  @NotNull
+  public PsiElement getIdent() {
+    return findNotNullChildByType(IDENT);
   }
 
 }

@@ -243,11 +243,11 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
-  public void visitRecordStructAttr(@NotNull RustRecordStructAttr o) {
+  public void visitRecordStructBody(@NotNull RustRecordStructBody o) {
     visitPsiElement(o);
   }
 
-  public void visitRecordStructBody(@NotNull RustRecordStructBody o) {
+  public void visitRecordStructMember(@NotNull RustRecordStructMember o) {
     visitPsiElement(o);
   }
 
@@ -299,15 +299,27 @@ public class RustVisitor extends PsiElementVisitor {
     visitPsiElement(o);
   }
 
+  public void visitTraitBody(@NotNull RustTraitBody o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTraitItem(@NotNull RustTraitItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitTraitMember(@NotNull RustTraitMember o) {
+    visitPsiElement(o);
+  }
+
   public void visitTupleExpr(@NotNull RustTupleExpr o) {
     visitExpr(o);
   }
 
-  public void visitTupleStructAttr(@NotNull RustTupleStructAttr o) {
+  public void visitTupleStructBody(@NotNull RustTupleStructBody o) {
     visitPsiElement(o);
   }
 
-  public void visitTupleStructBody(@NotNull RustTupleStructBody o) {
+  public void visitTupleStructMember(@NotNull RustTupleStructMember o) {
     visitPsiElement(o);
   }
 

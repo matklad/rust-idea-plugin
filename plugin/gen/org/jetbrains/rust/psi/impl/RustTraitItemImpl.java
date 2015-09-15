@@ -11,27 +11,39 @@ import static org.jetbrains.rust.psi.RustTypes.*;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustRecordStructAttrImpl extends ASTWrapperPsiElement implements RustRecordStructAttr {
+public class RustTraitItemImpl extends ASTWrapperPsiElement implements RustTraitItem {
 
-  public RustRecordStructAttrImpl(ASTNode node) {
+  public RustTraitItemImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitRecordStructAttr(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitTraitItem(this);
     else super.accept(visitor);
   }
 
   @Override
+  @Nullable
+  public RustGenericParams getGenericParams() {
+    return findChildByClass(RustGenericParams.class);
+  }
+
+  @Override
   @NotNull
-  public RustTy getTy() {
-    return findNotNullChildByClass(RustTy.class);
+  public RustTraitBody getTraitBody() {
+    return findNotNullChildByClass(RustTraitBody.class);
   }
 
   @Override
   @Nullable
-  public RustVisibility getVisibility() {
-    return findChildByClass(RustVisibility.class);
+  public RustTyParamBounds getTyParamBounds() {
+    return findChildByClass(RustTyParamBounds.class);
+  }
+
+  @Override
+  @Nullable
+  public RustWhereClause getWhereClause() {
+    return findChildByClass(RustWhereClause.class);
   }
 
   @Override

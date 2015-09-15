@@ -5,7 +5,7 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustTupleStructAttr extends PsiElement {
+public interface RustTupleStructMember extends PsiElement {
 
   @NotNull
   RustOuterAttrs getOuterAttrs();

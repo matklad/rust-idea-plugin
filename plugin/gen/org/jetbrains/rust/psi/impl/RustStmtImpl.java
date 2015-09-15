@@ -72,6 +72,12 @@ public class RustStmtImpl extends ASTWrapperPsiElement implements RustStmt {
 
   @Override
   @Nullable
+  public RustTraitItem getTraitItem() {
+    return findChildByClass(RustTraitItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustTySum getTySum() {
     return findChildByClass(RustTySum.class);
   }

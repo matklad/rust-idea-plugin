@@ -72,6 +72,12 @@ public class RustItemWithAttrsImpl extends ASTWrapperPsiElement implements RustI
 
   @Override
   @Nullable
+  public RustTraitItem getTraitItem() {
+    return findChildByClass(RustTraitItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustUseItem getUseItem() {
     return findChildByClass(RustUseItem.class);
   }

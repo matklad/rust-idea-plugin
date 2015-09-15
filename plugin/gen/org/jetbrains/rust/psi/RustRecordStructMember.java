@@ -5,15 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustPathGlob extends PsiElement {
+public interface RustRecordStructMember extends PsiElement {
+
+  @NotNull
+  RustTy getTy();
 
   @Nullable
-  RustCommaSeparatedList getCommaSeparatedList();
+  RustVisibility getVisibility();
 
-  @Nullable
-  RustPathGlob getPathGlob();
-
-  @Nullable
-  RustPathItem getPathItem();
+  @NotNull
+  PsiElement getIdent();
 
 }

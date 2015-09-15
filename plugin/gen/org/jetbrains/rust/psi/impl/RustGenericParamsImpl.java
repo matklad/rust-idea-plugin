@@ -23,9 +23,15 @@ public class RustGenericParamsImpl extends ASTWrapperPsiElement implements RustG
   }
 
   @Override
-  @NotNull
+  @Nullable
   public RustCommaSeparatedList getCommaSeparatedList() {
-    return findNotNullChildByClass(RustCommaSeparatedList.class);
+    return findChildByClass(RustCommaSeparatedList.class);
+  }
+
+  @Override
+  @Nullable
+  public PsiElement getLifetime() {
+    return findChildByType(LIFETIME);
   }
 
 }
