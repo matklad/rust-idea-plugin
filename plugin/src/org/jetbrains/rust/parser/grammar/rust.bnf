@@ -243,15 +243,14 @@ private primary_group ::= struct_expr
                         | literal_expr
                         | paren_expr
                         | tuple_expr
-                        | block_expr
                         | lambda_expr
                         | return_expr
-                        | if_expr
-                        | match_expr
-                        | for_expr
+                        | statement_like_expr
 
-
-statement_like_expr ::= if_expr | block_expr
+statement_like_expr ::= block_expr
+                      | if_expr
+                      | match_expr
+                      | for_expr
 
 // public rules for each expression
 assign_expr ::= expr '=' expr { rightAssociative=true }
