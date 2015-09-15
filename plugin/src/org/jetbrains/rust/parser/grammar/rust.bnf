@@ -247,6 +247,7 @@ private primary_group ::= struct_expr
                         | literal_expr
                         | paren_expr
                         | tuple_expr
+                        | array_expr
                         | lambda_expr
                         | return_expr
                         | statement_like_expr
@@ -302,6 +303,8 @@ simple_ref_expr ::= expr_path | self
 literal_expr ::= lit
 paren_expr ::= &('(' expr ')') '(' expr ')'
 tuple_expr ::= '(' expr ',' [<<comma_separated_list expr>>] ')'
+array_expr ::= '[' expr ';' expr ']'
+             | '[' [<<comma_separated_list expr>>] ']'
 block_expr ::= '{' stmt* [expr] '}'
 
 lambda_expr ::= ('||' | '|' [<<comma_separated_list lambda_param>>] '|') [ret_ty] expr
