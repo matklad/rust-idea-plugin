@@ -72,6 +72,7 @@ LIT_BOOL=true|false
   "const"                { return CONST; }
   "crate"                { return CRATE; }
   "else"                 { return ELSE; }
+  "enum"                 { return ENUM; }
   "extern"               { return EXTERN; }
   "false"                { return FALSE; }
   "fn"                   { return FN; }

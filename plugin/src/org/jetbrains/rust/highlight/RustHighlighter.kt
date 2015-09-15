@@ -31,6 +31,7 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
             RustTypes.CONST,
             RustTypes.CRATE,
             RustTypes.ELSE,
+            RustTypes.ENUM,
             RustTypes.EXTERN,
             RustTypes.FALSE,
             RustTypes.FN,

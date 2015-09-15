@@ -102,7 +102,7 @@ static_item ::= static [mut] ident ':' ty '=' expr ';'
 
 const_item ::= const ident ':' ty '=' expr ';'
 
-private block_item ::= fn_item | mod_item | struct_item | impl_item | trait_item
+private block_item ::= fn_item | mod_item | struct_item | enum_item | impl_item | trait_item
 
 
 visibility ::= pub
@@ -132,6 +132,10 @@ tuple_struct_member ::= outer_attrs [visibility] ty
 record_struct_body ::= '{' <<comma_separated_list record_struct_member>> '}'
 
 record_struct_member ::= [visibility] ident ':' ty_sum
+
+enum_item ::= enum ident [generic_params] enum_body
+enum_body ::= '{' <<comma_separated_list enum_member>> '}'
+enum_member ::= outer_attrs [visibility] ident [record_struct_body | tuple_struct_body]
 
 impl_item ::= [unsafe] impl [generic_params] ty_sum [for ty_sum] [where_clause]
               '{' inner_attr* ([visibility] impl_member)* '}'
@@ -318,7 +322,7 @@ return_expr ::= return [expr]
 if_expr ::= if (let pat '=' expr | expr) block_expr [else block_expr]
 
 match_expr ::= match expr '{'
-    (pats [if expr] '=>' (block_expr | expr ','))*
+    (pats [if expr] '=>' (block_expr [',']| expr ','))*
     [pats [if expr] '=>' expr]
 '}'
 
