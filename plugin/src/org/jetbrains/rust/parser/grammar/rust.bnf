@@ -96,11 +96,14 @@ path_item ::= ident | self
 // items that can appear in "stmts"
 private stmt_item ::= static_item
                     | const_item
+                    | type_item
                     | block_item
 
 static_item ::= static [mut] ident ':' ty '=' expr ';'
 
 const_item ::= const ident ':' ty '=' expr ';'
+
+type_item ::= type ident [generic_params] [where_clause] '=' ty_sum ';'
 
 private block_item ::= fn_item | mod_item | struct_item | enum_item | impl_item | trait_item
 
