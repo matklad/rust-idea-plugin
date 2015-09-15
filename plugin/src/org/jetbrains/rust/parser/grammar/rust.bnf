@@ -102,7 +102,7 @@ static_item ::= static [mut] ident ':' ty '=' expr ';'
 
 const_item ::= const ident ':' ty '=' expr ';'
 
-private block_item ::= fn_item | mod_item | struct_item | impl_item
+private block_item ::= fn_item | mod_item | struct_item | impl_item | trait_item
 
 
 visibility ::= pub
@@ -125,13 +125,13 @@ struct_item ::= struct ident [generic_params] ( [where_clause] ';'
                                               | tuple_struct_body [where_clause]
                                               | [where_clause] record_struct_body)
 
-tuple_struct_body ::= '(' <<comma_separated_list tuple_struct_attr>> ')'
+tuple_struct_body ::= '(' <<comma_separated_list tuple_struct_member>> ')'
 
-tuple_struct_attr ::= outer_attrs [visibility] ty
+tuple_struct_member ::= outer_attrs [visibility] ty
 
-record_struct_body ::= '{' <<comma_separated_list record_struct_attr>> '}'
+record_struct_body ::= '{' <<comma_separated_list record_struct_member>> '}'
 
-record_struct_attr ::= [visibility] ident ':' ty
+record_struct_member ::= [visibility] ident ':' ty
 
 impl_item ::= [unsafe] impl [generic_params] ty_sum [for ty_sum] [where_clause]
               '{' inner_attr* ([visibility] impl_member)* '}'
@@ -148,6 +148,13 @@ member_fn_params ::= '(' ')'
                    | '(' <<comma_separated_list fn_param>> ')'
 
 self_param ::= ['&' [lifetime]] [mut] self
+
+trait_item ::= trait ident [generic_params] [':' ty_param_bounds] [where_clause] trait_body
+
+trait_body ::= '{' (outer_attrs trait_member) * '}'
+
+trait_member ::= type ty_param ';'
+               | fn ident [generic_params] member_fn_params [ret_ty] [where_clause] (';' | block_expr )
 
 
 ////////////////////////////////////////////////////////////////////////

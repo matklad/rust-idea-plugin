@@ -88,6 +88,7 @@ LIT_BOOL=true|false
   "self"                 { return SELF; }
   "static"               { return STATIC; }
   "struct"               { return STRUCT; }
+  "trait"                { return TRAIT; }
   "true"                 { return TRUE; }
   "type"                 { return TYPE; }
   "use"                  { return USE; }
