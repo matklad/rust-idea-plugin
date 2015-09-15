@@ -78,6 +78,7 @@ LIT_BOOL=true|false
   "for"                  { return FOR; }
   "if"                   { return IF; }
   "impl"                 { return IMPL; }
+  "in"                   { return IN; }
   "let"                  { return LET; }
   "match"                { return MATCH; }
   "mod"                  { return MOD; }

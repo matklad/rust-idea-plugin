@@ -204,7 +204,7 @@ path ::= ident ("::" ident)*
 expr_path ::= expr_path_segment ("::" expr_path_segment)*
 expr_path_segment ::= ident ["::" generic_values]
 
-generic_values ::= '<' <<comma_separated_list ty_sum>> '>'
+generic_values ::= '<' <<comma_separated_list (ty_sum | lifetime)>> '>'
 
 stmt ::= stmt_item
        | let pat [':' ty_sum] ['=' expr] ';'
@@ -248,6 +248,7 @@ private primary_group ::= struct_expr
                         | return_expr
                         | if_expr
                         | match_expr
+                        | for_expr
 
 
 statement_like_expr ::= if_expr | block_expr
@@ -314,6 +315,8 @@ match_expr ::= match expr '{'
     (pats [if expr] '=>' (block_expr | expr ','))*
     [pats [if expr] '=>' expr]
 '}'
+
+for_expr ::= for pat in expr block_expr
 
 ////////////////////////////////////////////////////////////////////////
 // Part 5: Macros and misc. rules
