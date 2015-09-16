@@ -105,7 +105,13 @@ const_item ::= const ident ':' ty '=' expr ';'
 
 type_item ::= type ident [generic_params] [where_clause] '=' ty_sum ';'
 
-private block_item ::= fn_item | mod_item | struct_item | enum_item | impl_item | trait_item
+private block_item ::= fn_item
+                     | mod_item
+                     | struct_item
+                     | enum_item
+                     | impl_item
+                     | trait_item
+                     | foreign_mod_item
 
 
 visibility ::= pub
@@ -163,6 +169,9 @@ trait_body ::= '{' (outer_attrs trait_member) * '}'
 trait_member ::= type ty_param ';'
                | fn ident [generic_params] member_fn_params [ret_ty] [where_clause] (';' | block_expr )
 
+foreign_mod_item ::= extern [abi] '{' inner_attr*  foreign_item* '}'
+abi ::= lit_string
+foreign_item ::= outer_attrs [visibility] fn ident [generic_params] fn_params [ret_ty] [where_clause] ';'
 
 ////////////////////////////////////////////////////////////////////////
 // Part 2: Patterns
