@@ -299,7 +299,7 @@ div_expr ::= expr '/' expr
 mul_expr ::= expr '*' expr
 mod_expr ::= expr '%' expr
 
-cast_expr ::= expr 'as' expr
+cast_expr ::= expr 'as' ty
 
 unary_min_expr ::= '-' expr
 deref_expr ::= '*' expr
