@@ -1,5 +1,6 @@
 package org.jetbrains.rust.parser
 
+import com.intellij.openapi.util.text.StringUtil
 import com.intellij.psi.PsiElement
 import com.intellij.psi.PsiElementVisitor
 import com.intellij.psi.PsiErrorElement
@@ -32,6 +33,23 @@ public class RustParserTest : ParsingTestCase("rust", "rs", RustParserDefinition
         return hasErrors
     }
 
+    protected override fun getTestName(lowercaseFirstLetter: Boolean): String {
+        val methodName = this.getName()
+        val name = StringUtil.trimStart(methodName, "test")
+        val result = StringBuilder()
+
+        result.append(name[0].toLowerCase())
+        for (ch in name.subSequence(1, name.length())) {
+            if (ch.isUpperCase()) {
+                result.append("_").append(ch.toLowerCase())
+            } else {
+                result.append(ch)
+            }
+        }
+        return result.toString()
+    }
+
+
     fun doTest() {
         val name = this.getTestName(true);
         val text = this.loadFile(name + ".rs")
@@ -39,6 +57,6 @@ public class RustParserTest : ParsingTestCase("rust", "rs", RustParserDefinition
         Assert.assertFalse(hasError(psi))
     }
 
-    public fun testHello(): Unit = doTest()
+    public fun testHelloWorld(): Unit = doTest()
 
 }
