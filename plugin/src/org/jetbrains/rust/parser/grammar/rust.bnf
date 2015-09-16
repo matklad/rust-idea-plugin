@@ -218,7 +218,7 @@ path ::= ident ("::" ident)*
 expr_path ::= expr_path_segment ("::" expr_path_segment)*
 expr_path_segment ::= ident ["::" generic_values]
 
-generic_values ::= '<' <<comma_separated_list (ty_sum | lifetime)>> '>'
+generic_values ::= '<' <<comma_separated_list (ident '=' ty | ty_sum | lifetime)>> '>'
 
 stmt ::= stmt_item
        | let pat [':' ty_sum] ['=' expr] ';'
