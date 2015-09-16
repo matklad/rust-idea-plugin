@@ -99,6 +99,7 @@ LIT_BOOL=true|false
   "trait"                { return TRAIT; }
   "true"                 { return TRUE; }
   "type"                 { return TYPE; }
+  "unsafe"               { return UNSAFE; }
   "use"                  { return USE; }
   "where"                { return WHERE; }
   "while"                { return WHILE; }

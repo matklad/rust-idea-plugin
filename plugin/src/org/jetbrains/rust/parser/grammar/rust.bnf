@@ -263,6 +263,7 @@ private primary_group ::= struct_expr
                         | statement_like_expr
 
 statement_like_expr ::= block_expr
+                      | unsafe_block_expr
                       | if_expr
                       | while_expr
                       | loop_expr
@@ -319,6 +320,7 @@ tuple_expr ::= '(' expr ',' [<<comma_separated_list expr>>] ')'
 array_expr ::= '[' expr ';' expr ']'
              | '[' [<<comma_separated_list expr>>] ']'
 block_expr ::= '{' stmt* [expr] '}'
+unsafe_block_expr ::= unsafe block_expr
 
 lambda_expr ::= ('||' | '|' [<<comma_separated_list lambda_param>>] '|') [ret_ty] expr
 lambda_param ::= pat [":" ty_sum]
