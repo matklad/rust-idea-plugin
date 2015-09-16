@@ -5,12 +5,9 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustCastExpr extends RustExpr {
+public interface RustUnsafeBlockExpr extends RustExpr {
 
   @NotNull
-  RustExpr getExpr();
-
-  @NotNull
-  RustTy getTy();
+  RustBlockExpr getBlockExpr();
 
 }

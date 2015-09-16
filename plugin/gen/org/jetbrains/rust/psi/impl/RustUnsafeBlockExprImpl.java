@@ -10,27 +10,21 @@ import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
 import org.jetbrains.rust.psi.*;
 
-public class RustCastExprImpl extends RustExprImpl implements RustCastExpr {
+public class RustUnsafeBlockExprImpl extends RustExprImpl implements RustUnsafeBlockExpr {
 
-  public RustCastExprImpl(ASTNode node) {
+  public RustUnsafeBlockExprImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitCastExpr(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitUnsafeBlockExpr(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustExpr getExpr() {
-    return findNotNullChildByClass(RustExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public RustTy getTy() {
-    return findNotNullChildByClass(RustTy.class);
+  public RustBlockExpr getBlockExpr() {
+    return findNotNullChildByClass(RustBlockExpr.class);
   }
 
 }

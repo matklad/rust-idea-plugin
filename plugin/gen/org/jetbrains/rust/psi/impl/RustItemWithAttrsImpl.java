@@ -54,6 +54,12 @@ public class RustItemWithAttrsImpl extends ASTWrapperPsiElement implements RustI
 
   @Override
   @Nullable
+  public RustForeignModItem getForeignModItem() {
+    return findChildByClass(RustForeignModItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustImplItem getImplItem() {
     return findChildByClass(RustImplItem.class);
   }

@@ -5,12 +5,15 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustCastExpr extends RustExpr {
+public interface RustForeignModItem extends PsiElement {
+
+  @Nullable
+  RustAbi getAbi();
 
   @NotNull
-  RustExpr getExpr();
+  List<RustForeignItem> getForeignItemList();
 
   @NotNull
-  RustTy getTy();
+  List<RustInnerAttr> getInnerAttrList();
 
 }

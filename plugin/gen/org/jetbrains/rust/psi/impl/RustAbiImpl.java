@@ -8,29 +8,24 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
+import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustCastExprImpl extends RustExprImpl implements RustCastExpr {
+public class RustAbiImpl extends ASTWrapperPsiElement implements RustAbi {
 
-  public RustCastExprImpl(ASTNode node) {
+  public RustAbiImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitCastExpr(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitAbi(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustExpr getExpr() {
-    return findNotNullChildByClass(RustExpr.class);
-  }
-
-  @Override
-  @NotNull
-  public RustTy getTy() {
-    return findNotNullChildByClass(RustTy.class);
+  public PsiElement getLitString() {
+    return findNotNullChildByType(LIT_STRING);
   }
 
 }

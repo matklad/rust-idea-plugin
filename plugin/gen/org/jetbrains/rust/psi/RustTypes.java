@@ -9,6 +9,7 @@ import org.jetbrains.rust.psi.impl.*;
 
 public interface RustTypes {
 
+  IElementType ABI = new RustElementType("ABI");
   IElementType ARRAY_EXPR = new RustElementType("ARRAY_EXPR");
   IElementType ARRAY_REF_EXPR = new RustElementType("ARRAY_REF_EXPR");
   IElementType ASSIGN_EXPR = new RustElementType("ASSIGN_EXPR");
@@ -18,6 +19,7 @@ public interface RustTypes {
   IElementType BLOCK_EXPR = new RustElementType("BLOCK_EXPR");
   IElementType BORROW_EXPR = new RustElementType("BORROW_EXPR");
   IElementType BOR_EXPR = new RustElementType("BOR_EXPR");
+  IElementType BOX_EXPR = new RustElementType("BOX_EXPR");
   IElementType BXOR_EXPR = new RustElementType("BXOR_EXPR");
   IElementType CALL_EXPR = new RustElementType("CALL_EXPR");
   IElementType CAST_EXPR = new RustElementType("CAST_EXPR");
@@ -35,6 +37,8 @@ public interface RustTypes {
   IElementType EXTERN_CRATE_ITEM = new RustElementType("EXTERN_CRATE_ITEM");
   IElementType FN_ITEM = new RustElementType("FN_ITEM");
   IElementType FN_PARAM = new RustElementType("FN_PARAM");
+  IElementType FOREIGN_ITEM = new RustElementType("FOREIGN_ITEM");
+  IElementType FOREIGN_MOD_ITEM = new RustElementType("FOREIGN_MOD_ITEM");
   IElementType FOR_EXPR = new RustElementType("FOR_EXPR");
   IElementType GENERIC_PARAMS = new RustElementType("GENERIC_PARAMS");
   IElementType GENERIC_VALUES = new RustElementType("GENERIC_VALUES");
@@ -105,6 +109,7 @@ public interface RustTypes {
   IElementType TY_PARAM_BOUNDS = new RustElementType("TY_PARAM_BOUNDS");
   IElementType TY_SUM = new RustElementType("TY_SUM");
   IElementType UNARY_MIN_EXPR = new RustElementType("UNARY_MIN_EXPR");
+  IElementType UNSAFE_BLOCK_EXPR = new RustElementType("UNSAFE_BLOCK_EXPR");
   IElementType USE_ITEM = new RustElementType("USE_ITEM");
   IElementType VISIBILITY = new RustElementType("VISIBILITY");
   IElementType WHERE_CLAUSE = new RustElementType("WHERE_CLAUSE");
@@ -117,6 +122,7 @@ public interface RustTypes {
   IElementType BANG = new RustTokenType("!");
   IElementType BARE_FN = new RustTokenType("bare_fn");
   IElementType BLOCK_COMMENT = new RustTokenType("block_comment");
+  IElementType BOX = new RustTokenType("box");
   IElementType BRACKET_LEFT = new RustTokenType("[");
   IElementType BRACKET_RIGHT = new RustTokenType("]");
   IElementType COLON = new RustTokenType(":");
@@ -148,7 +154,6 @@ public interface RustTypes {
   IElementType LET = new RustTokenType("let");
   IElementType LIFETIME = new RustTokenType("lifetime");
   IElementType LINE_COMMENT = new RustTokenType("line_comment");
-  IElementType LIT_BOOL = new RustTokenType("lit_bool");
   IElementType LIT_BYTE = new RustTokenType("byte_lit");
   IElementType LIT_BYTE_STRING = new RustTokenType("byte_string_lit");
   IElementType LIT_CHAR = new RustTokenType("lit_char");
@@ -186,7 +191,10 @@ public interface RustTypes {
   class Factory {
     public static PsiElement createElement(ASTNode node) {
       IElementType type = node.getElementType();
-       if (type == ARRAY_EXPR) {
+       if (type == ABI) {
+        return new RustAbiImpl(node);
+      }
+      else if (type == ARRAY_EXPR) {
         return new RustArrayExprImpl(node);
       }
       else if (type == ARRAY_REF_EXPR) {
@@ -212,6 +220,9 @@ public interface RustTypes {
       }
       else if (type == BOR_EXPR) {
         return new RustBorExprImpl(node);
+      }
+      else if (type == BOX_EXPR) {
+        return new RustBoxExprImpl(node);
       }
       else if (type == BXOR_EXPR) {
         return new RustBxorExprImpl(node);
@@ -263,6 +274,12 @@ public interface RustTypes {
       }
       else if (type == FN_PARAM) {
         return new RustFnParamImpl(node);
+      }
+      else if (type == FOREIGN_ITEM) {
+        return new RustForeignItemImpl(node);
+      }
+      else if (type == FOREIGN_MOD_ITEM) {
+        return new RustForeignModItemImpl(node);
       }
       else if (type == FOR_EXPR) {
         return new RustForExprImpl(node);
@@ -473,6 +490,9 @@ public interface RustTypes {
       }
       else if (type == UNARY_MIN_EXPR) {
         return new RustUnaryMinExprImpl(node);
+      }
+      else if (type == UNSAFE_BLOCK_EXPR) {
+        return new RustUnsafeBlockExprImpl(node);
       }
       else if (type == USE_ITEM) {
         return new RustUseItemImpl(node);

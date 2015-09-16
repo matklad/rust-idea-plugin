@@ -23,6 +23,9 @@ public interface RustItemWithAttrs extends PsiElement {
   RustFnItem getFnItem();
 
   @Nullable
+  RustForeignModItem getForeignModItem();
+
+  @Nullable
   RustImplItem getImplItem();
 
   @Nullable

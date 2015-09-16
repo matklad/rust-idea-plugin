@@ -7,6 +7,10 @@ import com.intellij.psi.PsiElement;
 
 public class RustVisitor extends PsiElementVisitor {
 
+  public void visitAbi(@NotNull RustAbi o) {
+    visitPsiElement(o);
+  }
+
   public void visitArrayExpr(@NotNull RustArrayExpr o) {
     visitExpr(o);
   }
@@ -40,6 +44,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitBorrowExpr(@NotNull RustBorrowExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitBoxExpr(@NotNull RustBoxExpr o) {
     visitExpr(o);
   }
 
@@ -113,6 +121,14 @@ public class RustVisitor extends PsiElementVisitor {
 
   public void visitForExpr(@NotNull RustForExpr o) {
     visitExpr(o);
+  }
+
+  public void visitForeignItem(@NotNull RustForeignItem o) {
+    visitPsiElement(o);
+  }
+
+  public void visitForeignModItem(@NotNull RustForeignModItem o) {
+    visitPsiElement(o);
   }
 
   public void visitGenericParams(@NotNull RustGenericParams o) {
@@ -388,6 +404,10 @@ public class RustVisitor extends PsiElementVisitor {
   }
 
   public void visitUnaryMinExpr(@NotNull RustUnaryMinExpr o) {
+    visitExpr(o);
+  }
+
+  public void visitUnsafeBlockExpr(@NotNull RustUnsafeBlockExpr o) {
     visitExpr(o);
   }
 

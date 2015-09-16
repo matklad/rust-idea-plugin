@@ -20,6 +20,9 @@ public interface RustStmt extends PsiElement {
   RustFnItem getFnItem();
 
   @Nullable
+  RustForeignModItem getForeignModItem();
+
+  @Nullable
   RustImplItem getImplItem();
 
   @Nullable

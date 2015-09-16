@@ -48,6 +48,12 @@ public class RustStmtImpl extends ASTWrapperPsiElement implements RustStmt {
 
   @Override
   @Nullable
+  public RustForeignModItem getForeignModItem() {
+    return findChildByClass(RustForeignModItem.class);
+  }
+
+  @Override
+  @Nullable
   public RustImplItem getImplItem() {
     return findChildByClass(RustImplItem.class);
   }
