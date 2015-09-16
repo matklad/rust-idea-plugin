@@ -31,12 +31,11 @@ LIFETIME=\'{IDENT}
 LIT_CHAR='.'
 LIT_STRING=(r?\"([^\"\\]|\\.)*\")
 INTEGER_SUFFIX=[iu](8|16|32|64)
-LIT_INTEGER=[:digit:]+{INTEGER_SUFFIX}?
+LIT_INTEGER=[:digit:]([:digit:]|_)*{INTEGER_SUFFIX}?
 FLOAT_DECIMAL=[:digit:]+\.[:digit:]+
 FLOAT_EXP=[:digit:]+(\.[:digit:]+)?e[+-][:digit:]+
 FLOAT_SUFFIX=f(64|32)
 LIT_FLOAT=({FLOAT_DECIMAL}|{FLOAT_EXP}){FLOAT_SUFFIX}?
-LIT_BOOL=true|false
 
 %%
 <YYINITIAL> {
@@ -107,7 +106,6 @@ LIT_BOOL=true|false
 
   {LINE_COMMENT}         { return LINE_COMMENT; }
   {BLOCK_COMMENT}        { return BLOCK_COMMENT; }
-  {LIT_BOOL}             { return LIT_BOOL; }
   {IDENT}                { return IDENT; }
   {LIFETIME}             { return LIFETIME; }
   {LIT_CHAR}             { return LIT_CHAR; }

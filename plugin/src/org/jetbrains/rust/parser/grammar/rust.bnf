@@ -54,7 +54,6 @@
     lit_float='regexp:\d+\.\d+'
     lit_byte='byte_lit'
     lit_integer='regexp:\d+'
-    lit_bool='regexp:true|false'
   ]
 
    extends(".*expr")=expr
