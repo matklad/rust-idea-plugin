@@ -5,9 +5,12 @@ import java.util.List;
 import org.jetbrains.annotations.*;
 import com.intellij.psi.PsiElement;
 
-public interface RustWhereClause extends PsiElement {
+public interface RustWhileExpr extends RustExpr {
 
   @NotNull
-  RustCommaSeparatedList getCommaSeparatedList();
+  List<RustExpr> getExprList();
+
+  @Nullable
+  RustPat getPat();
 
 }

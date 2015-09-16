@@ -40,6 +40,7 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
             RustTypes.IMPL,
             RustTypes.IN,
             RustTypes.LET,
+            RustTypes.LOOP,
             RustTypes.MATCH,
             RustTypes.MOD,
             RustTypes.MUT,
@@ -53,7 +54,8 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
             RustTypes.TRUE,
             RustTypes.TYPE,
             RustTypes.USE,
-            RustTypes.WHERE
+            RustTypes.WHERE,
+            RustTypes.WHILE
     );
     val rust_keyword =
             TextAttributesKey.createTextAttributesKey("RUST_KEYWORD", DefaultLanguageHighlighterColors.KEYWORD)

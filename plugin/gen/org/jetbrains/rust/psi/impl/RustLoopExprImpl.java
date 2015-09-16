@@ -8,24 +8,23 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiElementVisitor;
 import com.intellij.psi.util.PsiTreeUtil;
 import static org.jetbrains.rust.psi.RustTypes.*;
-import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import org.jetbrains.rust.psi.*;
 
-public class RustWhereClauseImpl extends ASTWrapperPsiElement implements RustWhereClause {
+public class RustLoopExprImpl extends RustExprImpl implements RustLoopExpr {
 
-  public RustWhereClauseImpl(ASTNode node) {
+  public RustLoopExprImpl(ASTNode node) {
     super(node);
   }
 
   public void accept(@NotNull PsiElementVisitor visitor) {
-    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitWhereClause(this);
+    if (visitor instanceof RustVisitor) ((RustVisitor)visitor).visitLoopExpr(this);
     else super.accept(visitor);
   }
 
   @Override
   @NotNull
-  public RustCommaSeparatedList getCommaSeparatedList() {
-    return findNotNullChildByClass(RustCommaSeparatedList.class);
+  public RustBlockExpr getBlockExpr() {
+    return findNotNullChildByClass(RustBlockExpr.class);
   }
 
 }

@@ -175,6 +175,10 @@ public class RustVisitor extends PsiElementVisitor {
     visitExpr(o);
   }
 
+  public void visitLoopExpr(@NotNull RustLoopExpr o) {
+    visitExpr(o);
+  }
+
   public void visitLorExpr(@NotNull RustLorExpr o) {
     visitExpr(o);
   }
@@ -397,6 +401,10 @@ public class RustVisitor extends PsiElementVisitor {
 
   public void visitWhereClause(@NotNull RustWhereClause o) {
     visitPsiElement(o);
+  }
+
+  public void visitWhileExpr(@NotNull RustWhileExpr o) {
+    visitExpr(o);
   }
 
   public void visitPsiElement(@NotNull PsiElement o) {

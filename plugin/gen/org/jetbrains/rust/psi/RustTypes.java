@@ -51,6 +51,7 @@ public interface RustTypes {
   IElementType LEQ_EXPR = new RustElementType("LEQ_EXPR");
   IElementType LIT = new RustElementType("LIT");
   IElementType LITERAL_EXPR = new RustElementType("LITERAL_EXPR");
+  IElementType LOOP_EXPR = new RustElementType("LOOP_EXPR");
   IElementType LOR_EXPR = new RustElementType("LOR_EXPR");
   IElementType LT_EXPR = new RustElementType("LT_EXPR");
   IElementType MACRO_EXPR = new RustElementType("MACRO_EXPR");
@@ -107,6 +108,7 @@ public interface RustTypes {
   IElementType USE_ITEM = new RustElementType("USE_ITEM");
   IElementType VISIBILITY = new RustElementType("VISIBILITY");
   IElementType WHERE_CLAUSE = new RustElementType("WHERE_CLAUSE");
+  IElementType WHILE_EXPR = new RustElementType("WHILE_EXPR");
 
   IElementType AMPERSAND = new RustTokenType("&");
   IElementType AMPERSAND_AMPERSAND = new RustTokenType("&&");
@@ -153,6 +155,7 @@ public interface RustTypes {
   IElementType LIT_FLOAT = new RustTokenType("lit_float");
   IElementType LIT_INTEGER = new RustTokenType("lit_integer");
   IElementType LIT_STRING = new RustTokenType("lit_string");
+  IElementType LOOP = new RustTokenType("loop");
   IElementType MATCH = new RustTokenType("match");
   IElementType MINUS = new RustTokenType("-");
   IElementType MOD = new RustTokenType("mod");
@@ -178,6 +181,7 @@ public interface RustTypes {
   IElementType UNSAFE = new RustTokenType("unsafe");
   IElementType USE = new RustTokenType("use");
   IElementType WHERE = new RustTokenType("where");
+  IElementType WHILE = new RustTokenType("while");
 
   class Factory {
     public static PsiElement createElement(ASTNode node) {
@@ -307,6 +311,9 @@ public interface RustTypes {
       }
       else if (type == LITERAL_EXPR) {
         return new RustLiteralExprImpl(node);
+      }
+      else if (type == LOOP_EXPR) {
+        return new RustLoopExprImpl(node);
       }
       else if (type == LOR_EXPR) {
         return new RustLorExprImpl(node);
@@ -475,6 +482,9 @@ public interface RustTypes {
       }
       else if (type == WHERE_CLAUSE) {
         return new RustWhereClauseImpl(node);
+      }
+      else if (type == WHILE_EXPR) {
+        return new RustWhileExprImpl(node);
       }
       throw new AssertionError("Unknown element type: " + type);
     }
