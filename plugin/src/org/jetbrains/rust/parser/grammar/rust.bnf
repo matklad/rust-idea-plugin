@@ -232,6 +232,7 @@ stmt ::= stmt_item
        | let pat [':' ty_sum] ['=' expr] ';'
        | statement_like_expr
        | expr ';'
+       | ';'
 
 
 // the root expression rule
