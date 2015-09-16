@@ -86,6 +86,7 @@ LIT_BOOL=true|false
   "impl"                 { return IMPL; }
   "in"                   { return IN; }
   "let"                  { return LET; }
+  "loop"                 { return LOOP; }
   "match"                { return MATCH; }
   "mod"                  { return MOD; }
   "mut"                  { return MUT; }
@@ -100,6 +101,7 @@ LIT_BOOL=true|false
   "type"                 { return TYPE; }
   "use"                  { return USE; }
   "where"                { return WHERE; }
+  "while"                { return WHILE; }
 
   {LINE_COMMENT}         { return LINE_COMMENT; }
   {BLOCK_COMMENT}        { return BLOCK_COMMENT; }

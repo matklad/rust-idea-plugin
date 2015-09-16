@@ -121,7 +121,7 @@ private ret_ty ::= '->' ('!' | ty)
 
 generic_params ::= '<' [lifetime] [<<comma_separated_list ty_param>>] '>'
 
-where_clause ::= where (ty ':' ty_param_bounds)+
+where_clause ::= where <<comma_separated_list (ty ':' ty_param_bounds)>>
 
 mod_item ::= mod ident ('{' inner_attr* item_with_attrs* '}' | ';')
 
@@ -264,6 +264,8 @@ private primary_group ::= struct_expr
 
 statement_like_expr ::= block_expr
                       | if_expr
+                      | while_expr
+                      | loop_expr
                       | match_expr
                       | for_expr
 
@@ -327,6 +329,10 @@ struct_field ::= ident ':' expr
 return_expr ::= return [expr]
 
 if_expr ::= if (let pat '=' expr | expr) block_expr [else (if_expr | block_expr)]
+
+while_expr ::= while (let pat '=' expr | expr) block_expr
+
+loop_expr ::= loop block_expr
 
 match_expr ::= match expr '{'
     (pats [if expr] '=>' (block_expr [',']| expr ','))*
