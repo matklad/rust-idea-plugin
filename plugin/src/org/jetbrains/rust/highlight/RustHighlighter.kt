@@ -28,6 +28,7 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
     val result = THashMap<IElementType, TextAttributesKey>()
     val keywords = arrayOf(
             RustTypes.AS,
+            RustTypes.BOX,
             RustTypes.CONST,
             RustTypes.CRATE,
             RustTypes.ELSE,
@@ -53,6 +54,7 @@ private fun initTokenMap(): Map<IElementType, TextAttributesKey> {
             RustTypes.TRAIT,
             RustTypes.TRUE,
             RustTypes.TYPE,
+            RustTypes.UNSAFE,
             RustTypes.USE,
             RustTypes.WHERE,
             RustTypes.WHILE

@@ -250,7 +250,7 @@ private comp_group ::= eq_expr | neq_expr | lt_expr | gt_expr | leq_expr | geq_e
 private shift_group ::= shl_expr | shr_expr
 private add_group ::= plus_expr | minus_expr
 private mul_group ::= mul_expr | div_expr | mod_expr
-private unary_group ::= unary_min_expr | deref_expr | not_expr | borrow_expr
+private unary_group ::= box_expr | unary_min_expr | deref_expr | not_expr | borrow_expr
 private ref_group ::= ref_expr | array_ref_expr | call_expr
 private primary_group ::= struct_expr
                         | simple_ref_expr
@@ -327,6 +327,8 @@ lambda_param ::= pat [":" ty_sum]
 
 struct_expr ::= expr_path '{' <<comma_separated_list struct_field>> ['..' expr]'}'
 struct_field ::= ident ':' expr
+
+box_expr ::= box expr
 
 return_expr ::= return [expr]
 

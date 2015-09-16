@@ -72,6 +72,7 @@ LIT_BOOL=true|false
   "#"                    { return HASH; }
 
   "as"                   { return AS; }
+  "box"                  { return BOX; }
   "byte_lit"             { return LIT_BYTE; }
   "byte_string_lit"      { return LIT_BYTE_STRING; }
   "const"                { return CONST; }
